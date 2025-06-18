@@ -4,12 +4,15 @@ import { ParserOutput } from '@your-riot/parser'
 import type { FilterPattern } from '@rollup/pluginutils'
 
 function riot(
-  options: CompilerOptions & {
+  options?: CompilerOptions & {
     include: FilterPattern
     exclude: FilterPattern
     ext: string | string[]
   },
-): {} {
+): {
+  name: 'riot-plugin'
+  transform(src: string | ParserOutput, id: string): void
+} {
   // clone options
   options = Object.assign({}, options)
 
@@ -21,13 +24,14 @@ function riot(
   })
 
   return {
-    transform(src: string | ParserOutput, id: unknown) {
+    name: 'riot-plugin',
+    transform(src: string | ParserOutput, id: string) {
       if (!filter(id)) {
         return null
       }
 
       const { code, map } = compile(src, {
-        // file: id,
+        file: id,
         ...options,
       })
 

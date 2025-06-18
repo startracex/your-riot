@@ -6,7 +6,6 @@
   "scripts": {
     "build": "rolldown -c rolldown.config.ts",
     "test": "npm run lint && npm run mocha",
-    "eslint": "eslint src/*.js",
     "mocha": "mocha test/*.js"
   },
   "dependencies": {
@@ -16,8 +15,6 @@
   },
   "devDependencies": {
     "chai": "^5.2.0",
-    "eslint": "^9.28.0",
-    "eslint-config-riot": "^5.0.2",
     "fs-extra": "^11.3.0",
     "mocha": "^11.5.0",
     "postcss": "^8.5.4",

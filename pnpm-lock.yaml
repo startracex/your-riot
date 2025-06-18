@@ -18,11 +18,11 @@ importers:
         specifier: ^0.50.0
         version: 0.50.0
       eslint:
-        specifier: ^8.57.1
-        version: 8.57.1
+        specifier: ^9.29.0
+        version: 9.29.0
       eslint-config-riot:
         specifier: ^5.0.2
-        version: 5.0.2(eslint-config-prettier@9.1.0(eslint@8.57.1))(eslint-plugin-fp@2.3.0(eslint@8.57.1))(eslint-plugin-jsdoc@50.8.0(eslint@8.57.1))(eslint@8.57.1)(prettier@3.5.3)
+        version: 5.0.2(eslint-config-prettier@9.1.0(eslint@9.29.0))(eslint-plugin-fp@2.3.0(eslint@9.29.0))(eslint-plugin-jsdoc@50.8.0(eslint@9.29.0))(eslint@9.29.0)(prettier@3.5.3)
       glob:
         specifier: ^11.0.3
         version: 11.0.3
@@ -7715,7 +7715,7 @@ snapshots:
     dependencies:
       '@wdio/reporter': 9.15.0
       '@wdio/types': 9.15.0
-      chalk: 5.0.1
+      chalk: 5.4.1
 
   '@wdio/globals@9.15.0(@wdio/logger@9.15.0)':
     optionalDependencies:
@@ -8177,7 +8177,7 @@ snapshots:
     dependencies:
       ansi-align: 3.0.1
       camelcase: 7.0.1
-      chalk: 5.0.1
+      chalk: 5.4.1
       cli-boxes: 3.0.0
       string-width: 5.1.2
       type-fest: 2.19.0
@@ -9121,14 +9121,6 @@ snapshots:
       eslint-plugin-fp: 2.3.0(eslint@8.57.1)
       prettier: 3.5.3
 
-  eslint-config-riot@5.0.2(eslint-config-prettier@9.1.0(eslint@8.57.1))(eslint-plugin-fp@2.3.0(eslint@8.57.1))(eslint-plugin-jsdoc@50.8.0(eslint@8.57.1))(eslint@8.57.1)(prettier@3.5.3):
-    dependencies:
-      eslint: 8.57.1
-      eslint-config-prettier: 9.1.0(eslint@8.57.1)
-      eslint-plugin-fp: 2.3.0(eslint@8.57.1)
-      eslint-plugin-jsdoc: 50.8.0(eslint@8.57.1)
-      prettier: 3.5.3
-
   eslint-config-riot@5.0.2(eslint-config-prettier@9.1.0(eslint@9.29.0))(eslint-plugin-fp@2.3.0(eslint@9.29.0))(eslint-plugin-jsdoc@50.8.0(eslint@9.29.0))(eslint@9.29.0)(prettier@3.5.3):
     dependencies:
       eslint: 9.29.0
@@ -9195,22 +9187,6 @@ snapshots:
     transitivePeerDependencies:
       - eslint-import-resolver-typescript
       - eslint-import-resolver-webpack
-      - supports-color
-
-  eslint-plugin-jsdoc@50.8.0(eslint@8.57.1):
-    dependencies:
-      '@es-joy/jsdoccomment': 0.50.2
-      are-docs-informative: 0.0.2
-      comment-parser: 1.4.1
-      debug: 4.4.1(supports-color@8.1.1)
-      escape-string-regexp: 4.0.0
-      eslint: 8.57.1
-      espree: 10.4.0
-      esquery: 1.6.0
-      parse-imports-exports: 0.2.4
-      semver: 7.7.2
-      spdx-expression-parse: 4.0.0
-    transitivePeerDependencies:
       - supports-color
 
   eslint-plugin-jsdoc@50.8.0(eslint@9.29.0):

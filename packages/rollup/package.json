@@ -13,13 +13,6 @@
     "@your-riot/parser": "workspace:*",
     "@rollup/pluginutils": "^5.1.4"
   },
-  "devDependencies": {
-    "chai": "^5.2.0",
-    "fs-extra": "^11.3.0",
-    "mocha": "^11.5.0",
-    "postcss": "^8.5.4",
-    "postcss-cssnext": "^3.1.1"
-  },
   "exports": {
     ".": {
       "import": "./dist/module/index.js",

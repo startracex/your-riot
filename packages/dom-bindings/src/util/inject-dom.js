@@ -1,5 +1,5 @@
-import { isSvg, isTemplate } from '@riotjs/util/checks'
-import { moveChildren } from '@riotjs/util/dom'
+import { isSvg, isTemplate } from '@your-riot/util/checks'
+import { moveChildren } from '@your-riot/util/dom'
 
 /**
  * Inject the DOM tree into a target node

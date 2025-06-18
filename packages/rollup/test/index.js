@@ -1,7 +1,7 @@
 import { expect } from 'chai'
 import { rollup } from 'rollup'
 import fsp from 'fs-extra'
-import { registerPreprocessor } from '@riotjs/compiler'
+import { registerPreprocessor } from '@your-riot/compiler'
 import path from 'node:path'
 import riot from '../dist/rollup-plugin-riot.js'
 import cssnext from './helper/cssnext.js'

@@ -1,4 +1,4 @@
-import { constants } from '@riotjs/parser'
+import { constants } from '@your-riot/parser'
 
 export const BINDING_TYPES = 'bindingTypes'
 export const EACH_BINDING_TYPE = 'EACH'

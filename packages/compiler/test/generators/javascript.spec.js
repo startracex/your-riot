@@ -2,7 +2,7 @@ import compileJavascript from '../../src/generators/javascript/index.js'
 import { createInitialInput } from '../../src/index.js'
 import { evaluateScript } from '../helpers.js'
 import { expect } from 'chai'
-import parser from '@riotjs/parser'
+import parser from '@your-riot/parser'
 import { print } from 'recast'
 
 const simpleJS = `

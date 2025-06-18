@@ -1,4 +1,4 @@
-import { ParserOptions, ParserOutput } from '@riotjs/parser'
+import { ParserOptions, ParserOutput } from '@your-riot/parser'
 import { RawSourceMap } from 'source-map'
 
 export type CompilerOptions = {

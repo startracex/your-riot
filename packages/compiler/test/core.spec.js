@@ -1,4 +1,4 @@
-import { bindingTypes, expressionTypes, template } from '@riotjs/dom-bindings'
+import { bindingTypes, expressionTypes, template } from '@your-riot/dom-bindings'
 import {
   compile,
   generateSlotsFromString,
@@ -9,7 +9,7 @@ import { evaluateScript, getFixture, sassPreprocessor } from './helpers.js'
 import { SourceMapConsumer } from 'source-map'
 import { expect } from 'chai'
 import pug from 'pug'
-import riotParser from '@riotjs/parser'
+import riotParser from '@your-riot/parser'
 import { unregister } from '../src/preprocessors.js'
 
 describe('Core specs', () => {

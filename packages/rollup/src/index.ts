@@ -1,6 +1,6 @@
-import { compile, CompilerOptions } from '@riotjs/compiler'
+import { compile, CompilerOptions } from '@your-riot/compiler'
 import { getFilter } from './helper'
-import { ParserOutput } from '@riotjs/parser'
+import { ParserOutput } from '@your-riot/parser'
 import type { FilterPattern } from '@rollup/pluginutils'
 
 function riot(

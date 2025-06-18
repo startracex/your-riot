@@ -6,7 +6,7 @@ import { evaluateScript, sassPreprocessor } from '../helpers.js'
 import { register, unregister } from '../../src/preprocessors.js'
 import { createInitialInput } from '../../src/index.js'
 import { expect } from 'chai'
-import parser from '@riotjs/parser'
+import parser from '@your-riot/parser'
 import { print } from 'recast'
 
 const simpleCSS = `

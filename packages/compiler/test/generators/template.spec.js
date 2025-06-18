@@ -15,7 +15,7 @@ import {
   BINDING_TYPE_KEY,
   NAME_ATTRIBUTE,
 } from '../../src/generators/template/constants.js'
-import { bindingTypes, expressionTypes } from '@riotjs/dom-bindings'
+import { bindingTypes, expressionTypes } from '@your-riot/dom-bindings'
 import {
   createRootNode,
   toScopedFunction,
@@ -30,7 +30,7 @@ import { expect } from 'chai'
 import generateJavascript from '../../src/utils/generate-javascript.js'
 import ifBinding from '../../src/generators/template/bindings/if.js'
 import { mergeNodeExpressions } from '../../src/generators/template/expressions/text.js'
-import riotParser from '@riotjs/parser'
+import riotParser from '@your-riot/parser'
 import simpleBinding from '../../src/generators/template/bindings/simple.js'
 import slotBinding from '../../src/generators/template/bindings/slot.js'
 import tagBinding from '../../src/generators/template/bindings/tag.js'
@@ -57,7 +57,7 @@ const buildSimpleTemplate = compose(
 
 const evaluateOutput = (ast, getComponent = () => null) =>
   evaluateScript(`
-  import { bindingTypes, expressionTypes, template } from '@riotjs/dom-bindings'
+  import { bindingTypes, expressionTypes, template } from '@your-riot/dom-bindings'
 
   export default function output(getComponent) {
     return ${generateJavascript(ast).code}

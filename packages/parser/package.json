@@ -1,5 +1,5 @@
 {
-  "name": "@riotjs/parser",
+  "name": "@your-riot/parser",
   "version": "9.1.1",
   "description": "The parser for Riot tags",
   "type": "module",

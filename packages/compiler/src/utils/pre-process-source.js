@@ -1,5 +1,5 @@
-import { isObject } from '@riotjs/util'
-import riotParser from '@riotjs/parser'
+import { isObject } from '@your-riot/util'
+import riotParser from '@your-riot/parser'
 import hasHTMLOutsideRootNode from './has-html-outside-root-node.js'
 import { execute as runPreprocessor } from '../preprocessors.js'
 

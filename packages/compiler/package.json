@@ -1,5 +1,5 @@
 {
-  "name": "@riotjs/compiler",
+  "name": "@your-riot/compiler",
   "version": "9.4.9",
   "description": "Compiler for .riot files",
   "type": "module",
@@ -45,7 +45,7 @@
     "@babel/core": "^7.26.10",
     "@babel/preset-env": "^7.26.9",
     "@playwright/test": "^1.52.0",
-    "@riotjs/dom-bindings": "workspace:^",
+    "@your-riot/dom-bindings": "workspace:^",
     "@riotjs/prettier-config": "^1.1.0",
     "@rollup/plugin-alias": "^5.1.1",
     "@rollup/plugin-commonjs": "^28.0.3",
@@ -79,8 +79,8 @@
   "homepage": "https://github.com/riot/compiler#readme",
   "dependencies": {
     "@babel/parser": "^7.27.0",
-    "@riotjs/parser": "workspace:^",
-    "@riotjs/util": "workspace:*",
+    "@your-riot/parser": "workspace:^",
+    "@your-riot/util": "workspace:*",
     "css-simple-parser": "^3.0.2",
     "cssesc": "^3.0.0",
     "cumpa": "^2.0.1",

@@ -1,5 +1,5 @@
 {
-  "name": "@riotjs/util",
+  "name": "@your-riot/util",
   "version": "2.5.1",
   "description": "Riot.js util functions",
   "exports": {
@@ -26,7 +26,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/GianlucaGuarini/@riotjs/util.git"
+    "url": "git+https://github.com/GianlucaGuarini/@your-riot/util.git"
   },
   "keywords": [
     "Riot.js",
@@ -36,9 +36,9 @@
   "author": "Gianluca Guarini <gianluca.guarini@gmail.com> (https://gianlucaguarini.com)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/GianlucaGuarini/@riotjs/util/issues"
+    "url": "https://github.com/GianlucaGuarini/@your-riot/util/issues"
   },
-  "homepage": "https://github.com/GianlucaGuarini/@riotjs/util#readme",
+  "homepage": "https://github.com/GianlucaGuarini/@your-riot/util#readme",
   "devDependencies": {
     "jsdom": "26.1.0",
     "jsdom-global": "3.0.2"

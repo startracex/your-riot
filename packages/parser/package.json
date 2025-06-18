@@ -4,21 +4,15 @@
   "description": "riot parser",
   "scripts": {
     "test-types": "tsc -p test",
-    "test": "c8 mocha ./test/index && npm run test-types",
+    "test": "c8 mocha ./test/index",
     "test-debug": "mocha --inspect-brk ./test",
     "cov": "c8 report --reporter=lcov",
     "cov-html": "c8 report --reporter=html",
-    "lint": "eslint src test && npx prettier --check ./",
     "build": "rolldown -c rolldown.config.ts"
   },
   "dependencies": {
     "curri": "^2.0.3",
     "dom-nodes": "^1.1.3"
-  },
-  "devDependencies": {
-    "@rollup/plugin-node-resolve": "^16.0.1",
-    "c8": "^10.1.3",
-    "typescript": "^5.8.2"
   },
   "type": "module",
   "exports": {

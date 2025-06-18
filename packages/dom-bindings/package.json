@@ -16,15 +16,7 @@
     "@your-riot/utils": "workspace:^"
   },
   "devDependencies": {
-    "@rollup/plugin-node-resolve": "^16.0.1",
-    "benchmark": "^2.1.4",
-    "c8": "^10.1.3",
-    "coveralls": "^3.1.1",
-    "jsdom": "^26.1.0",
-    "jsdom-global": "3.0.2",
-    "sinon": "^20.0.0",
-    "sinon-chai": "^4.0.0",
-    "typescript": "^5.8.3"
+    "@rollup/plugin-node-resolve": "^16.0.1"
   },
   "type": "module",
   "exports": {
@@ -46,10 +38,6 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/startracex/your-riot.git"
-  },
-  "nyc": {
-    "include": "src",
-    "exclude": "src/util/udomdiff.js"
   },
   "author": "Gianluca Guarini <gianluca.guarini@gmail.com> (https://gianlucaguarini.com)",
   "license": "MIT"

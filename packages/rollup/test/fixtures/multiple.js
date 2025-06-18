@@ -3,5 +3,5 @@ import Second from './second.riot'
 
 export default {
   First,
-  Second
+  Second,
 }

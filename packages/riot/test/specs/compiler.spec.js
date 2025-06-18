@@ -5,7 +5,7 @@ import RuntimeSlotWithChildrenComponent from '../components/runtime-slot-with-ch
 import TitlePropComponent from '../components/title-prop.riot'
 import { expect } from 'chai'
 import { getBaseUrl } from '../utils.js'
-import { writeFileSync } from 'node:fs';
+import { writeFileSync } from 'node:fs'
 
 describe('Riot compiler api', () => {
   it('riot compiler exports properly its public api', () => {
@@ -36,7 +36,7 @@ describe('Riot compiler api', () => {
       `${getBaseUrl()}/test/components/simple.riot`,
     )
 
-    writeFileSync("code",code)
+    writeFileSync('code', code)
     expect(code).to.match(/scope\.props\.message/)
   })
 

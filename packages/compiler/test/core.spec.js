@@ -1,4 +1,8 @@
-import { bindingTypes, expressionTypes, template } from '@your-riot/dom-bindings'
+import {
+  bindingTypes,
+  expressionTypes,
+  template,
+} from '@your-riot/dom-bindings'
 import {
   compile,
   generateSlotsFromString,

@@ -20,7 +20,11 @@ import {
   isNil,
   isSvg,
 } from '@your-riot/util/checks'
-import { memoize, evaluateAttributeExpressions, panic } from '@your-riot/util/misc'
+import {
+  memoize,
+  evaluateAttributeExpressions,
+  panic,
+} from '@your-riot/util/misc'
 
 const HEAD_SYMBOL = Symbol()
 const TAIL_SYMBOL = Symbol()

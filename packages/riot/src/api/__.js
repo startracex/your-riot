@@ -1,0 +1,40 @@
+import {
+  ATTRIBUTES_KEY_SYMBOL,
+  COMPONENTS_IMPLEMENTATION_MAP,
+  DOM_COMPONENT_INSTANCE_PROPERTY,
+  IS_COMPONENT_UPDATING,
+  PARENT_KEY_SYMBOL,
+  PLUGINS_SET,
+  PROPS_KEY,
+  STATE_KEY,
+} from '@your-riot/util'
+import {
+  bindingTypes,
+  createBinding,
+  createExpression,
+  expressionTypes,
+  template,
+} from '@your-riot/dom-bindings'
+import cssManager from '../core/css-manager.js'
+
+// expose some internal stuff that might be used from external tools
+export const __ = {
+  cssManager,
+  DOMBindings: {
+    template,
+    createBinding,
+    createExpression,
+    bindingTypes,
+    expressionTypes,
+  },
+  globals: {
+    PROPS_KEY,
+    STATE_KEY,
+    IS_COMPONENT_UPDATING,
+    ATTRIBUTES_KEY_SYMBOL,
+    COMPONENTS_IMPLEMENTATION_MAP,
+    PLUGINS_SET,
+    DOM_COMPONENT_INSTANCE_PROPERTY,
+    PARENT_KEY_SYMBOL,
+  },
+}

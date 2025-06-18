@@ -4,8 +4,6 @@
   "description": "Lazy components loader for riot",
   "scripts": {
     "build": "rolldown -c rolldown.config.ts",
-    "cov": "c8 report --reporter=lcov",
-    "cov-html": "c8 report --reporter=html",
     "test": "cross-env NODE_OPTIONS=\"--loader @riotjs/register\" c8 mocha -r jsdom-global/register test/index.js"
   },
   "dependencies": {
@@ -15,14 +13,9 @@
     "@your-riot/riot": "workspace:^"
   },
   "devDependencies": {
-    "@your-riot/compiler": "workspace:^",
     "@riotjs/register": "^9.0.0",
-    "c8": "^8.0.1",
-    "chai": "^4.3.10",
-    "jsdom": "22.1.0",
-    "jsdom-global": "3.0.2",
-    "mocha": "^10.2.0",
-    "@your-riot/riot": "^9.0.4"
+    "@your-riot/compiler": "workspace:^",
+    "@your-riot/riot": "workspace:^"
   },
   "type": "module",
   "exports": {

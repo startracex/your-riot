@@ -60,6 +60,6 @@
     "typescript": "^5.8.3"
   },
   "dependencies": {
-    "@riotjs/util": "^2.5.0"
+    "@riotjs/util": "workspace:^"
   }
 }

@@ -91,8 +91,8 @@ importers:
         specifier: ^1.52.0
         version: 1.53.0
       '@riotjs/dom-bindings':
-        specifier: ^9.2.8
-        version: 9.2.8
+        specifier: workspace:^
+        version: link:../dom-bindings
       '@riotjs/prettier-config':
         specifier: ^1.1.0
         version: 1.1.0(prettier@3.5.3)
@@ -169,8 +169,8 @@ importers:
   packages/dom-bindings:
     dependencies:
       '@riotjs/util':
-        specifier: ^2.5.0
-        version: 2.5.0
+        specifier: workspace:^
+        version: link:../util
     devDependencies:
       '@rollup/plugin-node-resolve':
         specifier: ^16.0.1
@@ -1085,16 +1085,10 @@ packages:
     engines: {node: '>=18'}
     hasBin: true
 
-  '@riotjs/dom-bindings@9.2.8':
-    resolution: {integrity: sha512-Q9HmhUpleYcKGq0U9rVkYh36JjJ9q4vJ5Ck1ZtarNrr0dJBwgREsnj42wBA+1aFo6MoXT2SJECZfTpAfUEQH9g==}
-
   '@riotjs/prettier-config@1.1.0':
     resolution: {integrity: sha512-EuBhKxw/rABgqJk/g2sBOG0T1MneKeXhR0LdNcouz832P99ABm+vahKhPlpleNq7Boai74zcG4ig13yfZuJdAw==}
     peerDependencies:
       prettier: ^2.0.0 || ^3.0.0
-
-  '@riotjs/util@2.5.0':
-    resolution: {integrity: sha512-8cd+Tw+RTtfM/OWJ1dub+H6HEZ8WLm3n//tiuxte+0u0ONobjm0XYR2J/ZwuwxjDIyiTNdsUkJWGwsZL8K+0sw==}
 
   '@rolldown/binding-darwin-arm64@1.0.0-beta.15':
     resolution: {integrity: sha512-YInZppDBLp5DadbJZGc7xBfDrMCSj3P6i2rPlvOCMlvjBQxJi2kX8Jquh+LufsWUiHD3JsvvH5EuUUc/tF5fkA==}
@@ -4785,15 +4779,9 @@ snapshots:
     dependencies:
       playwright: 1.53.0
 
-  '@riotjs/dom-bindings@9.2.8':
-    dependencies:
-      '@riotjs/util': 2.5.0
-
   '@riotjs/prettier-config@1.1.0(prettier@3.5.3)':
     dependencies:
       prettier: 3.5.3
-
-  '@riotjs/util@2.5.0': {}
 
   '@rolldown/binding-darwin-arm64@1.0.0-beta.15':
     optional: true

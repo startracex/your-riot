@@ -1,6 +1,6 @@
 {
-  "name": "riot",
-  "version": "9.4.9",
+  "name": "@your-riot/riot",
+  "version": "0.0.0",
   "description": "Simple and elegant component-based UI library",
   "scripts": {
     "build": "rolldown -c rolldown.config.ts",
@@ -39,14 +39,15 @@
   "type": "module",
   "exports": {
     ".": {
-      "types": "./riot.d.ts",
-      "import": "./esm/riot.js",
-      "require": "./cjs/riot.cjs"
+      
+      "import": "./dist/module/riot.js",
+      "require": "./dist/node/riot.cjs",
+      "types": "./riot.d.ts"
     },
     "./riot+compiler": {
-      "types": "./riot.d.ts",
-      "import": "./esm/riot_compiler.js",
-      "require": "./cjs/riot_compiler.cjs"
+      "import": "./dist/module/riot_compiler.js",
+      "require": "./dist/node/riot_compiler.cjs",
+      "types": "./riot.d.ts"
     }
   },
   "files": [

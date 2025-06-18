@@ -1,0 +1,6 @@
+var multiple = {
+  First,
+  Second
+};
+
+export { multiple as default };

@@ -57,6 +57,7 @@ export function generateSlotsFromString(
 export function compile(
   source: string | ParserOutput,
   options?: CompilerOptions,
+  file?: string,
 ): CompilerOutput
 
 export function registerPreprocessor(

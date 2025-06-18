@@ -1,0 +1,55 @@
+{
+  "name": "rollup-plugin-riot",
+  "version": "10.0.0-beta.2",
+  "type": "module",
+  "description": "Rollup plugin for Riot.js",
+  "scripts": {
+    "build": "rolldown -c rolldown.config.ts",
+    "test": "npm run lint && npm run mocha",
+    "eslint": "eslint src/*.js",
+    "mocha": "mocha test/*.js"
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/module/index.js",
+      "require": "./dist/node/index.cjs",
+      "types": "./dist/types/index.d.ts"
+    },
+    "./*": {
+      "import": "./dist/module/*.js",
+      "require": "./dist/node/*.cjs",
+      "types": "./dist/types/*.d.ts"
+    },
+    "./package.json": "./package.json"
+  },
+  "dependencies": {
+    "@riotjs/compiler": "workspace:^",
+    "@riotjs/parser": "workspace:*",
+    "@rollup/pluginutils": "^5.1.4"
+  },
+  "devDependencies": {
+    "chai": "^5.2.0",
+    "eslint": "^9.28.0",
+    "eslint-config-riot": "^5.0.2",
+    "fs-extra": "^11.3.0",
+    "mocha": "^11.5.0",
+    "postcss": "^8.5.4",
+    "postcss-cssnext": "^3.1.1"
+  },
+  "homepage": "https://github.com/riot/rollup-plugin-riot#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/riot/rollup-plugin-riot.git"
+  },
+  "files": [
+    "src",
+    "dist"
+  ],
+  "author": "Gianluca Guarini <gianluca.guarini@gmail.com> (https://gianlucaguarini.com)",
+  "license": "MIT",
+  "bugs": "https://github.com/riot/rollup-plugin-riot/issues",
+  "keywords": [
+    "riot",
+    "rollup-plugin"
+  ]
+}

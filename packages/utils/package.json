@@ -6,10 +6,6 @@
     "build": "rolldown -c rolldown.config.ts",
     "test": "mocha -r jsdom-global/register **/*.spec.js"
   },
-  "devDependencies": {
-    "jsdom": "26.1.0",
-    "jsdom-global": "3.0.2"
-  },
   "type": "module",
   "exports": {
     ".": {

@@ -1,0 +1,63 @@
+{
+  "template": {
+    "type": 1,
+    "name": "comments-and-expressions",
+    "start": 0,
+    "end": 198,
+    "isCustom": true,
+    "nodes": [
+      {
+        "type": 1,
+        "name": "h1",
+        "start": 29,
+        "end": 170,
+        "nodes": [
+          {
+            "type": 3,
+            "text": "\n    { 'above the comment' }\n    ",
+            "start": 33,
+            "end": 66,
+            "expressions": [
+              {
+                "text": " 'above the comment' ",
+                "start": 38,
+                "end": 61
+              }
+            ],
+            "parts": [
+              " ",
+              "'above the comment'",
+              " "
+            ]
+          },
+          {
+            "type": 8,
+            "start": 66,
+            "end": 134,
+            "text": "<!-- html comment makes stuff above and below not being rendered -->"
+          },
+          {
+            "type": 3,
+            "text": "\n    { 'below the comment' }\n  ",
+            "start": 134,
+            "end": 165,
+            "expressions": [
+              {
+                "text": " 'below the comment' ",
+                "start": 139,
+                "end": 162
+              }
+            ],
+            "parts": [
+              " ",
+              "'below the comment'",
+              " "
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "css": null,
+  "javascript": null
+}

@@ -1,0 +1,101 @@
+{
+  "name": "@riotjs/compiler",
+  "version": "9.4.9",
+  "description": "Compiler for Riot.js .riot files",
+  "main": "./dist/index.cjs",
+  "types": "./compiler.d.ts",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./compiler.d.ts",
+      "require": "./dist/index.cjs",
+      "browser": "./dist/compiler.js",
+      "import": "./dist/index.js"
+    },
+    "./essential": {
+      "types": "./compiler.d.ts",
+      "require": "./dist/compiler.essential.cjs",
+      "import": "./dist/compiler.essential.js"
+    },
+    "./src/*": "./src/*"
+  },
+  "files": [
+    "dist",
+    "src",
+    "compiler.d.ts"
+  ],
+  "scripts": {
+    "lint": "eslint --ext js src/ test/ build/ && npx prettier --check ./",
+    "cov": "c8 report --reporter=lcov",
+    "cov-html": "c8 report --reporter=html",
+    "build": "rolldown -c rolldown.config.ts",
+    "postest": "npm run cov-html",
+    "test-types": "tsc -p test",
+    "test-runtime": "playwright test",
+    "test-commonjs": "c8 mocha test/**/*.spec.cjs",
+    "test": "c8 mocha test/**/*.spec.js && npm run test-types",
+    "debug": "mocha --inspect --inspect-brk test/**/*.spec.js",
+    "prepublishOnly": "npm run build && npm run lint && npm run test && npm run test-commonjs && npm run test-runtime"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/riot/compiler.git"
+  },
+  "keywords": [
+    "riot",
+    "Riot.js",
+    "components",
+    "custom components",
+    "custom elements",
+    "compiler"
+  ],
+  "devDependencies": {
+    "@babel/core": "^7.26.10",
+    "@babel/preset-env": "^7.26.9",
+    "@playwright/test": "^1.52.0",
+    "@riotjs/dom-bindings": "^9.2.8",
+    "@riotjs/prettier-config": "^1.1.0",
+    "@rollup/plugin-alias": "^5.1.1",
+    "@rollup/plugin-commonjs": "^28.0.3",
+    "@rollup/plugin-json": "^6.1.0",
+    "@rollup/plugin-node-resolve": "^16.0.1",
+    "@rollup/plugin-replace": "^6.0.2",
+    "acorn": "^8.14.1",
+    "c8": "^10.1.3",
+    "chai": "^5.2.0",
+    "eslint": "^8.57.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-config-riot": "^4.1.2",
+    "eslint-plugin-fp": "^2.3.0",
+    "mocha": "^11.1.0",
+    "prettier": "^3.5.3",
+    "pug": "^3.0.3",
+    "rollup": "^4.40.0",
+    "rollup-plugin-node-builtins": "^2.1.2",
+    "rollup-plugin-visualizer": "^5.14.0",
+    "sass": "^1.86.3",
+    "serve": "^14.2.4",
+    "shelljs": "^0.9.2",
+    "start-server-and-test": "^2.0.11",
+    "typescript": "^5.8.3"
+  },
+  "author": "Gianluca Guarini <gianluca.guarini@gmail.com> (https://gianlucaguarini.com)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/riot/compiler/issues"
+  },
+  "homepage": "https://github.com/riot/compiler#readme",
+  "dependencies": {
+    "@babel/parser": "^7.27.0",
+    "@riotjs/parser": "^9.1.1",
+    "@riotjs/util": "2.5.0",
+    "css-simple-parser": "^3.0.2",
+    "cssesc": "^3.0.0",
+    "cumpa": "^2.0.1",
+    "curri": "^2.0.3",
+    "dom-nodes": "^1.1.3",
+    "globals": "^16.0.0",
+    "recast": "^0.23.11",
+    "source-map": "^0.7.4"
+  }
+}

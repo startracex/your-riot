@@ -1,0 +1,77 @@
+{
+  "name": "@riotjs/util",
+  "version": "2.5.1",
+  "description": "Riot.js util functions",
+  "main": "index.cjs",
+  "module": "index.js",
+  "type": "module",
+  "scripts": {
+    "build": "rolldown -c rolldown.config.ts",
+    "test": "mocha -r jsdom-global/register **/*.spec.js"
+  },
+  "exports": {
+    ".": {
+      "import": "./index.js",
+      "require": "./index.cjs"
+    },
+    "./dom": {
+      "import": "./dom.js",
+      "require": "./dom.cjs"
+    },
+    "./functions": {
+      "import": "./functions.js",
+      "require": "./functions.cjs"
+    },
+    "./constants": {
+      "import": "./constants.js",
+      "require": "./constants.cjs"
+    },
+    "./strings": {
+      "import": "./strings.js",
+      "require": "./strings.cjs"
+    },
+    "./objects": {
+      "import": "./objects.js",
+      "require": "./objects.cjs"
+    },
+    "./checks": {
+      "import": "./checks.js",
+      "require": "./checks.cjs"
+    },
+    "./expression-types": {
+      "import": "./expression-types.js",
+      "require": "./expression-types.cjs"
+    },
+    "./binding-types": {
+      "import": "./binding-types.js",
+      "require": "./binding-types.cjs"
+    },
+    "./misc": {
+      "import": "./misc.js",
+      "require": "./misc.cjs"
+    }
+  },
+  "files": [
+    "src",
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GianlucaGuarini/@riotjs/util.git"
+  },
+  "keywords": [
+    "Riot.js",
+    "shared",
+    "Riot util"
+  ],
+  "author": "Gianluca Guarini <gianluca.guarini@gmail.com> (https://gianlucaguarini.com)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/GianlucaGuarini/@riotjs/util/issues"
+  },
+  "homepage": "https://github.com/GianlucaGuarini/@riotjs/util#readme",
+  "devDependencies": {
+    "jsdom": "26.1.0",
+    "jsdom-global": "3.0.2"
+  }
+}

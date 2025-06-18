@@ -1,0 +1,27 @@
+<dynamic-import>
+  <p>Hello</p>
+  <script>
+    import assert from 'node:assert'
+
+    const goodbye = 'goodbye'
+    export default {
+      components: {
+        onlyCss: import('./only-css.riot')
+      },
+      onMount() {
+        console.log('mounted!')
+      },
+      onClick() {
+        this.title = goodbye
+      }
+    }
+
+    function bar() { return 'bar' }
+  </script>
+
+  <style>
+    :host {
+      color: red;
+    }
+  </style>
+</dynamic-import>

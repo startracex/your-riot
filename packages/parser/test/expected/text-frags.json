@@ -1,0 +1,58 @@
+{
+  "template": {
+    "type": 1,
+    "name": "text-frags",
+    "start": 0,
+    "end": 70,
+    "isCustom": true,
+    "nodes": [
+      {
+        "type": 1,
+        "name": "p",
+        "start": 15,
+        "end": 56,
+        "attributes": [
+          {
+            "name": "attr",
+            "value": "{something}cool",
+            "start": 18,
+            "end": 40,
+            "expressions": [
+              {
+                "text": "something",
+                "start": 24,
+                "end": 35
+              }
+            ],
+            "valueStart": 24,
+            "parts": [
+              "something",
+              "cool"
+            ]
+          }
+        ],
+        "nodes": [
+          {
+            "type": 3,
+            "text": "{expr}hello",
+            "start": 41,
+            "end": 52,
+            "expressions": [
+              {
+                "text": "expr",
+                "start": 41,
+                "end": 47
+              }
+            ],
+            "parts": [
+              "expr",
+              "hello"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "css": null,
+  "javascript": null
+}

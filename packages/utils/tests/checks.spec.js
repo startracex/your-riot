@@ -6,7 +6,7 @@ import {
   isObject,
   isSvg,
   isTemplate,
-} from './checks.js'
+} from '../dist/module/checks.js'
 import { expect } from 'chai'
 
 describe('Checks', function () {

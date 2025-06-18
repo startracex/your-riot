@@ -1,5 +1,9 @@
-import { evaluateAttributeExpressions, memoize, panic } from './misc.js'
-import { ATTRIBUTE, REF } from './expression-types.js'
+import {
+  evaluateAttributeExpressions,
+  memoize,
+  panic,
+} from '../dist/module/misc.js'
+import { ATTRIBUTE, REF } from '../dist/module/expression-types.js'
 import { expect } from 'chai'
 
 describe('Misc', function () {

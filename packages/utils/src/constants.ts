@@ -1,8 +1,8 @@
 // Riot.js constants that can be used across more modules
 
-export const COMPONENTS_IMPLEMENTATION_MAP = new Map(),
-  DOM_COMPONENT_INSTANCE_PROPERTY = Symbol('riot-component'),
-  PLUGINS_SET = new Set(),
+export const COMPONENTS_IMPLEMENTATION_MAP: Map<any, any> = new Map(),
+  DOM_COMPONENT_INSTANCE_PROPERTY: unique symbol = Symbol('riot-component'),
+  PLUGINS_SET: Set<any> = new Set(),
   IS_DIRECTIVE = 'is',
   VALUE_ATTRIBUTE = 'value',
   MOUNT_METHOD_KEY = 'mount',
@@ -19,8 +19,8 @@ export const COMPONENTS_IMPLEMENTATION_MAP = new Map(),
   STATE_KEY = 'state',
   SLOTS_KEY = 'slots',
   ROOT_KEY = 'root',
-  IS_PURE_SYMBOL = Symbol('pure'),
-  IS_COMPONENT_UPDATING = Symbol('is_updating'),
-  PARENT_KEY_SYMBOL = Symbol('parent'),
-  ATTRIBUTES_KEY_SYMBOL = Symbol('attributes'),
-  TEMPLATE_KEY_SYMBOL = Symbol('template')
+  IS_PURE_SYMBOL: unique symbol = Symbol('pure'),
+  IS_COMPONENT_UPDATING: unique symbol = Symbol('is_updating'),
+  PARENT_KEY_SYMBOL: unique symbol = Symbol('parent'),
+  ATTRIBUTES_KEY_SYMBOL: unique symbol = Symbol('attributes'),
+  TEMPLATE_KEY_SYMBOL: unique symbol = Symbol('template')

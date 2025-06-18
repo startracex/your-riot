@@ -2,7 +2,7 @@ import { globSync } from 'glob'
 import { defineConfig } from 'rolldown'
 
 export default defineConfig({
-  input: globSync(['src/**/*.js'], {
+  input: globSync(['src/**/*.ts'], {
     ignore: '**/*.spec.js',
   }),
   output: [

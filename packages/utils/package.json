@@ -13,6 +13,11 @@
       "require": "./dist/node/index.cjs",
       "types": "./dist/types/index.d.ts"
     },
+    "./*.js": {
+      "import": "./dist/module/*.js",
+      "require": "./dist/node/*.cjs",
+      "types": "./dist/types/*.d.ts"
+    },
     "./*": {
       "import": "./dist/module/*.js",
       "require": "./dist/node/*.cjs",

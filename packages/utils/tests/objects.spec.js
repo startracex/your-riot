@@ -5,7 +5,7 @@ import {
   defineProperty,
   filter,
   pick,
-} from './objects.js'
+} from '../dist/module/objects.js'
 import { expect } from 'chai'
 
 describe('Objects', function () {

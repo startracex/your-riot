@@ -1,4 +1,8 @@
-import { autobindMethods, callOrAssign, noop } from './functions.js'
+import {
+  autobindMethods,
+  callOrAssign,
+  noop,
+} from '../dist/module/functions.js'
 import { expect } from 'chai'
 
 describe('Functions', function () {

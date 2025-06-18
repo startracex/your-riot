@@ -1,17 +1,17 @@
 import { isFunction } from './checks.js'
 
 // does simply nothing
-export function noop() {
+export function noop<T = any>(this: T): T {
   return this
 }
 
 /**
  * Autobind the methods of a source object to itself
- * @param   {Object} source - probably a riot tag instance
- * @param   {Array<string>} methods - list of the methods to autobind
- * @returns {Object} the original object received
  */
-export function autobindMethods(source, methods) {
+export function autobindMethods(
+  source: object,
+  methods: PropertyKey[],
+): object {
   methods.forEach((method) => {
     source[method] = source[method].bind(source)
   })
@@ -21,13 +21,11 @@ export function autobindMethods(source, methods) {
 
 /**
  * Call the first argument received only if it's a function otherwise return it as it is
- * @param   {*} source - anything
- * @returns {*} anything
  */
-export function callOrAssign(source) {
+export function callOrAssign(source: any): any {
   return isFunction(source)
     ? source.prototype && source.prototype.constructor
-      ? new source()
+      ? new (source as any)()
       : source()
     : source
 }

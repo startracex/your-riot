@@ -1,4 +1,4 @@
-import * as constants from './constants.js'
+import * as constants from '../dist/module/constants.js'
 import { expect } from 'chai'
 
 describe('Constants', function () {

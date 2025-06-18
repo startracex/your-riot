@@ -1,5 +1,5 @@
 import $ from 'bianco.query'
-import { DOM_COMPONENT_INSTANCE_PROPERTY } from '@your-riot/util'
+import { DOM_COMPONENT_INSTANCE_PROPERTY } from '@your-riot/utils'
 
 /**
  * Sweet unmounting helper function for the DOM node mounted manually by the user

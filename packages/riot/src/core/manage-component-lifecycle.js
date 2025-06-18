@@ -23,7 +23,7 @@ import {
   isObject,
   pick,
   DOMattributesToObject,
-} from '@your-riot/util'
+} from '@your-riot/utils'
 
 import { addCssHook } from './add-css-hook.js'
 import { bindDOMNodeToComponentInstance } from './bind-dom-node-to-component-instance.js'
@@ -31,7 +31,7 @@ import { computeComponentState } from './compute-component-state.js'
 import { computeInitialProps } from './compute-initial-props.js'
 import { createAttributeBindings } from './create-attribute-bindings.js'
 import { runPlugins } from './run-plugins.js'
-import { IS_DIRECTIVE } from '@your-riot/util/constants'
+import { IS_DIRECTIVE } from '@your-riot/utils/constants'
 import { getRootComputedAttributeNames } from '../utils/get-root-computed-attribute-names.js'
 
 /**

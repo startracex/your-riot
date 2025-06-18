@@ -1,6 +1,6 @@
 import asJSON from './sourcemap-as-json.js'
 import { composeSourceMaps } from 'recast/lib/util.js'
-import { isNode } from '@your-riot/util/checks'
+import { isNode } from '@your-riot/utils/checks'
 
 /**
  * Compose two sourcemaps

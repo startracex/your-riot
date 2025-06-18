@@ -3,7 +3,7 @@ import {
   expressionTypes,
   template,
 } from '@your-riot/dom-bindings'
-import { COMPONENTS_IMPLEMENTATION_MAP } from '@your-riot/util'
+import { COMPONENTS_IMPLEMENTATION_MAP } from '@your-riot/utils'
 import { generateSlotsFromString } from '@your-riot/compiler/essential'
 
 /**

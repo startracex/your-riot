@@ -1,4 +1,4 @@
-import { IS_DIRECTIVE } from '@your-riot/util'
+import { IS_DIRECTIVE } from '@your-riot/utils'
 import { get as getAttr } from 'bianco.attr'
 
 /**

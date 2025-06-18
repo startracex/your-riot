@@ -5,7 +5,7 @@ import {
   UNMOUNT_METHOD_KEY,
   MOUNT_METHOD_KEY,
   UPDATE_METHOD_KEY,
-} from '@your-riot/util'
+} from '@your-riot/utils'
 
 // Components without template use a mocked template interface with some basic functionalities to
 // guarantee consistent rendering behaviour see https://github.com/riot/riot/issues/2984

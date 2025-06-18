@@ -9,7 +9,7 @@
   "dependencies": {
     "@your-riot/compiler": "workspace:^",
     "@your-riot/dom-bindings": "workspace:^",
-    "@your-riot/util": "workspace:^",
+    "@your-riot/utils": "workspace:^",
     "bianco.attr": "^1.1.1",
     "bianco.query": "^1.1.4",
     "cumpa": "^2.0.1",

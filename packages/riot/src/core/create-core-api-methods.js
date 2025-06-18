@@ -2,7 +2,7 @@ import {
   MOUNT_METHOD_KEY,
   UNMOUNT_METHOD_KEY,
   UPDATE_METHOD_KEY,
-} from '@your-riot/util'
+} from '@your-riot/utils'
 
 /**
  * Wrap the Riot.js core API methods using a mapping function

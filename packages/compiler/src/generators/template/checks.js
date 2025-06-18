@@ -24,7 +24,7 @@ import {
   isRaw,
 } from '../../utils/ast-nodes-checks.js'
 import compose from 'cumpa'
-import { isNil } from '@your-riot/util/checks'
+import { isNil } from '@your-riot/utils/checks'
 import { nodeTypes } from '@your-riot/parser'
 import { types } from '../../utils/build-types.js'
 

@@ -1,4 +1,4 @@
-import { DOM_COMPONENT_INSTANCE_PROPERTY } from '@your-riot/util'
+import { DOM_COMPONENT_INSTANCE_PROPERTY } from '@your-riot/utils'
 
 /**
  * Bind a DOM node to its component object

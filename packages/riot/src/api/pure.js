@@ -1,4 +1,4 @@
-import { IS_PURE_SYMBOL, isFunction, panic } from '@your-riot/util'
+import { IS_PURE_SYMBOL, isFunction, panic } from '@your-riot/utils'
 
 /**
  * Lift a riot component Interface into a pure riot object

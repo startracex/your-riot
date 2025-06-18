@@ -1,3 +1,3 @@
-# @your-riot/util
+# @your-riot/utils
 
 Riot.js util functions

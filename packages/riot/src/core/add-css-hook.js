@@ -1,4 +1,4 @@
-import { IS_DIRECTIVE } from '@your-riot/util'
+import { IS_DIRECTIVE } from '@your-riot/utils'
 import { getName } from '../utils/dom.js'
 import { set as setAttr } from 'bianco.attr'
 

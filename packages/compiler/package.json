@@ -18,7 +18,7 @@
   "dependencies": {
     "@babel/parser": "^7.27.0",
     "@your-riot/parser": "workspace:^",
-    "@your-riot/util": "workspace:*",
+    "@your-riot/utils": "workspace:*",
     "css-simple-parser": "^3.0.2",
     "cssesc": "^3.0.0",
     "cumpa": "^2.0.1",

@@ -4,7 +4,7 @@ import {
   callOrAssign,
   camelToDashCase,
   memoize,
-} from '@your-riot/util'
+} from '@your-riot/utils'
 import { MOCKED_TEMPLATE_INTERFACE } from './mocked-template-interface.js'
 import { componentTemplateFactory } from './component-template-factory.js'
 import { createPureComponent } from './create-pure-component.js'

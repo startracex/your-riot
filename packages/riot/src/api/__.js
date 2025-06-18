@@ -7,7 +7,7 @@ import {
   PLUGINS_SET,
   PROPS_KEY,
   STATE_KEY,
-} from '@your-riot/util'
+} from '@your-riot/utils'
 import {
   bindingTypes,
   createBinding,

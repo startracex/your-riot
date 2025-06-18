@@ -1,5 +1,5 @@
 import { expressionTypes } from '@your-riot/dom-bindings'
-import { memoize } from '@your-riot/util'
+import { memoize } from '@your-riot/utils'
 
 /**
  * Get the computed attribute names from the template instance

@@ -5,13 +5,13 @@ import {
   cleanNode,
   moveChildren,
   clearChildren,
-} from '@your-riot/util/dom'
-import { PARENT_KEY_SYMBOL, IS_PURE_SYMBOL } from '@your-riot/util/constants'
-import { IF, SIMPLE, EACH, TAG, SLOT } from '@your-riot/util/binding-types'
-export { default as bindingTypes } from '@your-riot/util/binding-types'
-import { ATTRIBUTE, EVENT, TEXT, VALUE } from '@your-riot/util/expression-types'
-export { default as expressionTypes } from '@your-riot/util/expression-types'
-import { defineProperty } from '@your-riot/util/objects'
+} from '@your-riot/utils/dom'
+import { PARENT_KEY_SYMBOL, IS_PURE_SYMBOL } from '@your-riot/utils/constants'
+import { IF, SIMPLE, EACH, TAG, SLOT } from '@your-riot/utils/binding-types'
+export { default as bindingTypes } from '@your-riot/utils/binding-types'
+import { ATTRIBUTE, EVENT, TEXT, VALUE } from '@your-riot/utils/expression-types'
+export { default as expressionTypes } from '@your-riot/utils/expression-types'
+import { defineProperty } from '@your-riot/utils/objects'
 import {
   isTemplate,
   isBoolean,
@@ -19,12 +19,12 @@ import {
   isFunction,
   isNil,
   isSvg,
-} from '@your-riot/util/checks'
+} from '@your-riot/utils/checks'
 import {
   memoize,
   evaluateAttributeExpressions,
   panic,
-} from '@your-riot/util/misc'
+} from '@your-riot/utils/misc'
 
 const HEAD_SYMBOL = Symbol()
 const TAIL_SYMBOL = Symbol()

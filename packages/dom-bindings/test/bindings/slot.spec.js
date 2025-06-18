@@ -1,4 +1,4 @@
-import { PARENT_KEY_SYMBOL } from '@your-riot/util'
+import { PARENT_KEY_SYMBOL } from '@your-riot/utils'
 import { bindingTypes, expressionTypes, template } from '../../src/index.js'
 import { expect } from 'chai'
 

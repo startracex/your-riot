@@ -2,8 +2,8 @@ import {
   isBoolean as checkIfBoolean,
   isFunction,
   isObject,
-} from '@your-riot/util/checks'
-import { memoize } from '@your-riot/util/misc'
+} from '@your-riot/utils/checks'
+import { memoize } from '@your-riot/utils/misc'
 
 /* c8 ignore next */
 const ElementProto = typeof Element === 'undefined' ? {} : Element.prototype

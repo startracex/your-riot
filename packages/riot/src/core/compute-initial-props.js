@@ -1,4 +1,4 @@
-import { DOMattributesToObject, callOrAssign } from '@your-riot/util'
+import { DOMattributesToObject, callOrAssign } from '@your-riot/utils'
 
 /**
  * Evaluate the component properties either from its real attributes or from its initial user properties

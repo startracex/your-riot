@@ -3,7 +3,7 @@ import {
   UNMOUNT_METHOD_KEY,
   UPDATE_METHOD_KEY,
   noop,
-} from '@your-riot/util'
+} from '@your-riot/utils'
 
 export const PURE_COMPONENT_API = Object.freeze({
   [MOUNT_METHOD_KEY]: noop,

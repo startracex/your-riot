@@ -1,4 +1,4 @@
-import { EVENT, TEXT, REF } from '@your-riot/util/expression-types'
+import { EVENT, TEXT, REF } from '@your-riot/utils/expression-types'
 import expressions from './expressions/index.js'
 import { getTextNode } from './expressions/text.js'
 

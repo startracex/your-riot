@@ -1,4 +1,4 @@
-import { insertBefore, removeChild } from '@your-riot/util/dom'
+import { insertBefore, removeChild } from '@your-riot/utils/dom'
 
 /**
  * Binding responsible for the `if` directive

@@ -5,7 +5,7 @@ import {
   STATE_KEY,
   defineDefaults,
   defineProperties,
-} from '@your-riot/util'
+} from '@your-riot/utils'
 import { COMPONENT_DOM_SELECTORS } from './component-dom-selectors.js'
 import { COMPONENT_LIFECYCLE_METHODS } from './component-lifecycle-methods.js'
 import cssManager from './css-manager.js'

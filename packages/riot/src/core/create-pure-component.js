@@ -4,7 +4,7 @@ import {
   defineDefaults,
   defineProperty,
   panic,
-} from '@your-riot/util'
+} from '@your-riot/utils'
 import { PURE_COMPONENT_API } from './pure-component-api.js'
 import { bindDOMNodeToComponentInstance } from './bind-dom-node-to-component-instance.js'
 import { createCoreAPIMethods } from './create-core-api-methods.js'

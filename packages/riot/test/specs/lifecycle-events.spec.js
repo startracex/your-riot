@@ -25,7 +25,7 @@ import { spy } from 'sinon'
 import {
   DOM_COMPONENT_INSTANCE_PROPERTY,
   TEMPLATE_KEY_SYMBOL,
-} from '@your-riot/util'
+} from '@your-riot/utils'
 
 describe('lifecycle events', () => {
   it('riot.component can mount anonymous components', () => {

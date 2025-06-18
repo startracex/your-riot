@@ -1,5 +1,5 @@
 {
-  "name": "@your-riot/util",
+  "name": "@your-riot/utils",
   "version": "0.0.0",
   "description": "Riot.js util functions",
   "scripts": {

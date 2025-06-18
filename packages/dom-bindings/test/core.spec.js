@@ -1,5 +1,5 @@
 import { bindingTypes, expressionTypes, template } from '../src/index.js'
-import { IS_PURE_SYMBOL } from '@your-riot/util/constants'
+import { IS_PURE_SYMBOL } from '@your-riot/utils/constants'
 import { expect } from 'chai'
 
 describe('core specs', () => {

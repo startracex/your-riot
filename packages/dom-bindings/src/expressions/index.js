@@ -4,7 +4,7 @@ import {
   TEXT,
   VALUE,
   REF,
-} from '@your-riot/util/expression-types'
+} from '@your-riot/utils/expression-types'
 import attributeExpression from './attribute.js'
 import eventExpression from './event.js'
 import textExpression from './text.js'

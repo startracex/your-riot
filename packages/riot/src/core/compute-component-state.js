@@ -1,4 +1,4 @@
-import { callOrAssign } from '@your-riot/util'
+import { callOrAssign } from '@your-riot/utils'
 
 /**
  * Compute the component current state merging it with its previous state

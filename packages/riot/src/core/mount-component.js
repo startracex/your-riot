@@ -1,4 +1,4 @@
-import { COMPONENTS_IMPLEMENTATION_MAP, panic } from '@your-riot/util'
+import { COMPONENTS_IMPLEMENTATION_MAP, panic } from '@your-riot/utils'
 import { getName } from '../utils/dom.js'
 
 /**

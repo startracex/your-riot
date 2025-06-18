@@ -1,20 +1,7 @@
 {
   "name": "@your-riot/dom-bindings",
-  "version": "9.2.8",
-  "description": "Riot.js DOM bindings",
-  "main": "dist/dom-bindings.cjs",
-  "jsnext:main": "dist/dom-bindings.js",
-  "module": "dist/dom-bindings.js",
-  "types": "./dom-bindings.d.ts",
-  "type": "module",
-  "exports": {
-    ".": {
-      "import": "./dist/module/index.js",
-      "require": "./dist/node/index.cjs",
-      "types": "./dom-bindings.d.ts"
-    },
-    "./package.json": "./package.json"
-  },
+  "version": "0.0.0",
+  "description": "riot dom bindings",
   "scripts": {
     "cov": "c8 report --reporter=lcov",
     "cov-html": "c8 report --reporter=html",
@@ -25,29 +12,9 @@
     "test-typing": "tsc -p test",
     "test-debug": "mocha --inspect --inspect-brk -r test/index.js 'test/**/*.spec.js'"
   },
-  "files": [
-    "src",
-    "dist",
-    "dom-bindings.d.ts"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/riot/dom-bindings.git"
+  "dependencies": {
+    "@your-riot/util": "workspace:^"
   },
-  "keywords": [
-    "riot",
-    "dom-bindings"
-  ],
-  "nyc": {
-    "include": "src",
-    "exclude": "src/util/udomdiff.js"
-  },
-  "author": "Gianluca Guarini <gianluca.guarini@gmail.com> (https://gianlucaguarini.com)",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/riot/dom-bindings/issues"
-  },
-  "homepage": "https://github.com/riot/dom-bindings#readme",
   "devDependencies": {
     "@rollup/plugin-node-resolve": "^16.0.1",
     "benchmark": "^2.1.4",
@@ -59,7 +26,31 @@
     "sinon-chai": "^4.0.0",
     "typescript": "^5.8.3"
   },
-  "dependencies": {
-    "@your-riot/util": "workspace:^"
-  }
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./dist/module/index.js",
+      "require": "./dist/node/index.cjs",
+      "types": "./dom-bindings.d.ts"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "src",
+    "dist",
+    "dom-bindings.d.ts"
+  ],
+  "keywords": [
+    "riot"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/riot/dom-bindings.git"
+  },
+  "nyc": {
+    "include": "src",
+    "exclude": "src/util/udomdiff.js"
+  },
+  "author": "Gianluca Guarini <gianluca.guarini@gmail.com> (https://gianlucaguarini.com)",
+  "license": "MIT"
 }

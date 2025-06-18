@@ -1,11 +1,26 @@
 {
   "name": "@your-riot/parser",
-  "version": "9.1.1",
-  "description": "The parser for Riot tags",
+  "version": "0.0.0",
+  "description": "riot parser",
+  "scripts": {
+    "test-types": "tsc -p test",
+    "test": "c8 mocha ./test/index && npm run test-types",
+    "test-debug": "mocha --inspect-brk ./test",
+    "cov": "c8 report --reporter=lcov",
+    "cov-html": "c8 report --reporter=html",
+    "lint": "eslint src test && npx prettier --check ./",
+    "build": "rolldown -c rolldown.config.ts"
+  },
+  "dependencies": {
+    "curri": "^2.0.3",
+    "dom-nodes": "^1.1.3"
+  },
+  "devDependencies": {
+    "@rollup/plugin-node-resolve": "^16.0.1",
+    "c8": "^10.1.3",
+    "typescript": "^5.8.2"
+  },
   "type": "module",
-  "main": "./index.cjs",
-  "module": "./index.js",
-  "types": "./index.d.ts",
   "exports": {
     ".": {
       "import": "./dist/module/index.js",
@@ -14,49 +29,22 @@
     },
     "./package.json": "./package.json"
   },
-  "license": "MIT",
-  "scripts": {
-    "test-types": "tsc -p test",
-    "test": "c8 mocha ./test/index && npm run test-types",
-    "test-debug": "mocha --inspect-brk ./test",
-    "cov": "c8 report --reporter=lcov",
-    "cov-html": "c8 report --reporter=html",
-    "pretest": "npm run build",
-    "lint": "eslint src test && npx prettier --check ./",
-    "build": "rolldown -c rolldown.config.ts",
-    "samples": "node ./test/samples.js"
-  },
   "files": [
     "src",
     "dist",
     "parser.d.ts"
   ],
   "keywords": [
-    "html",
-    "html5",
-    "tag",
-    "parser",
-    "javascript"
+    "riot"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/startracex/your-riot.git"
+  },
   "author": {
     "name": "aMarCruz",
     "email": "amarcruz@yahoo.com",
     "url": "https://github.com/aMarCruz"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/riot/parser"
-  },
-  "homepage": "https://github.com/riot/parser",
-  "bugs": "https://github.com/riot/parser/issues",
-  "readme": "https://github.com/riot/parser/blob/master/README.md",
-  "devDependencies": {
-    "@rollup/plugin-node-resolve": "^16.0.1",
-    "c8": "^10.1.3",
-    "typescript": "^5.8.2"
-  },
-  "dependencies": {
-    "curri": "^2.0.3",
-    "dom-nodes": "^1.1.3"
-  }
+  "license": "MIT"
 }

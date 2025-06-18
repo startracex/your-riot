@@ -1,7 +1,16 @@
 {
   "name": "@your-riot/util",
-  "version": "2.5.1",
+  "version": "0.0.0",
   "description": "Riot.js util functions",
+  "scripts": {
+    "build": "rolldown -c rolldown.config.ts",
+    "test": "mocha -r jsdom-global/register **/*.spec.js"
+  },
+  "devDependencies": {
+    "jsdom": "26.1.0",
+    "jsdom-global": "3.0.2"
+  },
+  "type": "module",
   "exports": {
     ".": {
       "import": "./dist/module/index.js",
@@ -15,32 +24,17 @@
     },
     "./package.json": "./package.json"
   },
-  "type": "module",
-  "scripts": {
-    "build": "rolldown -c rolldown.config.ts",
-    "test": "mocha -r jsdom-global/register **/*.spec.js"
-  },
   "files": [
     "src",
     "dist"
   ],
+  "keywords": [
+    "riot"
+  ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/GianlucaGuarini/@your-riot/util.git"
+    "url": "git+https://github.com/startracex/your-riot.git"
   },
-  "keywords": [
-    "Riot.js",
-    "shared",
-    "Riot util"
-  ],
   "author": "Gianluca Guarini <gianluca.guarini@gmail.com> (https://gianlucaguarini.com)",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/GianlucaGuarini/@your-riot/util/issues"
-  },
-  "homepage": "https://github.com/GianlucaGuarini/@your-riot/util#readme",
-  "devDependencies": {
-    "jsdom": "26.1.0",
-    "jsdom-global": "3.0.2"
-  }
+  "license": "MIT"
 }

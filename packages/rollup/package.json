@@ -9,19 +9,6 @@
     "eslint": "eslint src/*.js",
     "mocha": "mocha test/*.js"
   },
-  "exports": {
-    ".": {
-      "import": "./dist/module/index.js",
-      "require": "./dist/node/index.cjs",
-      "types": "./dist/types/index.d.ts"
-    },
-    "./*": {
-      "import": "./dist/module/*.js",
-      "require": "./dist/node/*.cjs",
-      "types": "./dist/types/*.d.ts"
-    },
-    "./package.json": "./package.json"
-  },
   "dependencies": {
     "@your-riot/compiler": "workspace:^",
     "@your-riot/parser": "workspace:*",
@@ -36,20 +23,31 @@
     "postcss": "^8.5.4",
     "postcss-cssnext": "^3.1.1"
   },
-  "homepage": "https://github.com/riot/rollup-plugin-riot#readme",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/riot/rollup-plugin-riot.git"
+  "exports": {
+    ".": {
+      "import": "./dist/module/index.js",
+      "require": "./dist/node/index.cjs",
+      "types": "./dist/types/index.d.ts"
+    },
+    "./*": {
+      "import": "./dist/module/*.js",
+      "require": "./dist/node/*.cjs",
+      "types": "./dist/types/*.d.ts"
+    },
+    "./package.json": "./package.json"
   },
   "files": [
     "src",
     "dist"
   ],
-  "author": "Gianluca Guarini <gianluca.guarini@gmail.com> (https://gianlucaguarini.com)",
-  "license": "MIT",
-  "bugs": "https://github.com/riot/rollup-plugin-riot/issues",
   "keywords": [
     "riot",
     "rollup-plugin"
-  ]
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/startracex/your-riot.git"
+  },
+  "author": "Gianluca Guarini <gianluca.guarini@gmail.com> (https://gianlucaguarini.com)",
+  "license": "MIT"
 }

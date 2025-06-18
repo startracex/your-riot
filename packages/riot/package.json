@@ -39,7 +39,6 @@
   "type": "module",
   "exports": {
     ".": {
-      
       "import": "./dist/module/riot.js",
       "require": "./dist/node/riot.cjs",
       "types": "./riot.d.ts"

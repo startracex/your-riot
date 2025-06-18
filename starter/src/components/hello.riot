@@ -1,0 +1,21 @@
+<hello>
+  <h1>{props.msg}</h1>
+  <div class="card">
+    <button type="button" onclick={increase}>count is { state.count }</button>
+    <p>
+      Edit
+      <code>components/hello.riot</code> to test HMR
+    </p>
+  </div>
+  <p class="read-the-docs">Click on the Vite and Riot logos to learn more</p>
+  <script>
+    export default {
+      state: { count: 1 },
+      increase() {
+        this.update({
+          count: this.state.count + 1,
+        })
+      },
+    }
+  </script>
+</hello>

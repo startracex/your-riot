@@ -1,0 +1,18 @@
+<component-with-load-listener>
+  <user name={props.name} onload={ loaded }/>
+
+  <script>
+    import User from './user.riot'
+    import lazy from '../../dist/module/index.js'
+
+    export default {
+      components: {
+        user: lazy(() => Promise.resolve(User))
+      },
+      _loaded: false,
+      loaded() {
+        this._loaded = true;
+      }
+    }
+  </script>
+</component-with-load-listener>

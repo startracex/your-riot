@@ -1,0 +1,14 @@
+<user-wrapper-without-loader>
+  <user name={props.name}/>
+
+  <script>
+    import User from './user.riot'
+    import lazy from '../../dist/module/index.js'
+
+    export default {
+      components: {
+        user: lazy(() => Promise.resolve(User))
+      }
+    }
+  </script>
+</user-wrapper-without-loader>

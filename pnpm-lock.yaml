@@ -148,6 +148,16 @@ importers:
         specifier: ^5.8.3
         version: 5.8.3
 
+  packages/custom-elements:
+    dependencies:
+      '@your-riot/utils':
+        specifier: workspace:^
+        version: link:../utils
+    devDependencies:
+      '@your-riot/riot':
+        specifier: workspace:^
+        version: link:../riot
+
   packages/dom-bindings:
     dependencies:
       '@your-riot/utils':

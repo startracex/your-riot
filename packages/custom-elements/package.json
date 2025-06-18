@@ -1,0 +1,39 @@
+{
+  "name": "@your-riot/custom-elements",
+  "version": "0.0.0",
+  "description": "Simple API to create vanilla custom elements with riot",
+  "scripts": {
+    "build": "tsc && rolldown -c rolldown.config.ts"
+  },
+  "devDependencies": {
+    "@your-riot/riot": "workspace:^"
+  },
+  "peerDependencies": {
+    "@your-riot/riot": "workspace:^"
+  },
+  "dependencies": {
+    "@your-riot/utils": "workspace:^"
+  },
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./dist/module/index.js",
+      "require": "./dist/node/index.cjs",
+      "types": "./dist/types/index.d.ts"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "src",
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/startracex/your-riot.git"
+  },
+  "keywords": [
+    "riot"
+  ],
+  "author": "Gianluca Guarini <gianluca.guarini@gmail.com> (http://gianlucaguarini.com)",
+  "license": "MIT"
+}

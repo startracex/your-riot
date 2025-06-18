@@ -1,0 +1,21 @@
+{
+  "name": "sample",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "@your-riot/rollup-plugin": "workspace:^",
+    "happy-dom": "^18.0.1",
+    "vite": "npm:rolldown-vite@^6.3.21",
+    "vitest": "^3.2.3"
+  },
+  "dependencies": {
+    "riot": "^9.4.9"
+  }
+}

@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import jsdomGlobal from 'jsdom-global'
 import Benchmark from 'benchmark'
-import * as domBindings from '../dist/dom-bindings.js'
+import * as domBindings from '../dist/module/index.js'
 import * as oldVersion from './old-version.js'
 
 import keyedListBench from './keyed.list.js'

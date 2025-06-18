@@ -1,23 +1,15 @@
 {
   "name": "@riotjs/compiler",
   "version": "9.4.9",
-  "description": "Compiler for Riot.js .riot files",
-  "main": "./dist/index.cjs",
-  "types": "./compiler.d.ts",
+  "description": "Compiler for .riot files",
   "type": "module",
   "exports": {
     ".": {
-      "types": "./compiler.d.ts",
-      "require": "./dist/index.cjs",
-      "browser": "./dist/compiler.js",
-      "import": "./dist/index.js"
+      "import": "./dist/module/index.js",
+      "require": "./dist/node/index.cjs",
+      "types": "./compiler.d.ts"
     },
-    "./essential": {
-      "types": "./compiler.d.ts",
-      "require": "./dist/compiler.essential.cjs",
-      "import": "./dist/compiler.essential.js"
-    },
-    "./src/*": "./src/*"
+    "./package.json": "./package.json"
   },
   "files": [
     "dist",
@@ -87,8 +79,8 @@
   "homepage": "https://github.com/riot/compiler#readme",
   "dependencies": {
     "@babel/parser": "^7.27.0",
-    "@riotjs/parser": "^9.1.1",
-    "@riotjs/util": "2.5.0",
+    "@riotjs/parser": "workspace:^",
+    "@riotjs/util": "workspace:*",
     "css-simple-parser": "^3.0.2",
     "cssesc": "^3.0.0",
     "cumpa": "^2.0.1",

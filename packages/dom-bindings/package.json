@@ -8,9 +8,12 @@
   "types": "./dom-bindings.d.ts",
   "type": "module",
   "exports": {
-    "types": "./dom-bindings.d.ts",
-    "import": "./dist/dom-bindings.js",
-    "require": "./dist/dom-bindings.cjs"
+    ".": {
+      "import": "./dist/module/index.js",
+      "require": "./dist/node/index.cjs",
+      "types": "./dom-bindings.d.ts"
+    },
+    "./package.json": "./package.json"
   },
   "scripts": {
     "cov": "c8 report --reporter=lcov",
@@ -24,7 +27,8 @@
   },
   "files": [
     "src",
-    "dist"
+    "dist",
+    "dom-bindings.d.ts"
   ],
   "repository": {
     "type": "git",

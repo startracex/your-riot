@@ -8,10 +8,11 @@
   "types": "./index.d.ts",
   "exports": {
     ".": {
-      "types": "./index.d.ts",
-      "import": "./index.js",
-      "require": "./index.cjs"
-    }
+      "import": "./dist/module/index.js",
+      "require": "./dist/node/index.cjs",
+      "types": "./parser.d.ts"
+    },
+    "./package.json": "./package.json"
   },
   "license": "MIT",
   "scripts": {
@@ -27,7 +28,8 @@
   },
   "files": [
     "src",
-    "dist"
+    "dist",
+    "parser.d.ts"
   ],
   "keywords": [
     "html",

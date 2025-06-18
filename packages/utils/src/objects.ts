@@ -1,7 +1,7 @@
 import { isObject } from './checks.js'
 
 /**
- * Helper function to set an immutable property
+ * Helper function to set an immutable property.
  */
 export function defineProperty<T extends object>(
   source: T,
@@ -20,7 +20,7 @@ export function defineProperty<T extends object>(
 }
 
 /**
- * Define multiple properties on a target object
+ * Define multiple properties on a target object.
  */
 export function defineProperties(
   source: object,
@@ -35,7 +35,7 @@ export function defineProperties(
 }
 
 /**
- * Define default properties if they don't exist on the source object
+ * Define default properties if they don't exist on the source object.
  */
 export function defineDefaults(source: object, defaults: object): object {
   Object.entries(defaults).forEach(([key, value]) => {
@@ -45,14 +45,14 @@ export function defineDefaults(source: object, defaults: object): object {
 }
 
 /**
- * Simple clone deep function, do not use it for classes or recursive objects
+ * Simple clone deep function, do not use it for classes or recursive objects.
  */
 export function cloneDeep<T>(source: T): T {
   return structuredClone(source)
 }
 
 /**
- * Like Array.prototype.filter but for objects
+ * Like Array.prototype.filter but for objects.
  */
 export function filter<T extends object>(
   source: T,
@@ -66,7 +66,7 @@ export function filter<T extends object>(
 }
 
 /**
- * Generate a new object picking only the properties from a given array
+ * Generate a new object picking only the properties from a given array.
  */
 export function pick<T extends object, K extends keyof T>(
   source: T,

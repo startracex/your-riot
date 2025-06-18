@@ -6,7 +6,7 @@ export function noop<T = any>(this: T): T {
 }
 
 /**
- * Autobind the methods of a source object to itself
+ * Autobind the methods of a source object to itself.
  */
 export function autobindMethods(
   source: object,
@@ -20,7 +20,7 @@ export function autobindMethods(
 }
 
 /**
- * Call the first argument received only if it's a function otherwise return it as it is
+ * Call the first argument received only if it's a function otherwise return it as it is.
  */
 export function callOrAssign(source: any): any {
   return isFunction(source)

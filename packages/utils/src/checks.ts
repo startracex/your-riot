@@ -13,17 +13,13 @@ export function checkType(
   return typeof element === type
 }
 
-export function isSvg(
-  el: HTMLElement & {
-    ownerSVGElement?: SVGElement | null
-  },
-): boolean {
+export function isSvg(el: any): el is SVGElement {
   const owner = el.ownerSVGElement
 
   return !!owner || owner === null
 }
 
-export function isTemplate(el: HTMLElement): el is HTMLTemplateElement {
+export function isTemplate(el: any): el is HTMLTemplateElement {
   return el.tagName.toLowerCase() === 'template'
 }
 

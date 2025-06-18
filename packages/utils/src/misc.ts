@@ -2,9 +2,9 @@ import { ATTRIBUTE, VALUE, REF } from './expression-types.js'
 import { dashToCamelCase } from './strings.js'
 
 /**
- * Throw an error with a descriptive message
+ * Throw an error with a descriptive message.
  */
-export function panic(message: string, cause: string): undefined {
+export function panic(message: string, cause?: string): void {
   throw new Error(message, { cause })
 }
 
@@ -26,7 +26,7 @@ export function memoize<T extends (...args: any[]) => any>(
 }
 
 /**
- * Evaluate a list of attribute expressions
+ * Evaluate a list of attribute expressions.
  */
 export function evaluateAttributeExpressions(
   attributes: {

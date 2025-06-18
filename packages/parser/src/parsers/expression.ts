@@ -1,21 +1,22 @@
-import escapeStr from '../utils/escape-str'
-import exprExtr from '../utils/expr-extr'
-import panic from '../utils/panic'
-import pushText from '../utils/push-text'
-import { unexpectedEndOfFile } from '../messages'
+import escapeStr from '../utils/escape-str.js'
+import exprExtr from '../utils/expr-extr.js'
+import panic from '../utils/panic.js'
+import pushText from '../utils/push-text.js'
+import { unexpectedEndOfFile } from '../messages.js'
+import { Expr, ParserState } from '../types.js'
+
 /**
- * Find the end of the attribute value or text node
+ * Find the end of the attribute value or text node.
  * Extract expressions.
  * Detect if value have escaped brackets.
- *
- * @param   {ParserState} state  - Parser state
- * @param   {HasExpr} node       - Node if attr, info if text
- * @param   {string} endingChars - Ends the value or text
- * @param   {number} start       - Starting position
- * @returns {number} Ending position
  * @private
  */
-export default function expr(state, node, endingChars, start) {
+export default function expr(
+  state: ParserState,
+  node: Expr,
+  endingChars: string,
+  start: number,
+): number {
   const re = b0re(state, endingChars)
 
   re.lastIndex = start // reset re position
@@ -37,16 +38,13 @@ export default function expr(state, node, endingChars, start) {
 }
 
 /**
- * Parse a text chunk finding all the expressions in it
- * @param   {ParserState} state  - Parser state
- * @param   {RegExp} re - regex to match the expressions contents
- * @returns {Object} result containing the expression found, the string to unescape and the end position
+ * Parse a text chunk finding all the expressions in it.
  */
-function parseExpressions(state, re) {
+function parseExpressions(state: ParserState, re: RegExp): Expr {
   const { data, options } = state
   const { brackets } = options
   const expressions = []
-  let unescape, pos, match
+  let unescape: string, pos: number, match: RegExpMatchArray
 
   // Anything captured in $1 (closing quote or character) ends the loop...
   while ((match = re.exec(data)) && !match[1]) {
@@ -84,7 +82,7 @@ function parseExpressions(state, re) {
  * @returns {RegExp} Resulting regex.
  * @private
  */
-function b0re(state, str) {
+function b0re(state: ParserState, str: string): RegExp {
   const { brackets } = state.options
   const re = state.regexCache[str]
 

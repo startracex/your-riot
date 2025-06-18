@@ -1,22 +1,20 @@
-import { TAG, TEXT } from '../node-types'
-import { RE_SCRYLE } from '../regex'
-import { TEXTAREA_TAG } from '../constants'
-import execFromPos from '../utils/exec-from-pos'
-import expr from './expression'
-import panic from '../utils/panic'
-import pushTag from '../utils/push-tag'
-import pushText from '../utils/push-text'
-import { unclosedNamedBlock } from '../messages'
+import { TAG, TEXT } from '../node-types.js'
+import { RE_SCRYLE } from '../regex.js'
+import { TEXTAREA_TAG } from '../constants.js'
+import execFromPos from '../utils/exec-from-pos.js'
+import expr from './expression.js'
+import panic from '../utils/panic.js'
+import pushTag from '../utils/push-tag.js'
+import pushText from '../utils/push-text.js'
+import { unclosedNamedBlock } from '../messages.js'
+import { ParserState } from '../types.js'
 
 /**
  * Parses regular text and script/style blocks ...scryle for short :-)
- * (the content of script and style is text as well)
- *
- * @param   {ParserState} state - Parser state
- * @returns {number} New parser mode.
+ * (the content of script and style is text as well).
  * @private
  */
-export default function text(state) {
+export default function text(state: ParserState): number {
   const { pos, data, scryle } = state
 
   switch (true) {
@@ -58,13 +56,13 @@ export default function text(state) {
 }
 
 /**
- * Parse the text content depending on the name
- * @param   {ParserState} state - Parser state
- * @param   {string} name  - one of the tags matched by the RE_SCRYLE regex
- * @param   {Array}  match - result of the regex matching the content of the parsed tag
- * @returns {undefined} void function
+ * Parse the text content depending on the name.
  */
-function parseSpecialTagsContent(state, name, match) {
+function parseSpecialTagsContent(
+  state: ParserState,
+  name: string,
+  match: RegExpMatchArray,
+) {
   const { pos } = state
   const start = match.index
 

@@ -1,30 +1,33 @@
-import { ATTR, TEXT } from '../node-types'
-import { ATTR_START, SPREAD_OPERATOR } from '../regex'
-import { IS_BOOLEAN, IS_SELF_CLOSING, IS_SPREAD } from '../constants'
-import addToCollection from '../utils/add-to-collection'
-import execFromPos from '../utils/exec-from-pos'
-import expr from './expression'
-import getChunk from '../utils/get-chunk'
+import { ATTR, TEXT } from '../node-types.js'
+import { ATTR_START, SPREAD_OPERATOR } from '../regex.js'
+import { IS_BOOLEAN, IS_SELF_CLOSING, IS_SPREAD } from '../constants.js'
+import addToCollection from '../utils/add-to-collection.js'
+import execFromPos from '../utils/exec-from-pos.js'
+import expr from './expression.js'
+import getChunk from '../utils/get-chunk.js'
 import { isBoolAttribute } from 'dom-nodes'
-import memoize from '../utils/memoize'
+import memoize from '../utils/memoize.js'
+import type { Attribute, ParserState } from '../types.js'
 
-const expressionsContentRe = memoize((brackets) =>
+const expressionsContentRe = memoize((brackets: any[]) =>
   RegExp(`(${brackets[0]}[^${brackets[1]}]*?${brackets[1]})`, 'g'),
 )
-const isSpreadAttribute = (name) => SPREAD_OPERATOR.test(name)
-const isAttributeExpression = (name, brackets) => name[0] === brackets[0]
-const getAttributeEnd = (state, attr) =>
+const isSpreadAttribute = (name: string): boolean => SPREAD_OPERATOR.test(name)
+
+const isAttributeExpression = (
+  name: string,
+  brackets: [string, string],
+): boolean => name[0] === brackets[0]
+
+const getAttributeEnd = (state: ParserState, attr: Attribute): number =>
   expr(state, attr, '[>/\\s]', attr.start)
 
 /**
  * The more complex parsing is for attributes as it can contain quoted or
  * unquoted values or expressions.
- *
- * @param   {ParserStore} state  - Parser state
- * @returns {number} New parser mode.
  * @private
  */
-export default function attr(state) {
+export default function attr(state: ParserState): number {
   const { data, last, pos, root } = state
   const tag = last // the last (current) tag in the output
   const _CH = /\S/g // matches the first non-space char
@@ -60,14 +63,16 @@ export default function attr(state) {
 
 /**
  * Parses an attribute and its expressions.
- *
- * @param   {ParserStore}  state  - Parser state
- * @param   {number} pos    - Starting position of the attribute
- * @param   {Object} tag    - Current parent tag
- * @returns {undefined} void function
  * @private
  */
-function setAttribute(state, pos, tag) {
+function setAttribute(
+  state: ParserState,
+  pos: number,
+  tag: {
+    end?: number
+    attributes?: any[]
+  },
+): void {
   const { data } = state
   const expressionContent = expressionsContentRe(state.options.brackets)
   const re = ATTR_START // (\S[^>/=\s]*)(?:\s*=\s*([^>/])?)? g
@@ -77,7 +82,7 @@ function setAttribute(state, pos, tag) {
     attrMatches[1],
     state.options.brackets,
   )
-  const match = isExpressionName
+  const match: RegExpMatchArray = isExpressionName
     ? [null, expressionContent.exec(data)[1], null]
     : attrMatches
 
@@ -92,7 +97,11 @@ function setAttribute(state, pos, tag) {
   }
 }
 
-function parseNomalAttribute(state, attr, quote) {
+function parseNomalAttribute(
+  state: ParserState,
+  attr: Attribute,
+  quote: string,
+): Attribute {
   const { data } = state
   let { end } = attr
 
@@ -125,18 +134,15 @@ function parseNomalAttribute(state, attr, quote) {
 }
 
 /**
- * Parse expression names <a {href}>
- * @param   {ParserStore}  state  - Parser state
- * @param   {Object} attr - attribute object parsed
- * @returns {Object} normalized attribute object
+ * Parse expression names <a {href}>.
  */
-function parseSpreadAttribute(state, attr) {
+function parseSpreadAttribute(state: ParserState, attr: Attribute): Attribute {
   const end = getAttributeEnd(state, attr)
 
   return {
     [IS_SPREAD]: true,
     start: attr.start,
-    expressions: attr.expressions.map((expr) =>
+    expressions: attr.expressions.map((expr: { text: string }) =>
       Object.assign(expr, {
         text: expr.text.replace(SPREAD_OPERATOR, '').trim(),
       }),
@@ -147,11 +153,11 @@ function parseSpreadAttribute(state, attr) {
 
 /**
  * Parse expression names <a {href}>
- * @param   {ParserStore}  state  - Parser state
- * @param   {Object} attr - attribute object parsed
- * @returns {Object} normalized attribute object
  */
-function parseExpressionNameAttribute(state, attr) {
+function parseExpressionNameAttribute(
+  state: ParserState,
+  attr: Attribute,
+): Attribute {
   const end = getAttributeEnd(state, attr)
 
   return {
@@ -163,15 +169,15 @@ function parseExpressionNameAttribute(state, attr) {
 }
 
 /**
- * Parse the attribute values normalising the quotes
- * @param   {ParserStore}  state  - Parser state
- * @param   {Array} match - results of the attributes regex
- * @param   {number} start - attribute start position
- * @param   {number} end - attribute end position
- * @param   {boolean} isExpressionName - true if the attribute name is an expression
- * @returns {Object} attribute object
+ * Parse the attribute values normalising the quotes.
  */
-function parseAttribute(state, match, start, end, isExpressionName) {
+function parseAttribute(
+  state: ParserState,
+  match: RegExpMatchArray,
+  start: number,
+  end: number,
+  isExpressionName: boolean,
+): Attribute {
   const attr = {
     name: match[1],
     value: '',

@@ -8,7 +8,7 @@
     "test-debug": "mocha --inspect-brk ./test",
     "cov": "c8 report --reporter=lcov",
     "cov-html": "c8 report --reporter=html",
-    "build": "rolldown -c rolldown.config.ts"
+    "build": "tsc && rolldown -c rolldown.config.ts"
   },
   "dependencies": {
     "curri": "^2.0.3",
@@ -19,7 +19,17 @@
     ".": {
       "import": "./dist/module/index.js",
       "require": "./dist/node/index.cjs",
-      "types": "./parser.d.ts"
+      "types": "./dist/types/index.d.ts"
+    },
+    "./*.js": {
+      "import": "./dist/module/*.js",
+      "require": "./dist/node/*.cjs",
+      "types": "./dist/types/*.d.ts"
+    },
+    "./*": {
+      "import": "./dist/module/*.js",
+      "require": "./dist/node/*.cjs",
+      "types": "./dist/types/*.d.ts"
     },
     "./package.json": "./package.json"
   },

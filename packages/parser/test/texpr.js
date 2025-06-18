@@ -1,4 +1,4 @@
-import { nodeTypes as _T } from '../index.js'
+import { nodeTypes as _T } from '../dist/module/index.js'
 
 export default {
   'must preserve inner spaces': {

@@ -3,7 +3,7 @@
  * Throws on unclosed tags or closing tags without start tag.
  */
 
-import { nodeTypes as T } from '../../index.js'
+import { nodeTypes as T } from '../../dist/module/index.js'
 import domNodes from 'dom-nodes'
 // Do not touch text content inside this tags
 const R_PRE = /^\/?(?:pre|textarea|script|style)$/

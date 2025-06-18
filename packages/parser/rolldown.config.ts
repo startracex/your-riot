@@ -3,7 +3,7 @@ import pkg from './package.json'
 import { defineConfig } from 'rolldown'
 
 export default defineConfig({
-  input: globSync(['src/**/*.js']),
+  input: globSync(['src/**/*.ts']),
   external: Object.keys(pkg.dependencies).map((dep) => new RegExp(`^${dep}`)),
   output: [
     {

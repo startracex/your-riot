@@ -1,9 +1,10 @@
-import { ATTR, TEXT } from '../node-types'
-import { RE_SCRYLE, TAG_2C, TAG_NAME } from '../regex'
-import comment from './comment'
-import execFromPos from '../utils/exec-from-pos'
-import pushTag from '../utils/push-tag'
-import pushText from '../utils/push-text'
+import { ATTR, TEXT } from '../node-types.js'
+import { RE_SCRYLE, TAG_2C, TAG_NAME } from '../regex.js'
+import comment from './comment.js'
+import execFromPos from '../utils/exec-from-pos.js'
+import pushTag from '../utils/push-tag.js'
+import pushText from '../utils/push-text.js'
+import { ParserState } from '../types.js'
 
 /**
  * Parse the tag following a '<' character, or delegate to other parser
@@ -13,7 +14,7 @@ import pushText from '../utils/push-text'
  * @returns {number} New parser mode
  * @private
  */
-export default function tag(state) {
+export default function tag(state: ParserState): number {
   const { pos, data } = state // pos of the char following '<'
   const start = pos - 1 // pos of '<'
   const str = data.substr(pos, 2) // first two chars following '<'
@@ -28,7 +29,7 @@ export default function tag(state) {
   }
 }
 
-function parseTag(state, start) {
+function parseTag(state: ParserState, start: number): number {
   const { data, pos } = state
   const re = TAG_NAME // (\/?[^\s>/]+)\s*(>)? g
   const match = execFromPos(re, pos, data)

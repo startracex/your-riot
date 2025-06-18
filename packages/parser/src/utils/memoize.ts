@@ -1,9 +1,7 @@
 /**
  * Memoization function
- * @param   {Function} fn - function to memoize
- * @returns {*} return of the function to memoize
  */
-export default function memoize(fn) {
+export default function memoize(fn: Function): any {
   const cache = new WeakMap()
 
   return (...args) => {

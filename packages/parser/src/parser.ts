@@ -1,36 +1,40 @@
-import { ATTR, TAG } from './node-types'
-import { rootTagNotFound, unexpectedEndOfFile } from './messages'
-import attr from './parsers/attribute'
+import { ATTR, TAG } from './node-types.js'
+import { rootTagNotFound, unexpectedEndOfFile } from './messages.js'
+import attr from './parsers/attribute.js'
 import curry from 'curri'
-import flush from './utils/flush-parser-state'
-import panic from './utils/panic'
-import tag from './parsers/tag'
-import text from './parsers/text'
-import treeBuilder from './tree-builder'
+import flush from './utils/flush-parser-state.js'
+import panic from './utils/panic.js'
+import tag from './parsers/tag.js'
+import text from './parsers/text.js'
+import treeBuilder from './tree-builder.js'
+import { Parser, ParserOptions, ParserOutput, ParserState } from './types.js'
 
 /**
  * Factory for the Parser class, exposing only the `parse` method.
  * The export adds the Parser class as property.
- *
- * @param   {Object}   options - User Options
- * @param   {Function} customBuilder - Tree builder factory
- * @returns {Function} Public Parser implementation.
  */
-export default function parser(options, customBuilder) {
+export default function parser(
+  options: {
+    brackets: [string, string]
+    compact: boolean
+    comments: boolean
+  },
+  customBuilder: (data: string, options: ParserOptions) => any,
+): Parser {
   const state = curry(createParserState)(options, customBuilder || treeBuilder)
   return {
     parse: (data) => parse(state(data)),
-  }
+  } as unknown as Parser
 }
 
 /**
- * Create a new state object
- * @param   {Object} userOptions - parser options
- * @param   {Function} builder - Tree builder factory
- * @param   {string} data - data to parse
- * @returns {ParserState} it represents the current parser state
+ * Create a new state object.
  */
-function createParserState(userOptions, builder, data) {
+function createParserState(
+  userOptions: ParserOptions,
+  builder: (data: string, options: ParserOptions) => any,
+  data: string,
+): ParserState {
   const options = Object.assign(
     {
       brackets: ['{', '}'],
@@ -60,11 +64,11 @@ function createParserState(userOptions, builder, data) {
  * - TAG     -- Opening or closing tags
  * - TEXT    -- Raw text
  * - COMMENT -- Comments
- *
- * @param   {ParserState}  state - Current parser state
- * @returns {ParserResult} Result, contains data and output properties.
  */
-function parse(state) {
+function parse(state: ParserState): {
+  data: string
+  output: ParserOutput
+} {
   const { data } = state
 
   walk(state)
@@ -85,12 +89,9 @@ function parse(state) {
 }
 
 /**
- * Parser walking recursive function
- * @param {ParserState}  state - Current parser state
- * @param {string} type - current parsing context
- * @returns {undefined} void function
+ * Parser walking recursive function.
  */
-function walk(state, type) {
+function walk(state: ParserState, type?: number): void {
   const { data } = state
   // extend the state adding the tree builder instance and the initial data
   const length = data.length
@@ -107,9 +108,8 @@ function walk(state, type) {
  * Function to help iterating on the current parser state
  * @param {ParserState}  state - Current parser state
  * @param   {string} type - current parsing context
- * @returns {string} parsing context
  */
-function eat(state, type) {
+function eat(state: ParserState, type: number): number {
   switch (type) {
     case TAG:
       return tag(state)

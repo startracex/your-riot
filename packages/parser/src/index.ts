@@ -1,6 +1,6 @@
-import * as constants from './constants'
-import * as nodeTypes from './node-types'
-import parser from './parser'
+import * as constants from './constants.js'
+import * as nodeTypes from './node-types.js'
+import parser from './parser.js'
 
 export {
   /*
@@ -18,3 +18,4 @@ export {
 }
 
 export default parser
+export type * from './types.js'

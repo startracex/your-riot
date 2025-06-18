@@ -1,4 +1,4 @@
-import tagParser from '../index.js'
+import tagParser from '../dist/module/index.js'
 import fs from 'node:fs'
 import { dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'

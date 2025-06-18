@@ -1,4 +1,8 @@
-export default function formatError(data, message, pos) {
+export default function formatError(
+  data: string,
+  message: string,
+  pos: number,
+) {
   if (!pos) {
     pos = data.length
   }

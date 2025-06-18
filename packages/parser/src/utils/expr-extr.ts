@@ -4,23 +4,24 @@
  * and return its text without the enclosing brackets.
  * Does not works with comments, but supports ES6 template strings.
  */
-import skipES6TL, { $_ES6_BQ } from './skip-es6-tl'
-import { unclosedExpression, unexpectedCharInExpression } from '../messages'
-import escapeStr from './escape-str'
-import panic from './panic'
-import skipRegex from './skip-regex'
+import skipES6TL, { $_ES6_BQ } from './skip-es6-tl.js'
+import { unclosedExpression, unexpectedCharInExpression } from '../messages.js'
+import escapeStr from './escape-str.js'
+import panic from './panic.js'
+import skipRegex from './skip-regex.js'
+
 /**
  * @exports exprExtr
  */
 const S_SQ_STR = /'[^'\n\r\\]*(?:\\(?:\r\n?|[\S\s])[^'\n\r\\]*)*'/.source
+
 /**
  * Matches double quoted JS strings taking care about nested quotes
  * and EOLs (escaped EOLs are Ok).
- *
- * @const
  * @private
  */
 const S_STRING = `${S_SQ_STR}|${S_SQ_STR.replace(/'/g, '"')}`
+
 /**
  * Regex cache
  *
@@ -28,15 +29,13 @@ const S_STRING = `${S_SQ_STR}|${S_SQ_STR.replace(/'/g, '"')}`
  * @const
  * @private
  */
-const reBr = {}
+const reBr: { [s: string]: RegExp } = {}
+
 /**
  * Makes an optimal regex that matches quoted strings, brackets, backquotes
  * and the closing brackets of an expression.
- *
- * @param   {string} b - Closing brackets
- * @returns {RegExp} - optimized regex
  */
-function _regex(b) {
+function _regex(b: string): RegExp {
   let re = reBr[b]
   if (!re) {
     let s = escapeStr(b)
@@ -51,17 +50,17 @@ function _regex(b) {
 }
 
 /**
- * Update the scopes stack removing or adding closures to it
- * @param   {Array} stack - array stacking the expression closures
- * @param   {string} char - current char to add or remove from the stack
- * @param   {string} idx  - matching index
- * @param   {string} code - expression code
- * @returns {Object} result
- * @returns {Object} result.char - either the char received or the closing braces
- * @returns {Object} result.index - either a new index to skip part of the source code,
- *                                  or 0 to keep from parsing from the old position
+ * Update the scopes stack removing or adding closures to it.
  */
-function updateStack(stack, char, idx, code) {
+function updateStack(
+  stack: any[],
+  char: string,
+  idx: number,
+  code: string,
+): {
+  char: string
+  index: number
+} {
   let index = 0
 
   switch (char) {
@@ -93,15 +92,16 @@ function updateStack(stack, char, idx, code) {
 /**
  * Parses the code string searching the end of the expression.
  * It skips braces, quoted strings, regexes, and ES6 template literals.
- *
- * @function exprExtr
- * @param   {string}  code  - Buffer to parse
- * @param   {number}  start - Position of the opening brace
- * @param   {[string,string]} bp - Brackets pair
- * @returns {Object} Expression's end (after the closing brace) or -1
- *                            if it is not an expr.
  */
-export default function exprExtr(code, start, bp) {
+export default function exprExtr(
+  code: string,
+  start: number,
+  bp: [string, string],
+): {
+  end: number
+  text: string
+  start: number
+} {
   const [openingBraces, closingBraces] = bp
   const offset = start + openingBraces.length // skips the opening brace
   const stack = [] // expected closing braces ('`' for ES6 TL)

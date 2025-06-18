@@ -18,7 +18,7 @@
  * Throws on unclosed tags or closing tags without start tag.
  * Selfclosing and void tags has no nodes[] property.
  */
-import { COMMENT, TAG, TEXT } from './node-types'
+import { COMMENT, TAG, TEXT } from './node-types.js'
 import {
   CSS_OUTPUT_NAME,
   IS_RAW,
@@ -28,44 +28,43 @@ import {
   JAVASCRIPT_TAG,
   STYLE_TAG,
   TEMPLATE_OUTPUT_NAME,
-} from './constants'
-import { RAW_TAGS } from './regex'
-import { duplicatedNamedTag } from './messages'
-import panic from './utils/panic'
+} from './constants.js'
+import { RAW_TAGS } from './regex.js'
+import { duplicatedNamedTag } from './messages.js'
+import panic from './utils/panic.js'
+import { Attribute, Builder, ParserState, TagNode } from './types.js'
 
 /**
- * Escape the carriage return and the line feed from a string
- * @param   {string} string - input string
- * @returns {string} output string escaped
+ * Escape the carriage return and the line feed from a string.
  */
-function escapeReturn(string) {
+function escapeReturn(string: string): string {
   return string.replace(/\r/g, '\\r').replace(/\n/g, '\\n')
 }
 
 // check whether a tag has the 'src' attribute set like for example `<script src="">`
-const hasSrcAttribute = (node) =>
-  (node.attributes || []).some((attr) => attr.name === 'src')
+const hasSrcAttribute = (node: TagNode) =>
+  (node.attributes || []).some((attr: { name: string }) => attr.name === 'src')
 
 /**
- * Escape double slashes in a string
- * @param   {string} string - input string
- * @returns {string} output string escaped
+ * Escape double slashes in a string.
  */
-function escapeSlashes(string) {
+function escapeSlashes(string: string): string {
   return string.replace(/\\/g, '\\\\')
 }
 
 /**
- * Replace the multiple spaces with only one
- * @param   {string} string - input string
- * @returns {string} string without trailing spaces
+ * Replace the multiple spaces with only one.
  */
-function cleanSpaces(string) {
+function cleanSpaces(string: string): string {
   return string.replace(/\s+/g, ' ')
 }
 
-const TREE_BUILDER_STRUCT = Object.seal({
-  get() {
+const TREE_BUILDER_STRUCT: Builder = Object.seal({
+  get(): {
+    [TEMPLATE_OUTPUT_NAME]: ParserState
+    [CSS_OUTPUT_NAME]: string
+    [JAVASCRIPT_OUTPUT_NAME]: string
+  } {
     const store = this.store
     // The real root tag is in store.root.nodes[0]
     return {
@@ -80,7 +79,7 @@ const TREE_BUILDER_STRUCT = Object.seal({
    * @param {Object} node - Raw pseudo-node from the parser
    * @returns {undefined} void function
    */
-  push(node) {
+  push(node: ParserState): void {
     const store = this.store
 
     switch (node.type) {
@@ -96,7 +95,7 @@ const TREE_BUILDER_STRUCT = Object.seal({
         const [firstChar] = name
 
         if (firstChar === closingTagChar && !node.isVoid) {
-          this.closeTag(store, node, name)
+          this.closeTag(store, node)
         } else if (firstChar !== closingTagChar) {
           this.openTag(store, node)
         }
@@ -104,13 +103,13 @@ const TREE_BUILDER_STRUCT = Object.seal({
       }
     }
   },
-  pushComment(store, node) {
+  pushComment(store: Builder['store'], node: ParserState) {
     const parent = store.last
 
     parent.nodes.push(node)
   },
-  closeTag(store, node) {
-    const last = store.scryle || store.last
+  closeTag(store: Builder['store'], node: ParserState) {
+    const last = (store.scryle as ParserState) || store.last
 
     last.end = node.end
 
@@ -124,7 +123,7 @@ const TREE_BUILDER_STRUCT = Object.seal({
     }
   },
 
-  openTag(store, node) {
+  openTag(store: Builder['store'], node: TagNode) {
     const name = node.name
     const attrs = node.attributes
     const isCoreTag =
@@ -166,14 +165,14 @@ const TREE_BUILDER_STRUCT = Object.seal({
       this.attrs(attrs)
     }
   },
-  attrs(attributes) {
-    attributes.forEach((attr) => {
+  attrs(attributes: Attribute[]) {
+    attributes.forEach((attr: { value: any; valueStart: any }) => {
       if (attr.value) {
         this.split(attr, attr.value, attr.valueStart, true)
       }
     })
   },
-  pushText(store, node) {
+  pushText(store: Builder['store'], node: ParserState) {
     const text = node.text
     const scryle = store.scryle
     if (!scryle) {
@@ -181,24 +180,24 @@ const TREE_BUILDER_STRUCT = Object.seal({
       const parent = store.last
 
       const pack = this.compact && !parent[IS_RAW]
-      const empty = !/\S/.test(text)
+      const empty = !/\S/.test(text as string)
       if (pack && empty) {
         return
       }
       this.split(node, text, node.start, pack)
       parent.nodes.push(node)
     } else {
-      scryle.text = node
+      ;(scryle as ParserState).text = node
     }
   },
-  split(node, source, start, pack) {
+  split(node: Builder['store'], source: string, start: number, pack: any) {
     const expressions = node.expressions
     const parts = []
 
     if (expressions) {
       let pos = 0
 
-      expressions.forEach((expr) => {
+      expressions.forEach((expr: { start: number; text: any; end: number }) => {
         const text = source.slice(pos, expr.start - start)
         const code = expr.text
         parts.push(
@@ -218,7 +217,7 @@ const TREE_BUILDER_STRUCT = Object.seal({
     node.parts = parts.filter((p) => p) // remove the empty strings
   },
   // unescape escaped brackets and split prefixes of expressions
-  sanitise(node, text, pack) {
+  sanitise(node: Builder['store'], text: string, pack: any) {
     let rep = node.unescape
     if (rep) {
       let idx = 0
@@ -233,9 +232,12 @@ const TREE_BUILDER_STRUCT = Object.seal({
 
     return pack ? cleanSpaces(text) : escapeReturn(text)
   },
-})
+} as any as Builder)
 
-export default function createTreeBuilder(data, options) {
+export default function createTreeBuilder(
+  data: any,
+  options: { compact: boolean },
+): typeof TREE_BUILDER_STRUCT {
   const root = {
     type: TAG,
     name: '',

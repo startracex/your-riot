@@ -1,5 +1,12 @@
 {
   "excludes": ["node_modules", "dist", "test"],
+  "includes": [
+    "**/*.ts",
+    "**/*.js",
+    "**/package.json",
+    "dprint.json",
+    "turbo.json"
+  ],
   "prettier": {
     "semi": false,
     "tabWidth": 2,

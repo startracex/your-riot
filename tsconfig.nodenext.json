@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "allowJs": false,
+    "skipDefaultLibCheck": true,
+    "skipLibCheck": true,
+    "noImplicitThis": true,
+    "experimentalDecorators": true,
+    "useDefineForClassFields": false,
+    "allowImportingTsExtensions": true,
+    "allowSyntheticDefaultImports": true,
+    "declaration": true,
+    "declarationMap": true,
+    "isolatedDeclarations": true,
+    "emitDeclarationOnly": true,
+  },
+}

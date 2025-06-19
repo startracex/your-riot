@@ -1,23 +1,9 @@
-import { globSync } from 'glob'
+import pkg from './package.json'
 import { defineConfig } from 'rolldown'
+import { inputGlob, outputs, packageDependencies } from '../../rolldown.config'
 
 export default defineConfig({
-  input: globSync(['src/**/*.ts'], {
-    ignore: '**/*.spec.js',
-  }),
-  output: [
-    {
-      dir: 'dist/module',
-      format: 'esm',
-      preserveModules: true,
-      sourcemap: true,
-    },
-    {
-      dir: 'dist/node',
-      format: 'cjs',
-      entryFileNames: () => '[name].cjs',
-      preserveModules: true,
-      sourcemap: true,
-    },
-  ],
+  input: inputGlob('src/**/*.ts'),
+  external: packageDependencies(pkg),
+  output: outputs,
 })

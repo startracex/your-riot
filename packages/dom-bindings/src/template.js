@@ -1,8 +1,8 @@
 import { cleanNode, clearChildren, removeChild } from '@your-riot/utils/dom'
 import { IS_PURE_SYMBOL } from '@your-riot/utils/constants'
 import createBinding from './binding.js'
-import createDOMTree from './util/create-DOM-tree.js'
-import injectDOM from './util/inject-DOM.js'
+import createDOMTree from './util/create-dom-tree.js'
+import injectDOM from './util/inject-dom.js'
 import { isTemplate } from '@your-riot/utils/checks'
 import { panic } from '@your-riot/utils/misc'
 

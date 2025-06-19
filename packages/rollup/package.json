@@ -4,7 +4,7 @@
   "type": "module",
   "description": "Rollup plugin for Riot.js",
   "scripts": {
-    "build": "rolldown -c rolldown.config.ts",
+    "build": "tsc && rolldown -c rolldown.config.ts",
     "test": "npm run lint && npm run mocha",
     "mocha": "mocha test/*.js"
   },

@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "description": "Riot.js util functions",
   "scripts": {
-    "build": "rolldown -c rolldown.config.ts",
+    "build": "tsc && rolldown -c rolldown.config.ts",
     "test": "mocha -r jsdom-global/register **/*.spec.js"
   },
   "type": "module",

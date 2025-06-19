@@ -1,5 +1,5 @@
 import { compile, type CompilerOptions } from '@your-riot/compiler'
-import { getFilter } from './helper'
+import { getFilter } from './helper.js'
 import type { ParserOutput } from '@your-riot/parser'
 import type { FilterPattern } from '@rollup/pluginutils'
 

@@ -24,18 +24,22 @@ export const packageDependencies = (pkg: any): RegExp[] => {
     .flat()
 }
 
+const commonOutput: OutputOptions = {
+  preserveModules: true,
+  sourcemap: true,
+  minify: true,
+}
+
 export const outputs: OutputOptions[] = [
   {
     dir: 'dist/module',
     format: 'esm',
-    preserveModules: true,
-    sourcemap: true,
+    ...commonOutput,
   },
   {
     dir: 'dist/node',
     format: 'cjs',
-    entryFileNames: () => '[name].cjs',
-    preserveModules: true,
-    sourcemap: true,
+    entryFileNames: '[name].cjs',
+    ...commonOutput,
   },
 ]

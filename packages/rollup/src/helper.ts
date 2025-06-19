@@ -6,9 +6,9 @@ const justExt = (file) => {
 }
 
 export function getFilter(opts?: {
-  include: FilterPattern
-  exclude: FilterPattern
-  ext: string | string[]
+  include?: FilterPattern
+  exclude?: FilterPattern
+  ext?: string | string[]
 }): (id: string | unknown) => boolean {
   const filter = createFilter(opts.include, opts.exclude)
 

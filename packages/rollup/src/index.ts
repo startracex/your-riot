@@ -5,9 +5,9 @@ import type { FilterPattern } from '@rollup/pluginutils'
 
 function riot(
   options?: CompilerOptions & {
-    include: FilterPattern
-    exclude: FilterPattern
-    ext: string | string[]
+    include?: FilterPattern
+    exclude?: FilterPattern
+    ext?: string | string[]
   },
 ): {
   name: 'riot-plugin'

@@ -16,7 +16,6 @@
     "curri": "^2.0.3"
   },
   "devDependencies": {
-    "@riotjs/prettier-config": "^1.1.0",
     "@riotjs/register": "^9.1.0",
     "@rollup/plugin-commonjs": "^28.0.3",
     "@rollup/plugin-node-resolve": "^16.0.1",

@@ -8,9 +8,9 @@
     "test": "mocha test/*.js"
   },
   "dependencies": {
+    "@rollup/pluginutils": "^5.2.0",
     "@your-riot/compiler": "workspace:^",
-    "@your-riot/parser": "workspace:*",
-    "@rollup/pluginutils": "^5.1.4"
+    "@your-riot/parser": "workspace:*"
   },
   "exports": {
     ".": {

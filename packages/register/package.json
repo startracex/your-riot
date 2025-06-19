@@ -21,15 +21,15 @@
   "keywords": [
     "riot"
   ],
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/startracex/your-riot.git"
-  },
   "devDependencies": {
     "@your-riot/compiler": "workspace:^"
   },
   "peerDependencies": {
     "@your-riot/compiler": "workspace:^"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/startracex/your-riot.git"
   },
   "author": "Gianluca Guarini <gianluca.guarini@gmail.com> (https://gianlucaguarini.com)",
   "license": "MIT"

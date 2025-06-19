@@ -32,8 +32,5 @@
     "@your-riot/compiler": "workspace:^"
   },
   "author": "Gianluca Guarini https://github.com/GianlucaGuarini",
-  "license": "MIT",
-  "dependencies": {
-    "@types/node": "^24.0.3"
-  }
+  "license": "MIT"
 }

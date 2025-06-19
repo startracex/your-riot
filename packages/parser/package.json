@@ -35,8 +35,7 @@
   },
   "files": [
     "src",
-    "dist",
-    "parser.d.ts"
+    "dist"
   ],
   "keywords": [
     "riot"

@@ -29,8 +29,7 @@
   },
   "files": [
     "src",
-    "dist",
-    "dom-bindings.d.ts"
+    "dist"
   ],
   "keywords": [
     "riot"

@@ -16,7 +16,7 @@
     "curri": "^2.0.3"
   },
   "devDependencies": {
-    "@riotjs/register": "^9.1.0",
+    "@your-riot/register": "workspace:^",
     "@rollup/plugin-commonjs": "^28.0.3",
     "@rollup/plugin-node-resolve": "^16.0.1",
     "@testing-library/user-event": "^14.6.1",

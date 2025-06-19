@@ -1,7 +1,7 @@
 {
   "name": "@your-riot/dom-bindings",
   "version": "0.0.0",
-  "description": "riot dom bindings",
+  "description": "Riot dom bindings",
   "scripts": {
     "cov": "c8 report --reporter=lcov",
     "cov-html": "c8 report --reporter=html",

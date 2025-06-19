@@ -1,3 +1,5 @@
 # @your-riot/dom-bindings
 
-riot dom-bindings
+Riot dom-bindings
+
+Original package: `@riotjs/dom-bindings`

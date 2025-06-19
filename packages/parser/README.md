@@ -1,3 +1,5 @@
 # @your-riot/parser
 
-riot parser
+Riot parser
+
+Original package: `@riotjs/parser`

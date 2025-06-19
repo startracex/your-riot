@@ -1,3 +1,5 @@
 # @your-riot/router
 
-riot router
+Riot router
+
+Original package: `@riotjs/route`

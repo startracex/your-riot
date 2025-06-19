@@ -1,12 +1,11 @@
 {
   "name": "@your-riot/rollup-plugin",
-  "version": "10.0.0-beta.2",
+  "version": "0.0.0",
   "type": "module",
-  "description": "Rollup plugin for Riot.js",
+  "description": "Rollup plugin for Riot",
   "scripts": {
     "build": "tsc && rolldown -c rolldown.config.ts",
-    "test": "npm run lint && npm run mocha",
-    "mocha": "mocha test/*.js"
+    "test": "mocha test/*.js"
   },
   "dependencies": {
     "@your-riot/compiler": "workspace:^",

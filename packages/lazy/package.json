@@ -1,7 +1,7 @@
 {
   "name": "@your-riot/lazy",
   "version": "0.0.0",
-  "description": "Lazy components loader for riot",
+  "description": "Lazy components loader for Riot",
   "scripts": {
     "build": "rolldown -c rolldown.config.ts",
     "test": "cross-env NODE_OPTIONS=\"--loader @your-riot/register\" c8 mocha -r jsdom-global/register test/index.js"

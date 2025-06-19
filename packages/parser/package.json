@@ -1,7 +1,7 @@
 {
   "name": "@your-riot/parser",
   "version": "0.0.0",
-  "description": "riot parser",
+  "description": "Riot parser",
   "scripts": {
     "test-types": "tsc -p test",
     "test": "c8 mocha ./test/index",

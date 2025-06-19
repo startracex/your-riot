@@ -1,7 +1,7 @@
 {
   "name": "@your-riot/router",
   "version": "0.0.0",
-  "description": "riot router",
+  "description": "Riot router",
   "scripts": {
     "build": "tsc && rolldown -c rolldown.config.ts",
     "cov": "c8 report --reporter=lcov",

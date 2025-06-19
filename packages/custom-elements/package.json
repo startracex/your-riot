@@ -1,7 +1,7 @@
 {
   "name": "@your-riot/custom-elements",
   "version": "0.0.0",
-  "description": "Simple API to create vanilla custom elements with riot",
+  "description": "Simple API to create vanilla custom elements with Riot",
   "scripts": {
     "build": "tsc && rolldown -c rolldown.config.ts"
   },

@@ -1,3 +1,5 @@
 # @your-riot/rollup-plugin
 
-Rollup Plugin for Riot
+Rollup plugin for Riot
+
+Original package: `rollup-plugin-riot`

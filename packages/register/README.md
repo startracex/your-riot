@@ -1,3 +1,5 @@
 # @your-riot/register
 
-riot node register
+Riot node register
+
+Original package: `@riotjs/register`

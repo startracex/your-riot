@@ -1,3 +1,5 @@
 # @your-riot/utils
 
-Riot.js util functions
+Riot utils
+
+Original package: `@riotjs/util`

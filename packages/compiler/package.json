@@ -1,7 +1,7 @@
 {
   "name": "@your-riot/compiler",
   "version": "0.0.0",
-  "description": "riot compiler",
+  "description": "Riot compiler",
   "scripts": {
     "lint": "eslint --ext js src/ test/ build/ && npx prettier --check ./",
     "cov": "c8 report --reporter=lcov",

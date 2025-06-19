@@ -1,7 +1,7 @@
 {
   "name": "@your-riot/utils",
   "version": "0.0.0",
-  "description": "Riot.js util functions",
+  "description": "Riot utils",
   "scripts": {
     "build": "tsc && rolldown -c rolldown.config.ts",
     "test": "mocha -r jsdom-global/register **/*.spec.js"

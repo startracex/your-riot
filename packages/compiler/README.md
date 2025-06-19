@@ -1,3 +1,5 @@
 # @your-riot/compiler
 
-riot compiler
+Riot compiler
+
+Original package: `@riotjs/compiler`

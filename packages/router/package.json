@@ -39,11 +39,8 @@
     "./package.json": "./package.json"
   },
   "files": [
-    "index.d.ts",
-    "index.js",
-    "index.umd.js",
-    "index.standalone.js",
-    "index.standalone.umd.js"
+    "src",
+    "dist"
   ],
   "keywords": [
     "riot",

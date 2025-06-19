@@ -1,19 +1,6 @@
 {
+  "extends":"../../tsconfig.nodenext.json",
   "compilerOptions": {
-    "target": "ESNext",
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext",
-    "lib": ["DOM", "DOM.Iterable", "ESNext"],
-    "allowJs": false,
-    "skipDefaultLibCheck": true,
-    "skipLibCheck": true,
-    "noImplicitThis": true,
-    "experimentalDecorators": true,
-    "useDefineForClassFields": false,
-    "allowSyntheticDefaultImports": true,
-    "declaration": true,
-    "isolatedDeclarations": true,
-    "emitDeclarationOnly": true,
     "outDir": "dist/types"
   },
   "include": ["src"]

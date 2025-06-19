@@ -1,5 +1,3 @@
-// Expressions
-
 export enum ExpressionType {
   ATTRIBUTE,
   EVENT,
@@ -174,24 +172,4 @@ export interface TemplateChunk<Scope = any, ParentScope = any> {
   children?: HTMLCollection
   dom?: HTMLElement
   el?: HTMLElement
-}
-
-// API
-export function template<Scope = any, ParentScope = any>(
-  template: string,
-  bindings?: BindingData<Scope>[],
-): TemplateChunk<Scope, ParentScope>
-export function createBinding<Scope = any>(
-  root: HTMLElement,
-  binding: BindingData<Scope>,
-  templateTagOffset?: number | null,
-): Binding<Scope>
-export function createExpression<Scope = any>(
-  node: HTMLElement,
-  expression: ExpressionData<Scope>,
-): Expression<Scope>
-
-export const bindingTypes: { [key in keyof typeof BindingType]: BindingType }
-export const expressionTypes: {
-  [key in keyof typeof ExpressionType]: ExpressionType
 }

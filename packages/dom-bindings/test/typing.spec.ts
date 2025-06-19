@@ -1,8 +1,5 @@
-import {
-  BindingType,
-  ExpressionType,
-  template,
-} from '../dom-bindings'
+import { BindingType, ExpressionType } from '../src/types'
+import template from '../src/template'
 
 template('<p>Hello</p>', [
   {

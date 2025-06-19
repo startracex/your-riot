@@ -1,0 +1,21 @@
+{
+  "name": "@your-riot/create",
+  "version": "0.0.0",
+  "description": "",
+  "type": "module",
+  "bin": {
+    "create": "dist/main.js"
+  },
+  "scripts": {
+    "build": "rolldown -c rolldown.config.ts"
+  },
+  "keywords": [
+    "riot"
+  ],
+  "author": "startracex",
+  "license": "MIT",
+  "dependencies": {
+    "commander": "^14.0.0",
+    "inquirer": "^12.6.3"
+  }
+}

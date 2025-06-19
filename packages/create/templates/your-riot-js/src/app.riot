@@ -1,0 +1,36 @@
+<app>
+  <p>{ props.message }</p>
+    <div>
+    <a href="https://vite.dev" target="_blank">
+      <img src="./vite.svg" class="logo" alt="Vite logo" />
+    </a>
+    <a href="https://riot.js.org/" target="_blank">
+      <img src="{riotLogo}" class="logo riot" alt="Riot logo" />
+    </a>
+    <hello msg="Vite + Riot"></hello>
+  </div>
+  <script>
+    import riotLogo from "./assets/riot.svg"
+    import hello from "./components/hello.riot"
+    export default {
+      riotLogo,
+      components: {
+        hello
+      }
+    }
+  </script>
+  <style>
+    .logo {
+      height: 6em;
+      padding: 1.5em;
+      will-change: filter;
+      transition: filter 300ms;
+    }
+    .logo:hover {
+      filter: drop-shadow(0 0 2em #646cffaa);
+    }
+    .logo.riot:hover {
+      filter: drop-shadow(0 0 2em #ed1846aa);
+    }
+  </style>
+</app>

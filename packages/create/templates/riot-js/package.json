@@ -1,0 +1,19 @@
+{
+  "name": "vite-your-riot",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "riot": "^9.4.9",
+    "roid": "^0.0.5"
+  },
+  "devDependencies": {
+    "rollup-plugin-riot": "^9.0.2",
+    "vite": "^6.3.5"
+  }
+}

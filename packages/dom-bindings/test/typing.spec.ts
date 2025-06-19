@@ -1,4 +1,8 @@
-import { BindingType, EachBindingData, ExpressionType, template } from '../dom-bindings'
+import {
+  BindingType,
+  ExpressionType,
+  template,
+} from '../dom-bindings'
 
 template('<p>Hello</p>', [
   {

@@ -9,7 +9,12 @@ import {
 import { PARENT_KEY_SYMBOL, IS_PURE_SYMBOL } from '@your-riot/utils/constants'
 import { IF, SIMPLE, EACH, TAG, SLOT } from '@your-riot/utils/binding-types'
 export { default as bindingTypes } from '@your-riot/utils/binding-types'
-import { ATTRIBUTE, EVENT, TEXT, VALUE } from '@your-riot/utils/expression-types'
+import {
+  ATTRIBUTE,
+  EVENT,
+  TEXT,
+  VALUE,
+} from '@your-riot/utils/expression-types'
 export { default as expressionTypes } from '@your-riot/utils/expression-types'
 import { defineProperty } from '@your-riot/utils/objects'
 import {

@@ -1,7 +1,4 @@
-import { createRequire } from 'module'
-const require = createRequire(import.meta.url)
-const entities = require('./entities.json')
-
+import entities from './entities.json'
 const HTMLEntityRe = /&(\S+);/g
 const HEX_NUMBER = /^[\da-fA-F]+$/
 const DECIMAL_NUMBER = /^\d+$/

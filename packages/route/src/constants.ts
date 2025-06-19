@@ -1,0 +1,10 @@
+export const WINDOW_EVENTS = 'popstate' as const
+export const CLICK_EVENT = 'click' as const
+export const DOWNLOAD_LINK_ATTRIBUTE = 'download' as const
+export const HREF_LINK_ATTRIBUTE = 'href' as const
+export const TARGET_SELF_LINK_ATTRIBUTE = '_self' as const
+export const LINK_TAG_NAME = 'A' as const
+export const HASH = '#' as const
+export const SLASH = '/' as const
+export const PATH_ATTRIBUTE = 'path' as const
+export const RE_ORIGIN: RegExp = /^.+?\/\/+[^/]+/

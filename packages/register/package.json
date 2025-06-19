@@ -31,6 +31,6 @@
   "peerDependencies": {
     "@your-riot/compiler": "workspace:^"
   },
-  "author": "Gianluca Guarini https://github.com/GianlucaGuarini",
+  "author": "Gianluca Guarini <gianluca.guarini@gmail.com> (https://gianlucaguarini.com)",
   "license": "MIT"
 }

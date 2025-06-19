@@ -44,10 +44,6 @@
     "type": "git",
     "url": "git+https://github.com/startracex/your-riot.git"
   },
-  "author": {
-    "name": "aMarCruz",
-    "email": "amarcruz@yahoo.com",
-    "url": "https://github.com/aMarCruz"
-  },
+  "author": "aMarCruz <amarcruz@yahoo.com> (https://github.com/aMarCruz)",
   "license": "MIT"
 }

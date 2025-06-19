@@ -1,16 +1,16 @@
 <same-route-matches>
-  <router>
+  <routes>
     <route path="(.*)">
       <p>{state.message}</p>
     </route>
-  </router>
+  </routes>
 
   <script>
-    import { Router, Route } from '../../dist/module/index.js'
+    import { Routes, Route } from '../../dist/module/index.js'
 
     export default {
       components: {
-        Router,
+        Routes,
         Route,
       },
       state: {

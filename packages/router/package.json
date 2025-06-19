@@ -1,5 +1,5 @@
 {
-  "name": "@your-riot/route",
+  "name": "@your-riot/router",
   "version": "0.0.0",
   "description": "riot router",
   "scripts": {

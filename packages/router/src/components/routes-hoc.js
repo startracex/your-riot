@@ -9,8 +9,8 @@ const BASE_ATTRIBUTE_NAME = 'base'
 const INITIAL_ROUTE = 'initialRoute'
 const ON_STARTED_ATTRIBUTE_NAME = 'onStarted'
 
-export const routerHoc = ({ slots, attributes, props }) => {
-  if (routerHoc.wasInitialized)
+export const routesHoc = ({ slots, attributes, props }) => {
+  if (routesHoc.wasInitialized)
     panic('Multiple <router> components are not supported')
 
   return {
@@ -27,7 +27,7 @@ export const routerHoc = ({ slots, attributes, props }) => {
         this.createSlot(context)
         router.off.value(onFirstRoute)
       }
-      routerHoc.wasInitialized = true
+      routesHoc.wasInitialized = true
 
       this.el = el
       this.teardown = initDomListeners(this.root)
@@ -79,7 +79,7 @@ export const routerHoc = ({ slots, attributes, props }) => {
     },
     unmount(...args) {
       this.teardown()
-      routerHoc.wasInitialized = false
+      routesHoc.wasInitialized = false
 
       if (this.slot) {
         this.slot.unmount(...args)
@@ -99,4 +99,4 @@ export const routerHoc = ({ slots, attributes, props }) => {
 }
 
 // flag to avoid multiple router instances
-routerHoc.wasInitialized = false
+routesHoc.wasInitialized = false

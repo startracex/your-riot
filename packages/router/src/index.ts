@@ -2,7 +2,7 @@ import { RiotComponent, RiotComponentWrapper } from '@your-riot/riot'
 // @ts-ignore
 import _Route from './components/route-hoc.riot'
 // @ts-ignore
-import _Router from './components/router-hoc.riot'
+import _Routes from './components/routes-hoc.riot'
 import { URLWithParams } from 'rawth'
 
 const Route: RiotComponentWrapper<
@@ -15,12 +15,12 @@ const Route: RiotComponentWrapper<
   }>
 > = _Route
 
-const Router: RiotComponentWrapper<
+const Routes: RiotComponentWrapper<
   RiotComponent<{
     base?: string
     'initial-route'?: string
     'on-started'?: (route: string) => void
   }>
-> = _Router
+> = _Routes
 
-export { Router, Route }
+export { Routes, Route }

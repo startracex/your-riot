@@ -1,15 +1,15 @@
 <computed-routes>
-  <router>
+  <routes>
     <route path={state.home}>
       <p>{state.name}</p>
     </route>
-  </router>
+  </routes>
   <script>
-    import { Router, Route } from '../../dist/module/index.js'
+    import { Routes, Route } from '../../dist/module/index.js'
 
     export default {
       components: {
-        Router,
+        Routes,
         Route,
       },
       state: {

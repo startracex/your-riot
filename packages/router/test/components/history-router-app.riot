@@ -1,6 +1,6 @@
-<spread-props-router>
+<history-routes-app>
   <h1>{state.message}</h1>
-  <router {...props} on-started={onStarted}>
+  <routes base={props.base} on-started={onStarted}>
     <route path="/">
       <p>Hello</p>
     </route>
@@ -9,15 +9,15 @@
     })}>
       <user name={route.params.user}/>
     </route>
-  </router>
+  </routes>
 
   <script>
-    import { Router, Route } from '../../dist/module/index.js'
+    import { Routes, Route } from '../../dist/module/index.js'
     import User from './user.riot'
 
     export default {
       components: {
-        Router,
+        Routes,
         Route,
         User,
       },
@@ -30,4 +30,4 @@
       }
     }
   </script>
-</spread-props-router>
+</history-routes-app>

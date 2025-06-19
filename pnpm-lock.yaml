@@ -317,7 +317,7 @@ importers:
         specifier: workspace:*
         version: link:../parser
 
-  packages/route:
+  packages/router:
     dependencies:
       '@riotjs/register':
         specifier: ^9.1.0

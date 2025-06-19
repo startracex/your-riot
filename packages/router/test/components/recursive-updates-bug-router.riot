@@ -1,17 +1,17 @@
 <recursive-updates-bug-router>
-  <router base={props.base}>
+  <routes base={props.base}>
     <route path="/">
       <recursive-updates-bug148 message={state.message} callbacks={state.callbacks}>
     </route>
-  </router>
+  </routes>
 
   <script>
-    import { Router, Route } from '../../dist/module/index.js'
+    import { Routes, Route } from '../../dist/module/index.js'
     import RecursiveUpdatesBug148 from './recursive-updates-bug148.riot'
 
     export default {
       components: {
-        Router,
+        Routes,
         Route,
         RecursiveUpdatesBug148
       },

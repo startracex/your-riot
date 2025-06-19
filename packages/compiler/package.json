@@ -12,8 +12,7 @@
     "test-runtime": "playwright test",
     "test-commonjs": "c8 mocha test/**/*.spec.cjs",
     "test": "c8 mocha test/**/*.spec.js && npm run test-types",
-    "debug": "mocha --inspect --inspect-brk test/**/*.spec.js",
-    "prepublishOnly": "npm run build && npm run lint && npm run test && npm run test-commonjs && npm run test-runtime"
+    "debug": "mocha --inspect --inspect-brk test/**/*.spec.js"
   },
   "dependencies": {
     "@babel/parser": "^7.27.5",

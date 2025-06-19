@@ -6,7 +6,7 @@
     "build": "tsc && rolldown -c rolldown.config.ts",
     "cov": "c8 report --reporter=lcov",
     "cov-html": "c8 report --reporter=html",
-    "test": "c8 mocha -r test/setup.js test/*.spec.js"
+    "test": "c8 mocha -r tests/setup.js tests/*.spec.js"
   },
   "dependencies": {
     "@riotjs/register": "^9.1.0",

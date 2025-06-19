@@ -9,6 +9,11 @@
   "scripts": {
     "build": "rolldown -c rolldown.config.ts"
   },
+  "files": [
+    "src",
+    "dist",
+    "templates"
+  ],
   "keywords": [
     "riot"
   ],

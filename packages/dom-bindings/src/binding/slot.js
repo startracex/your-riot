@@ -24,17 +24,32 @@ const findSlotById = (id, slots) => slots?.find((slot) => slot.id === id)
 const getRealParent = (scope, parentScope) =>
   scope[PARENT_KEY_SYMBOL] || parentScope
 
-export const SlotBinding = {
-  // dynamic binding properties
-  // node: null,
-  // name: null,
-  attributes: [],
-  // templateData: null,
-  // template: null,
+/**
+ * Move the inner content of the slots outside of them
+ * @param   {HTMLElement} slot - slot node
+ * @returns {undefined} it's a void method ¯\_(ツ)_/¯
+ */
+function moveSlotInnerContent(slot) {
+  const child = slot && slot.firstChild
+
+  if (!child) return
+
+  insertBefore(child, slot)
+  moveSlotInnerContent(slot)
+}
+
+export class SlotBinding {
+  constructor(node, { name, attributes, template }) {
+    this.node = node
+    this.name = name
+    this.attributes = attributes || []
+    this.template = template
+    this.templateData = null
+  }
 
   getTemplateScope(scope, parentScope) {
     return extendParentScope(this.attributes, scope, parentScope)
-  },
+  }
 
   // API methods
   mount(scope, parentScope) {
@@ -74,7 +89,8 @@ export const SlotBinding = {
     removeChild(this.node)
 
     return this
-  },
+  }
+
   update(scope, parentScope) {
     if (this.template) {
       const realParent = this.templateData
@@ -85,7 +101,8 @@ export const SlotBinding = {
     }
 
     return this
-  },
+  }
+
   unmount(scope, parentScope, mustRemoveRoot) {
     if (this.template) {
       this.template.unmount(
@@ -96,36 +113,16 @@ export const SlotBinding = {
     }
 
     return this
-  },
+  }
 }
 
 /**
- * Move the inner content of the slots outside of them
- * @param   {HTMLElement} slot - slot node
- * @returns {undefined} it's a void method ¯\_(ツ)_/¯
- */
-function moveSlotInnerContent(slot) {
-  const child = slot && slot.firstChild
-
-  if (!child) return
-
-  insertBefore(child, slot)
-  moveSlotInnerContent(slot)
-}
-
-/**
- * Create a single slot binding
+ * Create a single slot binding instance
  * @param   {HTMLElement} node - slot node
  * @param   {string} name - slot id
  * @param   {AttributeExpressionData[]} attributes - slot attributes
- * @returns {Object} Slot binding object
+ * @returns {SlotBinding} Slot binding instance
  */
-export default function createSlot(node, { name, attributes, template }) {
-  return {
-    ...SlotBinding,
-    attributes,
-    template,
-    node,
-    name,
-  }
+export default function createSlot(node, options) {
+  return new SlotBinding(node, options)
 }

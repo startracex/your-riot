@@ -6,63 +6,6 @@ import udomdiff from '../utils/udomdiff.js'
 
 const UNMOUNT_SCOPE = Symbol('unmount')
 
-export const EachBinding = {
-  // dynamic binding properties
-  // childrenMap: null,
-  // node: null,
-  // root: null,
-  // condition: null,
-  // evaluate: null,
-  // template: null,
-  // isTemplateTag: false,
-  nodes: [],
-  // getKey: null,
-  // indexName: null,
-  // itemName: null,
-  // afterPlaceholder: null,
-  // placeholder: null,
-
-  // API methods
-  mount(scope, parentScope) {
-    return this.update(scope, parentScope)
-  },
-  update(scope, parentScope) {
-    const { placeholder, nodes, childrenMap } = this
-    const collection = scope === UNMOUNT_SCOPE ? null : this.evaluate(scope)
-    const items = collection ? Array.from(collection) : []
-
-    // prepare the diffing
-    const { newChildrenMap, batches, futureNodes } = createPatch(
-      items,
-      scope,
-      parentScope,
-      this,
-    )
-
-    // patch the DOM only if there are new nodes
-    udomdiff(
-      nodes,
-      futureNodes,
-      patch(Array.from(childrenMap.values()), parentScope),
-      placeholder,
-    )
-
-    // trigger the mounts and the updates
-    batches.forEach((fn) => fn())
-
-    // update the children map
-    this.childrenMap = newChildrenMap
-    this.nodes = futureNodes
-
-    return this
-  },
-  unmount(scope, parentScope) {
-    this.update(UNMOUNT_SCOPE, parentScope)
-
-    return this
-  },
-}
-
 /**
  * Patch the DOM while diffing
  * @param   {any[]} redundant - list of all the children (template, nodes, context) added via each
@@ -207,28 +150,73 @@ function createPatch(items, scope, parentScope, binding) {
   }
 }
 
-export default function create(
-  node,
-  { evaluate, condition, itemName, indexName, getKey, template },
-) {
-  const placeholder = document.createTextNode('')
-  const root = node.cloneNode()
-
-  insertBefore(placeholder, node)
-  removeChild(node)
-
-  return {
-    ...EachBinding,
-    childrenMap: new Map(),
+export class EachBinding {
+  constructor(
     node,
-    root,
-    condition,
-    evaluate,
-    isTemplateTag: isTemplate(root),
-    template: template.createDOM(node),
-    getKey,
-    indexName,
-    itemName,
-    placeholder,
+    { evaluate, condition, itemName, indexName, getKey, template },
+  ) {
+    const placeholder = document.createTextNode('')
+    const root = node.cloneNode()
+
+    insertBefore(placeholder, node)
+    removeChild(node)
+
+    this.childrenMap = new Map()
+    this.node = node
+    this.root = root
+    this.condition = condition
+    this.evaluate = evaluate
+    this.template = template.createDOM(node)
+    this.isTemplateTag = isTemplate(root)
+    this.nodes = []
+    this.getKey = getKey
+    this.indexName = indexName
+    this.itemName = itemName
+    this.placeholder = placeholder
   }
+
+  mount(scope, parentScope) {
+    return this.update(scope, parentScope)
+  }
+
+  update(scope, parentScope) {
+    const { placeholder, nodes, childrenMap } = this
+    const collection = scope === UNMOUNT_SCOPE ? null : this.evaluate(scope)
+    const items = collection ? Array.from(collection) : []
+
+    // prepare the diffing
+    const { newChildrenMap, batches, futureNodes } = createPatch(
+      items,
+      scope,
+      parentScope,
+      this,
+    )
+
+    // patch the DOM only if there are new nodes
+    udomdiff(
+      nodes,
+      futureNodes,
+      patch(Array.from(childrenMap.values()), parentScope),
+      placeholder,
+    )
+
+    // trigger the mounts and the updates
+    batches.forEach((fn) => fn())
+
+    // update the children map
+    this.childrenMap = newChildrenMap
+    this.nodes = futureNodes
+
+    return this
+  }
+
+  unmount(scope, parentScope) {
+    this.update(UNMOUNT_SCOPE, parentScope)
+
+    return this
+  }
+}
+
+export default function create(node, options) {
+  return new EachBinding(node, options)
 }

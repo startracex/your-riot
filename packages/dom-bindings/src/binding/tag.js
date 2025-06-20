@@ -10,17 +10,13 @@ import template from '../template.js'
  * @returns {TagImplementation|TemplateChunk} a tag implementation or a template chunk as fallback
  */
 function getTag(component, slots = [], attributes = []) {
-  // if this tag was registered before we will return its implementation
   if (component) {
     return component({ slots, attributes })
   }
 
-  // otherwise we return a template chunk
   return template(slotsToMarkup(slots), [
     ...slotBindings(slots),
     {
-      // the attributes should be registered as binding
-      // if we fallback to a normal template chunk
       expressions: attributes.map((attr) => {
         return {
           type: ATTRIBUTE,
@@ -51,57 +47,47 @@ function slotsToMarkup(slots) {
   }, '')
 }
 
-export const TagBinding = {
-  // dynamic binding properties
-  // node: null,
-  // evaluate: null,
-  // name: null,
-  // slots: null,
-  // tag: null,
-  // attributes: null,
-  // getComponent: null,
+export class TagBinding {
+  constructor(node, options) {
+    const { evaluate, getComponent, slots, attributes } = options
+    this.node = node
+    this.evaluate = evaluate
+    this.slots = slots || []
+    this.attributes = attributes || []
+    this.getComponent = getComponent
+    this.name = null
+    this.tag = null
+  }
 
   mount(scope) {
     return this.update(scope)
-  },
+  }
+
   update(scope, parentScope) {
     const name = this.evaluate(scope)
 
-    // simple update
     if (name && name === this.name) {
       this.tag.update(scope)
     } else {
-      // unmount the old tag if it exists
       this.unmount(scope, parentScope, true)
 
-      // mount the new tag
       this.name = name
       this.tag = getTag(this.getComponent(name), this.slots, this.attributes)
       this.tag.mount(this.node, scope)
     }
 
     return this
-  },
+  }
+
   unmount(scope, parentScope, keepRootTag) {
     if (this.tag) {
-      // keep the root tag
       this.tag.unmount(keepRootTag)
     }
 
     return this
-  },
+  }
 }
 
-export default function create(
-  node,
-  { evaluate, getComponent, slots, attributes },
-) {
-  return {
-    ...TagBinding,
-    node,
-    evaluate,
-    slots,
-    attributes,
-    getComponent,
-  }
+export default function create(node, options) {
+  return new TagBinding(node, options)
 }

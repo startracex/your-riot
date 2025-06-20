@@ -3,25 +3,30 @@ import { insertBefore, removeChild } from '@your-riot/utils/dom'
 /**
  * Binding responsible for the `if` directive
  */
-export const IfBinding = {
-  // dynamic binding properties
-  // node: null,
-  // evaluate: null,
-  // isTemplateTag: false,
-  // placeholder: null,
-  // template: null,
+export class IfBinding {
+  constructor(node, { evaluate, template }) {
+    this.node = node
+    this.evaluate = evaluate
+    this.isTemplateTag = node.tagName === 'TEMPLATE'
+    this.placeholder = document.createTextNode('')
+    this.template = template.createDOM(node)
+    this.value = undefined
 
-  // API methods
+    insertBefore(this.placeholder, node)
+    removeChild(node)
+  }
+
   mount(scope, parentScope) {
     return this.update(scope, parentScope)
-  },
+  }
+
   update(scope, parentScope) {
     const value = !!this.evaluate(scope)
     const mustMount = !this.value && value
     const mustUnmount = this.value && !value
+
     const mount = () => {
       const pristine = this.node.cloneNode()
-
       insertBefore(pristine, this.placeholder)
       this.template = this.template.clone()
       this.template.mount(pristine, scope, parentScope)
@@ -32,34 +37,22 @@ export const IfBinding = {
         mount()
         break
       case mustUnmount:
-        this.unmount(scope)
+        this.unmount(scope, parentScope)
         break
       default:
         if (value) this.template.update(scope, parentScope)
     }
 
     this.value = value
-
     return this
-  },
+  }
+
   unmount(scope, parentScope) {
     this.template.unmount(scope, parentScope, true)
-
     return this
-  },
+  }
 }
 
-export default function create(node, { evaluate, template }) {
-  const placeholder = document.createTextNode('')
-
-  insertBefore(placeholder, node)
-  removeChild(node)
-
-  return {
-    ...IfBinding,
-    node,
-    evaluate,
-    placeholder,
-    template: template.createDOM(node),
-  }
+export default function create(node, options) {
+  return new IfBinding(node, options)
 }

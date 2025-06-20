@@ -17,11 +17,14 @@ export const inputGlob = (...paths: string[]) => {
 }
 
 export const packageDependencies = (pkg: any): RegExp[] => {
-  return ['dependencies', 'peerDependencies']
-    .map((key) =>
-      Object.keys(pkg[key] || {}).map((dep) => new RegExp(`^${dep}`)),
-    )
-    .flat()
+  return [
+    /^node:/,
+    ...['dependencies', 'peerDependencies']
+      .map((key) =>
+        Object.keys(pkg[key] || {}).map((dep) => new RegExp(`^${dep}`)),
+      )
+      .flat(),
+  ]
 }
 
 const commonOutput: OutputOptions = {
@@ -34,12 +37,14 @@ export const outputs: OutputOptions[] = [
   {
     dir: 'dist/module',
     format: 'esm',
+    exports: 'named',
     ...commonOutput,
   },
   {
     dir: 'dist/node',
     format: 'cjs',
     entryFileNames: '[name].cjs',
+    exports: 'named',
     ...commonOutput,
   },
 ]

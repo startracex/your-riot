@@ -41,3 +41,5 @@ jobs:
       - name: Publish
         run: |
           pnpm -r publish
+        env:
+          NPM_CONFIG_PROVENANCE: true

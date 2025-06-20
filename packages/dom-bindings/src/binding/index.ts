@@ -5,10 +5,17 @@ import SimpleBinding from './simple.js'
 import SlotBinding from './slot.js'
 import TagBinding from './tag.js'
 
-export default {
+const _default_1: {
+  1: typeof IfBinding
+  2: typeof SimpleBinding
+  0: typeof EachBinding
+  3: typeof TagBinding
+  4: typeof SlotBinding
+} = {
   [IF]: IfBinding,
   [SIMPLE]: SimpleBinding,
   [EACH]: EachBinding,
   [TAG]: TagBinding,
   [SLOT]: SlotBinding,
 }
+export default _default_1

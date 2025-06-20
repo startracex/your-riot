@@ -11,10 +11,17 @@ import textExpression from './text.js'
 import valueExpression from './value.js'
 import refExpression from './ref.js'
 
-export default {
+const _default_1: {
+  0: any
+  1: typeof eventExpression
+  2: typeof textExpression
+  3: typeof valueExpression
+  4: typeof refExpression
+} = {
   [ATTRIBUTE]: attributeExpression,
   [EVENT]: eventExpression,
   [TEXT]: textExpression,
   [VALUE]: valueExpression,
   [REF]: refExpression,
 }
+export default _default_1

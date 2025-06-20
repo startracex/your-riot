@@ -2,12 +2,9 @@ import { isSvg, isTemplate } from '@your-riot/utils/checks'
 import { moveChildren } from '@your-riot/utils/dom'
 
 /**
- * Inject the DOM tree into a target node
- * @param   {HTMLElement} el - target element
- * @param   {DocumentFragment|SVGElement} dom - dom tree to inject
- * @returns {undefined}
+ * Inject the DOM tree into a target node.
  */
-export default function injectDOM(el, dom) {
+export default function injectDOM(el: HTMLElement, dom: HTMLElement): void {
   switch (true) {
     case isSvg(el):
       moveChildren(dom, el)

@@ -1,7 +1,8 @@
 import { cleanNode, insertBefore, removeChild } from '@your-riot/utils/dom'
 import { PARENT_KEY_SYMBOL } from '@your-riot/utils/constants'
 import { evaluateAttributeExpressions } from '@your-riot/utils/misc'
-import template from '../template.js'
+import template, { TemplateChunk } from '../template.js'
+import { AttributeExpressionData } from '../types.js'
 
 const extendParentScope = (attributes, scope, parentScope) => {
   if (!attributes || !attributes.length) return parentScope
@@ -38,8 +39,24 @@ function moveSlotInnerContent(slot) {
   moveSlotInnerContent(slot)
 }
 
-export class SlotBinding {
-  constructor(node, { name, attributes, template }) {
+export class SlotBinding<Scope = any> {
+  template?: TemplateChunk<Scope>
+  attributes: AttributeExpressionData<Scope>[]
+  name: string
+  node: HTMLElement
+  templateData: any
+  constructor(
+    node: any,
+    {
+      name,
+      attributes,
+      template,
+    }: {
+      name: string
+      attributes: AttributeExpressionData<Scope>[]
+      template?: TemplateChunk<Scope>
+    },
+  ) {
     this.node = node
     this.name = name
     this.attributes = attributes || []
@@ -47,12 +64,12 @@ export class SlotBinding {
     this.templateData = null
   }
 
-  getTemplateScope(scope, parentScope) {
+  getTemplateScope(scope: any, parentScope: any): any {
     return extendParentScope(this.attributes, scope, parentScope)
   }
 
   // API methods
-  mount(scope, parentScope) {
+  mount(scope: any, parentScope: any): this {
     const templateData = scope.slots
       ? findSlotById(this.name, scope.slots)
       : false
@@ -70,7 +87,7 @@ export class SlotBinding {
     this.template =
       (this.templateData &&
         template(this.templateData.html, this.templateData.bindings).createDOM(
-          parentNode,
+          parentNode as HTMLElement,
         )) ||
       // otherwise use the optional template fallback if provided by the compiler see also https://github.com/riot/riot/issues/3014
       this.template?.clone()
@@ -91,7 +108,7 @@ export class SlotBinding {
     return this
   }
 
-  update(scope, parentScope) {
+  update(scope: any, parentScope: any): this {
     if (this.template) {
       const realParent = this.templateData
         ? getRealParent(scope, parentScope)
@@ -103,7 +120,7 @@ export class SlotBinding {
     return this
   }
 
-  unmount(scope, parentScope, mustRemoveRoot) {
+  unmount(scope: any, parentScope: any, mustRemoveRoot: any): this {
     if (this.template) {
       this.template.unmount(
         this.getTemplateScope(scope, parentScope),
@@ -123,6 +140,12 @@ export class SlotBinding {
  * @param   {AttributeExpressionData[]} attributes - slot attributes
  * @returns {SlotBinding} Slot binding instance
  */
-export default function createSlot(node, options) {
+export default function createSlot(
+  node: HTMLElement,
+  options: {
+    name: string
+    attributes: AttributeExpressionData[]
+  },
+): SlotBinding {
   return new SlotBinding(node, options)
 }

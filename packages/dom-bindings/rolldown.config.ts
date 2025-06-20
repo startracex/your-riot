@@ -3,7 +3,7 @@ import { defineConfig } from 'rolldown'
 import { inputGlob, packageDependencies, outputs } from '../../rolldown.config'
 
 export default defineConfig({
-  input: inputGlob('src/**/*.js'),
+  input: inputGlob('src/**/*.ts'),
   external: packageDependencies(pkg),
   output: outputs,
 })

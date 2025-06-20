@@ -1,20 +1,21 @@
 import { SIMPLE } from '@your-riot/utils/binding-types'
 import { TEXT } from '@your-riot/utils/expression-types'
-import bindings from './binding/index.ts'
-import { Binding, BindingData } from './types.js'
+import bindings from './binding/index.js'
+import { Binding, BindingData, Expression } from './types.js'
 
 /**
  * Text expressions in a template tag will get childNodeIndex value normalized
- * depending on the position of the <template> tag offset
- * @param   {Expression[]} expressions - riot expressions array
- * @param   {number} textExpressionsOffset - offset of the <template> tag
- * @returns {Expression[]} expressions containing the text expressions normalized
+ * depending on the position of the <template> tag offset.
  */
-function fixTextExpressionsOffset(expressions, textExpressionsOffset) {
+function fixTextExpressionsOffset(
+  expressions: Expression[],
+  textExpressionsOffset: number,
+): Expression[] {
   return expressions.map((e) =>
     e.type === TEXT
       ? {
           ...e,
+          // @ts-ignore
           childNodeIndex: e.childNodeIndex + textExpressionsOffset,
         }
       : e,

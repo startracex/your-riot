@@ -3,8 +3,9 @@ import { defineProperty } from '@your-riot/utils/objects'
 import { isTemplate } from '@your-riot/utils/checks'
 import createTemplateMeta from '../utils/create-template-meta.js'
 import udomdiff from '../utils/udomdiff.js'
+import { TemplateChunk } from '../template.js'
 
-const UNMOUNT_SCOPE = Symbol('unmount')
+const UNMOUNT_SCOPE: unique symbol = Symbol('unmount')
 
 /**
  * Patch the DOM while diffing
@@ -150,10 +151,46 @@ function createPatch(items, scope, parentScope, binding) {
   }
 }
 
-export class EachBinding {
+export class EachBinding<
+  Scope = any,
+  ItemName extends string = string,
+  IndexName extends string = string,
+  ItemValue extends any = any,
+  ExtendedScope = Scope & { [Property in ItemName]: ItemValue } & {
+    [Property in IndexName]: number
+  },
+> {
+  isTemplateTag: boolean
+  itemName: ItemName
+  indexName?: IndexName | null
+  template: TemplateChunk<ExtendedScope>
+  getKey?: ((scope: ExtendedScope) => any) | null
+  condition?: ((scope: ExtendedScope) => any) | null
+  evaluate?: (scope: Scope) => ItemValue[]
+  selector?: string
+  redundantAttribute?: string
+  node: Node
+  root: Node
+  placeholder: Text
+  nodes: Node[]
+  childrenMap: Map<any, Node>
   constructor(
-    node,
-    { evaluate, condition, itemName, indexName, getKey, template },
+    node: HTMLElement,
+    {
+      evaluate,
+      condition,
+      itemName,
+      indexName,
+      getKey,
+      template,
+    }: {
+      itemName: ItemName
+      indexName?: IndexName | null
+      template: TemplateChunk<ExtendedScope>
+      getKey?: ((scope: ExtendedScope) => any) | null
+      condition?: ((scope: ExtendedScope) => any) | null
+      evaluate?: (scope: Scope) => ItemValue[]
+    },
   ) {
     const placeholder = document.createTextNode('')
     const root = node.cloneNode()
@@ -175,11 +212,11 @@ export class EachBinding {
     this.placeholder = placeholder
   }
 
-  mount(scope, parentScope) {
+  mount(scope: Scope, parentScope: any): this {
     return this.update(scope, parentScope)
   }
 
-  update(scope, parentScope) {
+  update(scope: Scope | typeof UNMOUNT_SCOPE, parentScope: any): this {
     const { placeholder, nodes, childrenMap } = this
     const collection = scope === UNMOUNT_SCOPE ? null : this.evaluate(scope)
     const items = collection ? Array.from(collection) : []
@@ -210,13 +247,13 @@ export class EachBinding {
     return this
   }
 
-  unmount(scope, parentScope) {
-    this.update(UNMOUNT_SCOPE, parentScope)
+  unmount(scope: Scope, parentScope: any): this {
+    this.update(UNMOUNT_SCOPE as any, parentScope)
 
     return this
   }
 }
 
-export default function create(node, options) {
+export default function create(node: any, options: any): EachBinding {
   return new EachBinding(node, options)
 }

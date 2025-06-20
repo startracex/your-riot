@@ -20,17 +20,13 @@ import { insertBefore, removeChild, replaceChild } from '@your-riot/utils/dom'
 
 // fork of https://github.com/WebReflection/udomdiff version 1.1.0
 // due to https://github.com/WebReflection/udomdiff/pull/2
-/* eslint-disable */
 
-/**
- * @param {Node[]} a The list of current/live children
- * @param {Node[]} b The list of future children
- * @param {(entry: Node, action: number) => Node} get
- * The callback invoked per each entry related DOM operation.
- * @param {Node} [before] The optional node used as anchor to insert before.
- * @returns {Node[]} The same list of future children.
- */
-export default (a, b, get, before) => {
+export default (
+  a: Node[],
+  b: Node[],
+  get: (entry: Node, action: number) => Node,
+  before: Node,
+): Node[] => {
   const bLength = b.length
   let aEnd = a.length
   let bEnd = bLength
@@ -56,7 +52,8 @@ export default (a, b, get, before) => {
     else if (bEnd === bStart) {
       while (aStart < aEnd) {
         // remove the node only if it's unknown or not live
-        if (!map || !map.has(a[aStart])) removeChild(get(a[aStart], -1))
+        if (!map || !map.has(a[aStart]))
+          removeChild(get(a[aStart], -1) as Element)
         aStart++
       }
     }
@@ -141,7 +138,7 @@ export default (a, b, get, before) => {
       // this node has no meaning in the future list, so it's more than safe
       // to remove it, and check the next live node out instead, meaning
       // that only the live list index should be forwarded
-      else removeChild(get(a[aStart++], -1))
+      else removeChild(get(a[aStart++], -1) as Element)
     }
   }
   return b

@@ -1,7 +1,7 @@
 import { isSvg, isTemplate } from '@your-riot/utils/checks'
 
 // in this case a simple innerHTML is enough
-function createHTMLTree(html, root) {
+function createHTMLTree(html: string, root: any): DocumentFragment {
   const template = isTemplate(root) ? root : document.createElement('template')
   template.innerHTML = html
   return template.content
@@ -9,7 +9,7 @@ function createHTMLTree(html, root) {
 
 // for svg nodes we need a bit more work
 /* c8 ignore start */
-function createSVGTree(html, container) {
+function createSVGTree(html: any, container: SVGElement): HTMLElement {
   // create the SVGNode
   const svgNode = container.ownerDocument.importNode(
     new window.DOMParser().parseFromString(
@@ -24,14 +24,16 @@ function createSVGTree(html, container) {
 /* c8 ignore end */
 
 /**
- * Create the DOM that will be injected
- * @param {Object} root - DOM node to find out the context where the fragment will be created
- * @param   {string} html - DOM to create as string
- * @returns {HTMLDocumentFragment|HTMLElement} a new html fragment
+ * Create the DOM that will be injected.
  */
-export default function createDOMTree(root, html) {
+export default function createDOMTree(
+  root: any,
+  html: string,
+): DocumentFragment | HTMLElement {
   /* c8 ignore next */
-  if (isSvg(root)) return createSVGTree(html, root)
+  if (isSvg(root)) {
+    return createSVGTree(html, root)
+  }
 
   return createHTMLTree(html, root)
 }

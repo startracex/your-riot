@@ -1,3 +1,5 @@
+import type { TemplateChunk, TemplateChunkMeta } from './template.ts'
+
 export enum ExpressionType {
   ATTRIBUTE,
   EVENT,
@@ -40,12 +42,14 @@ export type ExpressionData<Scope = any> =
   | RefExpressionData<Scope>
 
 export interface Expression<Scope = any> {
-  type: ExpressionType
-  node: HTMLElement
-  value: any
-  mount(scope: Scope): Expression<Scope>
-  update(scope: Scope): Expression<Scope>
-  unmount(scope: Scope): Expression<Scope>
+  type?: ExpressionType
+  node?: HTMLElement
+  value?: any
+  name: string
+  mount?: (scope: Scope) => Expression<Scope>
+  update?: (scope: Scope) => Expression<Scope>
+  unmount?: (scope: Scope) => Expression<Scope>
+  isBoolean?: boolean
 }
 
 // Bindings
@@ -138,38 +142,4 @@ export interface Binding<Scope = any, ParentScope = any> {
     parentScope?: ParentScope,
     mustRemoveRoot?: boolean,
   ): Binding<Scope, ParentScope>
-}
-
-// Template Object
-
-export interface TemplateChunkMeta {
-  fragment: DocumentFragment
-  children: HTMLCollection
-  avoidDOMInjection: boolean
-}
-
-export interface TemplateChunk<Scope = any, ParentScope = any> {
-  mount(
-    el: HTMLElement,
-    scope: Scope,
-    parentScope?: ParentScope,
-    meta?: TemplateChunkMeta,
-  ): TemplateChunk
-  update(scope: Scope, parentScope?: ParentScope): TemplateChunk
-  unmount(
-    scope: Scope,
-    parentScope?: ParentScope,
-    mustRemoveRoot?: boolean,
-  ): TemplateChunk
-  clone(): TemplateChunk
-  createDOM(el: HTMLElement): TemplateChunk
-
-  bindings?: Binding<Scope, ParentScope>[]
-  bindingsData?: BindingData<Scope>[]
-  html?: string | null
-  isTemplateTag?: boolean
-  fragment?: DocumentFragment
-  children?: HTMLCollection
-  dom?: HTMLElement
-  el?: HTMLElement
 }

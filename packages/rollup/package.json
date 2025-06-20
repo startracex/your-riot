@@ -10,7 +10,9 @@
   "dependencies": {
     "@rollup/pluginutils": "^5.2.0",
     "@your-riot/compiler": "workspace:^",
-    "@your-riot/parser": "workspace:*"
+    "@your-riot/parser": "workspace:*",
+    "postcss": "^8.5.6",
+    "postcss-cssnext": "^3.1.1"
   },
   "exports": {
     ".": {

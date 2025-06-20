@@ -1,6 +1,6 @@
 import { expect } from 'chai'
 import { rollup } from 'rollup'
-import fsp from 'fs-extra'
+import fs from 'fs/promises'
 import { registerPreprocessor } from '@your-riot/compiler'
 import path from 'node:path'
 import riot from '../dist/module/index.js'
@@ -10,10 +10,16 @@ describe('rollup-plugin-riot', function () {
   const fixturesDir = path.join(process.cwd(), 'test', 'fixtures'),
     expectDir = path.join(process.cwd(), 'test', 'expect')
 
-  function readExpectedString(name) {
-    return fsp
-      .readFile(path.join(expectDir, name.replace('.js', '.txt')), 'utf8')
-      .then((content) => content)
+  async function readExpectedString(name) {
+    const content = await fs.readFile(
+      path.join(expectDir, name.replace('.js', '.txt')),
+      'utf8',
+    )
+    console.log({
+      path: path.join(expectDir, name.replace('.js', '.txt')),
+      content,
+    })
+    return content.replaceAll('\r','')
   }
 
   function rollupRiot(filename, riotOpts, sourcemap) {
@@ -31,7 +37,7 @@ describe('rollup-plugin-riot', function () {
       )
       .then(({ output }) => {
         const result = output[0]
-        return sourcemap ? result : result.code
+        return sourcemap ? result : result.code.replaceAll('\r','')
       })
   }
 
@@ -80,7 +86,7 @@ describe('rollup-plugin-riot', function () {
     })
   })
 
-  it('compiles with custom parsers', function () {
+  it('compiles with custom parsers', async function () {
     const filename = 'custom-parsers.js'
     registerPreprocessor('css', 'cssnext', cssnext)
 

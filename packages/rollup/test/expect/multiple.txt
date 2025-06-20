@@ -1,6 +1,6 @@
 var multiple = {
   First,
-  Second
+  Second,
 };
 
 export { multiple as default };

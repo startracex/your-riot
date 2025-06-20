@@ -9,8 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "riot": "^9.4.9",
-    "roid": "^0.0.5"
+    "riot": "^9.4.9"
   },
   "devDependencies": {
     "rollup-plugin-riot": "^9.0.2",

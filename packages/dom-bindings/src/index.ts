@@ -74,3 +74,4 @@ export { default as bindingTypes } from '@your-riot/utils/binding-types'
 export { default as expressionTypes } from '@your-riot/utils/expression-types'
 
 export type * from './types.js'
+export type { TemplateChunk } from './template.js'

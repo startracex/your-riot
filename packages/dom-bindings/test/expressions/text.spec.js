@@ -1,4 +1,4 @@
-import { expressionTypes, template } from '../../src/index.js'
+import { expressionTypes, template } from '../../dist/module/index.js'
 import { expect } from 'chai'
 
 describe('text specs', () => {

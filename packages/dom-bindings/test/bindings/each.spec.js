@@ -1,4 +1,8 @@
-import { bindingTypes, expressionTypes, template } from '../../src/index.js'
+import {
+  bindingTypes,
+  expressionTypes,
+  template,
+} from '../../dist/module/index.js'
 import { expect } from 'chai'
 import { domNodesToTextArray, getNextSiblingChild } from '../util.js'
 

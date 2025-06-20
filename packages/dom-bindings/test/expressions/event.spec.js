@@ -1,4 +1,4 @@
-import { expressionTypes, template } from '../../src/index.js'
+import { expressionTypes, template } from '../../dist/module/index.js'
 import { fireEvent } from '../util.js'
 import { expect } from 'chai'
 import sinon from 'sinon'

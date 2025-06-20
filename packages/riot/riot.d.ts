@@ -11,7 +11,7 @@ import {
   expressionTypes,
   TagSlotData,
   TagBindingData,
-} from '@your-riot/dom-bindings'
+} from '@your-riot/dom-binding'
 
 // Internal Types and shortcuts
 export type DefaultProps = Record<PropertyKey, any>

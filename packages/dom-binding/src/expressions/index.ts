@@ -1,9 +1,9 @@
 import expressionTypes from '@your-riot/utils/expression-types'
-import attributeExpression from './attribute.js'
-import eventExpression from './event.js'
-import textExpression from './text.js'
-import valueExpression from './value.js'
-import refExpression from './ref.js'
+import attributeExpression from './attribute.ts'
+import eventExpression from './event.ts'
+import textExpression from './text.ts'
+import valueExpression from './value.ts'
+import refExpression from './ref.ts'
 
 const _default_1: {
   0: any

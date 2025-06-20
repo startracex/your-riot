@@ -1,9 +1,9 @@
 import bindingTypes from '@your-riot/utils/binding-types.js'
-import EachBinding from './each.js'
-import IfBinding from './if.js'
-import SimpleBinding from './simple.js'
-import SlotBinding from './slot.js'
-import TagBinding from './tag.js'
+import EachBinding from './each.ts'
+import IfBinding from './if.ts'
+import SimpleBinding from './simple.ts'
+import SlotBinding from './slot.ts'
+import TagBinding from './tag.ts'
 
 const _default_1: {
   1: typeof IfBinding

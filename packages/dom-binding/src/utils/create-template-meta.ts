@@ -1,5 +1,5 @@
-import type { TemplateChunk, TemplateChunkMeta } from '../template.js'
-import createHeadTailPlaceholders from './create-head-tail-placeholders.js'
+import type { TemplateChunk, TemplateChunkMeta } from '../template.ts'
+import createHeadTailPlaceholders from './create-head-tail-placeholders.ts'
 
 /**
  * Create the template meta object in case of <template> fragments.

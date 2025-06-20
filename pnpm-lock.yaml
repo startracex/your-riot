@@ -126,9 +126,9 @@ importers:
       '@rollup/plugin-replace':
         specifier: ^6.0.2
         version: 6.0.2(rollup@4.44.0)
-      '@your-riot/dom-bindings':
+      '@your-riot/dom-binding':
         specifier: workspace:^
-        version: link:../dom-bindings
+        version: link:../dom-binding
       acorn:
         specifier: ^8.15.0
         version: 8.15.0
@@ -236,7 +236,7 @@ importers:
         specifier: workspace:^
         version: link:../riot
 
-  packages/dom-bindings:
+  packages/dom-binding:
     dependencies:
       '@your-riot/utils':
         specifier: workspace:^
@@ -298,9 +298,9 @@ importers:
       '@your-riot/compiler':
         specifier: workspace:^
         version: link:../compiler
-      '@your-riot/dom-bindings':
+      '@your-riot/dom-binding':
         specifier: workspace:^
-        version: link:../dom-bindings
+        version: link:../dom-binding
       '@your-riot/utils':
         specifier: workspace:^
         version: link:../utils
@@ -395,9 +395,9 @@ importers:
       '@riotjs/register':
         specifier: ^9.1.0
         version: 9.1.0(@riotjs/compiler@9.4.9)
-      '@your-riot/dom-bindings':
+      '@your-riot/dom-binding':
         specifier: workspace:*
-        version: link:../dom-bindings
+        version: link:../dom-binding
       '@your-riot/riot':
         specifier: workspace:^
         version: link:../riot

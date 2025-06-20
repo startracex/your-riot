@@ -15,7 +15,7 @@ import {
   BINDING_TYPE_KEY,
   NAME_ATTRIBUTE,
 } from '../../src/generators/template/constants.js'
-import { bindingTypes, expressionTypes } from '@your-riot/dom-bindings'
+import { bindingTypes, expressionTypes } from '@your-riot/dom-binding'
 import {
   createRootNode,
   toScopedFunction,
@@ -57,7 +57,7 @@ const buildSimpleTemplate = compose(
 
 const evaluateOutput = (ast, getComponent = () => null) =>
   evaluateScript(`
-  import { bindingTypes, expressionTypes, template } from '@your-riot/dom-bindings'
+  import { bindingTypes, expressionTypes, template } from '@your-riot/dom-binding'
 
   export default function output(getComponent) {
     return ${generateJavascript(ast).code}

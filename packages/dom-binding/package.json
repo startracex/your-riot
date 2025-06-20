@@ -1,5 +1,5 @@
 {
-  "name": "@your-riot/dom-bindings",
+  "name": "@your-riot/dom-binding",
   "version": "0.0.0",
   "description": "Riot dom bindings",
   "scripts": {

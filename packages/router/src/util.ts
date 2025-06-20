@@ -4,7 +4,7 @@ import { __ } from '@your-riot/riot'
 import type {
   AttributeExpressionData,
   TemplateChunk,
-} from '@your-riot/dom-bindings'
+} from '@your-riot/dom-binding'
 
 export const getWindow = (): Window | null =>
   typeof window === 'undefined' ? null : window

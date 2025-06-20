@@ -1,4 +1,4 @@
-import { TemplateChunk } from '@your-riot/dom-bindings'
+import { TemplateChunk } from '@your-riot/dom-binding'
 import { RiotComponentWrapper, RiotComponent } from '../../riot'
 
 declare const testWrapper: RiotComponentWrapper<RiotComponent>

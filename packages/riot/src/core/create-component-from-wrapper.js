@@ -51,7 +51,7 @@ const createChildComponentGetter = (componentWrapper) => {
 const memoizedCreateComponentFromWrapper = memoize(createComponentFromWrapper)
 
 /**
- * Create the component interface needed for the @your-riot/dom-bindings tag bindings
+ * Create the component interface needed for the @your-riot/dom-binding tag bindings
  * @param   {RiotComponentWrapper} componentWrapper - riot compiler generated object
  * @param   {string} componentWrapper.css - component css
  * @param   {Function} componentWrapper.template - function that will return the dom-bindings template function

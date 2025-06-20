@@ -5,7 +5,7 @@ import createDOMTree from './utils/create-dom-tree.js'
 import injectDOM from './utils/inject-dom.js'
 import { isTemplate } from '@your-riot/utils/checks'
 import { panic } from '@your-riot/utils/misc'
-import type { Binding, BindingData } from './types.ts'
+import type { Binding, BindingData } from './types.js'
 
 export interface TemplateChunkMeta {
   fragment?: DocumentFragment

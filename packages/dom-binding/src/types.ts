@@ -1,4 +1,4 @@
-import type { TemplateChunk, TemplateChunkMeta } from './template.ts'
+import type { TemplateChunk, TemplateChunkMeta } from './template.js'
 
 export enum ExpressionType {
   ATTRIBUTE,

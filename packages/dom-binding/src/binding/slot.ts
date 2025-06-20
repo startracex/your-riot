@@ -1,8 +1,8 @@
 import { cleanNode, insertBefore, removeChild } from '@your-riot/utils/dom'
 import { PARENT_KEY_SYMBOL } from '@your-riot/utils/constants'
 import { evaluateAttributeExpressions } from '@your-riot/utils/misc'
-import template, { TemplateChunk } from '../template.js'
-import { AttributeExpressionData } from '../types.js'
+import template, { TemplateChunk } from '../template.ts'
+import { AttributeExpressionData } from '../types.ts'
 
 const extendParentScope = (attributes, scope, parentScope) => {
   if (!attributes || !attributes.length) return parentScope

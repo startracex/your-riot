@@ -4,7 +4,7 @@ import {
   isObject,
 } from '@your-riot/utils/checks'
 import { memoize } from '@your-riot/utils/misc'
-import { Expression } from '../types.js'
+import { Expression } from '../types.ts'
 
 /* c8 ignore next */
 const ElementProto = typeof Element === 'undefined' ? {} : Element.prototype

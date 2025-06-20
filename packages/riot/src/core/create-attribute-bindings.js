@@ -1,5 +1,5 @@
 import { createCoreAPIMethods } from './create-core-api-methods.js'
-import { createExpression } from '@your-riot/dom-bindings'
+import { createExpression } from '@your-riot/dom-binding'
 
 /**
  * Create the bindings to update the component attributes

@@ -14,7 +14,7 @@ import {
   createExpression,
   expressionTypes,
   template,
-} from '@your-riot/dom-bindings'
+} from '@your-riot/dom-binding'
 import cssManager from '../core/css-manager.js'
 
 // expose some internal stuff that might be used from external tools

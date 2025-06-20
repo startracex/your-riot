@@ -10,7 +10,7 @@ import SimpleComponent from '../components/simple.riot'
 
 import { expect } from 'chai'
 import { spy } from 'sinon'
-import { template } from '@your-riot/dom-bindings'
+import { template } from '@your-riot/dom-binding'
 
 describe('components registration', () => {
   it('riot.component will mount properly components with css', () => {

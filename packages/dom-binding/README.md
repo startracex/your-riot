@@ -1,4 +1,4 @@
-# @your-riot/dom-bindings
+# @your-riot/dom-binding
 
 Riot dom-bindings
 

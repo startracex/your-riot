@@ -3,7 +3,7 @@ import {
   bindingTypes,
   expressionTypes,
   template,
-} from '@your-riot/dom-bindings'
+} from '@your-riot/dom-binding'
 import CommentsAndExpressions from '../components/comments-and-expressions.riot'
 import ConditionalSelectOption from '../components/conditional-select-option.riot'
 import EachCustomChildrenComponents from '../components/each-custom-children-components.riot'

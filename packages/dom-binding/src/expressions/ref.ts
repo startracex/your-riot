@@ -1,4 +1,4 @@
-import { Expression } from '../types.js'
+import { Expression } from '../types.ts'
 
 /**
   This method handles the REF attribute expressions 

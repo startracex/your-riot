@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@riotjs/register": "^9.1.0",
-    "@your-riot/dom-bindings": "workspace:*",
+    "@your-riot/dom-binding": "workspace:*",
     "@your-riot/utils": "workspace:^",
     "bianco.attr": "^1.1.1",
     "bianco.events": "^1.1.1",

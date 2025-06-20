@@ -1,4 +1,4 @@
-import { expressionTypes } from '@your-riot/dom-bindings'
+import { expressionTypes } from '@your-riot/dom-binding'
 import { memoize } from '@your-riot/utils'
 
 /**

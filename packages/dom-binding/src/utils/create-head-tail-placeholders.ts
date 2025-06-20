@@ -1,4 +1,4 @@
-import { HEAD_SYMBOL, TAIL_SYMBOL } from '../constants.js'
+import { HEAD_SYMBOL, TAIL_SYMBOL } from '../constants.ts'
 
 /**
  * Create the <template> fragments text nodes

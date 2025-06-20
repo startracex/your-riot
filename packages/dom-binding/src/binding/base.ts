@@ -1,5 +1,5 @@
 import bindingTypes from '@your-riot/utils/binding-types.js'
-import { Expression } from '../types.js'
+import { Expression } from '../types.ts'
 
 export class BaseBinding<Scope = any> {
   selector?: string

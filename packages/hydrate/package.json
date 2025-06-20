@@ -1,0 +1,41 @@
+{
+  "name": "@your-riot/hydrate",
+  "version": "0.0.0",
+  "description": "Riot hydrate strategy",
+  "scripts": {
+    "build": "tsc && rolldown -c rolldown.config.ts",
+    "test": "cross-env NODE_OPTIONS=\"--loader @your-riot/register\" mocha test/*.spec.js"
+  },
+  "dependencies": {
+    "morphdom": "^2.7.1"
+  },
+  "devDependencies": {
+    "@your-riot/compiler": "workspace:^",
+    "@your-riot/register": "workspace:^",
+    "@your-riot/riot": "workspace:^"
+  },
+  "peerDependencies": {
+    "@your-riot/riot": "workspace:^"
+  },
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./dist/module/index.js",
+      "require": "./dist/node/index.cjs",
+      "types": "./dist/types/index.d.ts"
+    }
+  },
+  "files": [
+    "src",
+    "dist"
+  ],
+  "keywords": [
+    "riot"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/startracex/your-riot.git"
+  },
+  "author": "Gianluca Guarini <gianluca.guarini@gmail.com> (https://gianlucaguarini.com)",
+  "license": "MIT"
+}

@@ -1,4 +1,4 @@
-import { ATTRIBUTE } from '@your-riot/utils/expression-types'
+import expressionTypes from '@your-riot/utils/expression-types'
 import template, { TemplateChunk } from '../template.js'
 import { AttributeExpressionData, TagSlotData } from '../types.js'
 
@@ -20,7 +20,7 @@ function getTag(component, slots = [], attributes = []): TemplateChunk {
     {
       expressions: attributes.map((attr) => {
         return {
-          type: ATTRIBUTE,
+          type: expressionTypes.ATTRIBUTE,
           ...attr,
         }
       }),

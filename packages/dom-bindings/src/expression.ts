@@ -1,4 +1,4 @@
-import { EVENT, TEXT, REF } from '@your-riot/utils/expression-types'
+import expressionTypes from '@your-riot/utils/expression-types'
 import expressions from './expressions/index.js'
 import { getTextNode } from './expressions/text.js'
 import { ExpressionData, Expression as ExpressionType } from './types.js'
@@ -46,7 +46,7 @@ export const Expression = {
    */
   unmount() {
     // unmount event and ref expressions
-    if ([EVENT, REF].includes(this.type)) expressions[this.type](this, null)
+    if ([expressionTypes.EVENT, expressionTypes.REF].includes(this.type)) expressions[this.type](this, null)
 
     return this
   },
@@ -60,6 +60,6 @@ export default function create<Scope = any>(
     ...Expression,
     ...data,
     // @ts-ignore
-    node: data.type === TEXT ? getTextNode(node, data.childNodeIndex) : node,
+    node: data.type === expressionTypes.TEXT ? getTextNode(node, data.childNodeIndex) : node,
   }
 }

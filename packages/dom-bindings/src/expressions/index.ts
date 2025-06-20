@@ -1,10 +1,4 @@
-import {
-  ATTRIBUTE,
-  EVENT,
-  TEXT,
-  VALUE,
-  REF,
-} from '@your-riot/utils/expression-types'
+import expressionTypes from '@your-riot/utils/expression-types'
 import attributeExpression from './attribute.js'
 import eventExpression from './event.js'
 import textExpression from './text.js'
@@ -18,10 +12,10 @@ const _default_1: {
   3: typeof valueExpression
   4: typeof refExpression
 } = {
-  [ATTRIBUTE]: attributeExpression,
-  [EVENT]: eventExpression,
-  [TEXT]: textExpression,
-  [VALUE]: valueExpression,
-  [REF]: refExpression,
+  [expressionTypes.ATTRIBUTE]: attributeExpression,
+  [expressionTypes.EVENT]: eventExpression,
+  [expressionTypes.TEXT]: textExpression,
+  [expressionTypes.VALUE]: valueExpression,
+  [expressionTypes.REF]: refExpression,
 }
 export default _default_1

@@ -1,4 +1,4 @@
-import { ATTRIBUTE, VALUE, REF } from './expression-types.js'
+import expressionTypes from './expression-types.js'
 import { dashToCamelCase } from './strings.js'
 
 /**
@@ -44,16 +44,16 @@ export function evaluateAttributeExpressions(
 
     switch (true) {
       // ref attributes shouldn't be evaluated in the props
-      case attribute.type === REF:
+      case attribute.type === expressionTypes.REF:
         break
       // spread attribute
-      case !attribute.name && type === ATTRIBUTE:
+      case !attribute.name && type === expressionTypes.ATTRIBUTE:
         return {
           ...acc,
           ...value,
         }
       // value attribute
-      case type === VALUE:
+      case type === expressionTypes.VALUE:
         acc.value = attribute.value
         break
       // normal attributes

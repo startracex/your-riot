@@ -1,10 +1,10 @@
-import { EACH, IF, SIMPLE, SLOT, TAG } from '@your-riot/utils/binding-types.js'
+import bindingTypes from '@your-riot/utils/binding-types.js'
 import { Expression } from '../types.js'
 
 export class BaseBinding<Scope = any> {
   selector?: string
   redundantAttribute?: string
-  type?: typeof EACH | typeof IF | typeof SIMPLE | typeof SLOT | typeof TAG
+  type?: (typeof bindingTypes)[keyof typeof bindingTypes]
   node: Node
   evaluate?(scope: Scope): any
   constructor(node: Node) {

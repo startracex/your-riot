@@ -1,4 +1,4 @@
-import { EACH, IF, SIMPLE, SLOT, TAG } from '@your-riot/utils/binding-types.js'
+import bindingTypes from '@your-riot/utils/binding-types.js'
 import EachBinding from './each.js'
 import IfBinding from './if.js'
 import SimpleBinding from './simple.js'
@@ -12,10 +12,10 @@ const _default_1: {
   3: typeof TagBinding
   4: typeof SlotBinding
 } = {
-  [IF]: IfBinding,
-  [SIMPLE]: SimpleBinding,
-  [EACH]: EachBinding,
-  [TAG]: TagBinding,
-  [SLOT]: SlotBinding,
+  [bindingTypes.IF]: IfBinding,
+  [bindingTypes.SIMPLE]: SimpleBinding,
+  [bindingTypes.EACH]: EachBinding,
+  [bindingTypes.TAG]: TagBinding,
+  [bindingTypes.SLOT]: SlotBinding,
 }
 export default _default_1

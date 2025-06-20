@@ -1,5 +1,5 @@
-import { SIMPLE } from '@your-riot/utils/binding-types'
-import { TEXT } from '@your-riot/utils/expression-types'
+import bindingTypes from '@your-riot/utils/binding-types'
+import expressionTypes from '@your-riot/utils/expression-types'
 import bindings from './binding/index.js'
 import { Binding, BindingData, Expression } from './types.js'
 
@@ -12,7 +12,7 @@ function fixTextExpressionsOffset(
   textExpressionsOffset: number,
 ): Expression[] {
   return expressions.map((e) =>
-    e.type === TEXT
+    e.type === expressionTypes.TEXT
       ? {
           ...e,
           // @ts-ignore
@@ -41,7 +41,7 @@ export default function create<Scope = any>(
   const bindingExpressions = expressions || []
 
   // init the binding
-  return (bindings[type] || bindings[SIMPLE])(node, {
+  return (bindings[type] || bindings[bindingTypes.SIMPLE])(node, {
     ...binding,
     expressions:
       templateTagOffset && !selector

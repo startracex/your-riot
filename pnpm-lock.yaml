@@ -72,7 +72,7 @@ importers:
         specifier: workspace:^
         version: link:../parser
       '@your-riot/utils':
-        specifier: workspace:*
+        specifier: workspace:^
         version: link:../utils
       css-simple-parser:
         specifier: ^3.0.2
@@ -381,7 +381,7 @@ importers:
         specifier: workspace:^
         version: link:../compiler
       '@your-riot/parser':
-        specifier: workspace:*
+        specifier: workspace:^
         version: link:../parser
       postcss:
         specifier: ^8.5.6
@@ -392,12 +392,12 @@ importers:
 
   packages/router:
     dependencies:
-      '@riotjs/register':
-        specifier: ^9.1.0
-        version: 9.1.0(@riotjs/compiler@9.4.9)
       '@your-riot/dom-binding':
-        specifier: workspace:*
+        specifier: workspace:^
         version: link:../dom-binding
+      '@your-riot/register':
+        specifier: workspace:^
+        version: link:../register
       '@your-riot/riot':
         specifier: workspace:^
         version: link:../riot
@@ -423,9 +423,6 @@ importers:
       '@your-riot/compiler':
         specifier: workspace:^
         version: link:../compiler
-      '@your-riot/register':
-        specifier: workspace:^
-        version: link:../register
       '@your-riot/rollup-plugin':
         specifier: workspace:^
         version: link:../rollup
@@ -1573,11 +1570,6 @@ packages:
     resolution: {integrity: sha512-EuBhKxw/rABgqJk/g2sBOG0T1MneKeXhR0LdNcouz832P99ABm+vahKhPlpleNq7Boai74zcG4ig13yfZuJdAw==}
     peerDependencies:
       prettier: ^2.0.0 || ^3.0.0
-
-  '@riotjs/register@9.1.0':
-    resolution: {integrity: sha512-VENHN/eIfd6KOJMfi0wcbe6fDbLTffhGGOoq3QQcCLNwuxfHW2xPaRIIES/4bVLzrWwkTU10PqymqZqUELoFXQ==}
-    peerDependencies:
-      '@riotjs/compiler': ^9.0.0
 
   '@riotjs/util@2.5.0':
     resolution: {integrity: sha512-8cd+Tw+RTtfM/OWJ1dub+H6HEZ8WLm3n//tiuxte+0u0ONobjm0XYR2J/ZwuwxjDIyiTNdsUkJWGwsZL8K+0sw==}
@@ -6958,10 +6950,6 @@ snapshots:
   '@riotjs/prettier-config@1.1.0(prettier@3.5.3)':
     dependencies:
       prettier: 3.5.3
-
-  '@riotjs/register@9.1.0(@riotjs/compiler@9.4.9)':
-    dependencies:
-      '@riotjs/compiler': 9.4.9
 
   '@riotjs/util@2.5.0': {}
 

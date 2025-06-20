@@ -2,8 +2,6 @@ import { insertBefore, removeChild } from '@your-riot/utils/dom'
 import { TemplateChunk } from '../template.ts'
 import { AttributeExpressionData } from '../types.ts'
 
-interface Options {}
-
 /**
  * Binding responsible for the `if` directive
  */

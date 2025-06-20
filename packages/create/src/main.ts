@@ -20,9 +20,17 @@ program.parse()
 const options = program.opts()
 const args = program.args
 
+const allTemplates = ['riot-js', 'your-riot-ts', 'your-riot-js']
 let location = args[0]
 
 async function main() {
+  if (options.template) {
+    if (!allTemplates.includes(options.template)) {
+      throw new Error(
+        'template not found, available templates: ' + allTemplates.join(', '),
+      )
+    }
+  }
   if (!location) {
     const answers = await inquirer.prompt([
       {
@@ -34,8 +42,6 @@ async function main() {
     ])
     location = answers.location
   }
-
-  const allTemplates = ['riot-js', 'your-riot-ts', 'your-riot-js']
 
   if (!options.template) {
     const answers = await inquirer.prompt([
@@ -49,17 +55,13 @@ async function main() {
     options.template = answers.template
   }
 
-  if (!allTemplates.includes(options.template)) {
-    throw new Error('template not found')
-  }
-
   copyDirectory(
     join(import.meta.dirname, '../templates', options.template),
     location,
   )
 }
-main().catch((err) => {
-  console.error(err)
+main().catch((err: Error) => {
+  console.error(err.message)
   process.exit(1)
 })
 

@@ -6,6 +6,12 @@
     "build": "tsc && rolldown -c rolldown.config.ts",
     "test": "node --import ./test/setup.js test/core.spec.js && cross-env RIOT_COMPONENTS_FILE_EXTENSION=.html node --import ./test/setup.js test/custom-extension.spec.js"
   },
+  "devDependencies": {
+    "@your-riot/compiler": "workspace:^"
+  },
+  "peerDependencies": {
+    "@your-riot/compiler": "workspace:^"
+  },
   "type": "module",
   "exports": {
     ".": {
@@ -21,12 +27,6 @@
   "keywords": [
     "riot"
   ],
-  "devDependencies": {
-    "@your-riot/compiler": "workspace:^"
-  },
-  "peerDependencies": {
-    "@your-riot/compiler": "workspace:^"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/startracex/your-riot.git"

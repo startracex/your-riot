@@ -2,12 +2,16 @@
   "name": "@your-riot/create",
   "version": "0.0.0",
   "description": "Create a new project with a pre-configured template",
+  "scripts": {
+    "build": "rolldown -c rolldown.config.ts"
+  },
+  "dependencies": {
+    "commander": "^14.0.0",
+    "inquirer": "^12.6.3"
+  },
   "type": "module",
   "bin": {
     "create": "dist/main.js"
-  },
-  "scripts": {
-    "build": "rolldown -c rolldown.config.ts"
   },
   "files": [
     "src",
@@ -17,10 +21,10 @@
   "keywords": [
     "riot"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/startracex/your-riot.git"
+  },
   "author": "startracex",
-  "license": "MIT",
-  "dependencies": {
-    "commander": "^14.0.0",
-    "inquirer": "^12.6.3"
-  }
+  "license": "MIT"
 }

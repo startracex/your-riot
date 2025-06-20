@@ -72,13 +72,13 @@
     "dist",
     "compiler.d.ts"
   ],
+  "keywords": [
+    "riot"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/startracex/your-riot.git"
   },
-  "keywords": [
-    "riot"
-  ],
   "author": "Gianluca Guarini <gianluca.guarini@gmail.com> (https://gianlucaguarini.com)",
   "license": "MIT"
 }

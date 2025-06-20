@@ -43,11 +43,7 @@
     "dist"
   ],
   "keywords": [
-    "riot",
-    "Riot.js",
-    "router",
-    "riot-route",
-    "route"
+    "riot"
   ],
   "repository": {
     "type": "git",

@@ -1,4 +1,4 @@
-import normalizeStringValue from '../util/normalize-string-value.js'
+import normalizeStringValue from '../utils/normalize-string-value.js'
 /**
  * This methods handles the input fields value updates
  * @param   {HTMLElement} expression.node - target node

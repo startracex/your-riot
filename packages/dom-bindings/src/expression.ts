@@ -46,7 +46,8 @@ export const Expression = {
    */
   unmount() {
     // unmount event and ref expressions
-    if ([expressionTypes.EVENT, expressionTypes.REF].includes(this.type)) expressions[this.type](this, null)
+    if ([expressionTypes.EVENT, expressionTypes.REF].includes(this.type))
+      expressions[this.type](this, null)
 
     return this
   },
@@ -58,8 +59,11 @@ export default function create<Scope = any>(
 ): ExpressionType<Scope> {
   return {
     ...Expression,
-    ...data,
-    // @ts-ignore
-    node: data.type === expressionTypes.TEXT ? getTextNode(node, data.childNodeIndex) : node,
+    ...data, // @ts-ignore
+    node:
+      data.type === expressionTypes.TEXT
+        ? // @ts-ignore
+          getTextNode(node, data.childNodeIndex)
+        : node,
   }
 }

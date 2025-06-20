@@ -19,7 +19,7 @@ describe('rollup-plugin-riot', function () {
       path: path.join(expectDir, name.replace('.js', '.txt')),
       content,
     })
-    return content.replaceAll('\r','')
+    return content.replaceAll('\r', '')
   }
 
   function rollupRiot(filename, riotOpts, sourcemap) {
@@ -37,7 +37,7 @@ describe('rollup-plugin-riot', function () {
       )
       .then(({ output }) => {
         const result = output[0]
-        return sourcemap ? result : result.code.replaceAll('\r','')
+        return sourcemap ? result : result.code.replaceAll('\r', '')
       })
   }
 

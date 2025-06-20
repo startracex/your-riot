@@ -1,8 +1,4 @@
-import {
-  bindingTypes,
-  expressionTypes,
-  template,
-} from '@your-riot/dom-binding'
+import { bindingTypes, expressionTypes, template } from '@your-riot/dom-binding'
 import { COMPONENTS_IMPLEMENTATION_MAP } from '@your-riot/utils'
 import { generateSlotsFromString } from '@your-riot/compiler/essential'
 

@@ -6,7 +6,6 @@ Create a new project with a pre-configured template.
 
 ```sh
 npm init @your-riot
-# pnpm create @your-riot
 ```
 
 ## CLI
@@ -15,5 +14,4 @@ npm init @your-riot
 
 ```sh
 npm init @your-riot ./my-package --template riot-js
-# pnpm create @your-riot ./my-package --template riot-js
 ```

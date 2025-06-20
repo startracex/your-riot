@@ -3,7 +3,7 @@ import { rollup } from 'rollup'
 import fsp from 'fs-extra'
 import { registerPreprocessor } from '@your-riot/compiler'
 import path from 'node:path'
-import riot from '../dist/rollup-plugin-riot.js'
+import riot from '../dist/module/index.js'
 import cssnext from './helper/cssnext.js'
 
 describe('rollup-plugin-riot', function () {

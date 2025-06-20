@@ -23,7 +23,8 @@
       "import": "./dist/module/index.js",
       "require": "./dist/node/index.cjs",
       "types": "./dist/types/index.d.ts"
-    }
+    },
+    "./package.json": "./package.json"
   },
   "files": [
     "src",

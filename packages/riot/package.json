@@ -46,7 +46,8 @@
       "import": "./dist/module/riot_compiler.js",
       "require": "./dist/node/riot_compiler.cjs",
       "types": "./riot.d.ts"
-    }
+    },
+    "./package.json": "./package.json"
   },
   "files": [
     "riot.d.ts",

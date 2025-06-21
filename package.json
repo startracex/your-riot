@@ -5,10 +5,10 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "turbo run build --filter \"!./packages/create/templates/*\"",
-    "build:templates": "pnpm --filter \"./packages/create/templates/*...\" -r run build",
-    "build:all": "turbo run build",
-    "test": "turbo run test",
+    "build": "turbo run build --filter \"!./packages/create/templates/*\" --output-logs=new-only",
+    "build:templates": "turbo run build --filter \"./packages/create/templates/*\" --only --output-logs=new-only",
+    "build:all": "turbo run build --log-prefix=none --output-logs=new-only",
+    "test": "turbo run test --output-logs=errors-only",
     "format": "dprint fmt"
   },
   "dependencies": {

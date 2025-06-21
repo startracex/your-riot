@@ -22,68 +22,60 @@ describe('rollup-plugin-riot', function () {
     return content.replaceAll('\r', '')
   }
 
-  function rollupRiot(filename, riotOpts, sourcemap) {
+  async function rollupRiot(filename, riotOpts, sourcemap) {
     const opts = {
       input: path.join(fixturesDir, filename),
       plugins: [riot(riotOpts || {})],
     }
 
-    return rollup(opts)
-      .then((b) =>
-        b.generate({
-          format: 'es',
-          sourcemap,
-        }),
-      )
-      .then(({ output }) => {
-        const result = output[0]
-        return sourcemap ? result : result.code.replaceAll('\r', '')
-      })
+    const b = await rollup(opts)
+    const { output } = await b.generate({
+      format: 'es',
+      sourcemap,
+    })
+    const result = output[0]
+    return sourcemap ? result : result.code.replaceAll('\r', '')
   }
 
-  it('single tag', function () {
+  it('single tag', async function () {
     const filename = 'single.js'
 
-    return Promise.all([
+    const [result, expected] = await Promise.all([
       rollupRiot(filename),
       readExpectedString(filename),
-    ]).then(([result, expected]) => {
-      expect(result).to.have.string(expected)
-    })
+    ])
+    expect(result).to.have.string(expected)
   })
 
-  it('multiple tag', function () {
+  it('multiple tag', async function () {
     const filename = 'multiple.js'
 
-    return Promise.all([
+    const [result, expected] = await Promise.all([
       rollupRiot(filename),
       readExpectedString(filename),
-    ]).then(([result, expected]) => {
-      expect(result).to.have.string(expected)
-    })
+    ])
+    expect(result).to.have.string(expected)
   })
 
-  it('multiple tag in single file', function () {
+  it('multiple tag in single file', async function () {
     const filename = 'multiple2.js'
 
-    return Promise.all([
+    const [result, expected] = await Promise.all([
       rollupRiot(filename),
       readExpectedString(filename),
-    ]).then(([result, expected]) => {
-      expect(result).to.have.string(expected)
-    })
+    ])
+    expect(result).to.have.string(expected)
   })
 
-  it('tag with another extension', function () {
+  it('tag with another extension', async function () {
     const filename = 'another-ext.js'
     const opts = { ext: 'html' }
 
-    return Promise.all([
+    const [result, expected] = await Promise.all([
       rollupRiot(filename, opts),
       readExpectedString(filename),
-    ]).then(([result, expected]) => {
-      expect(result).to.have.string(expected)
-    })
+    ])
+    expect(result).to.have.string(expected)
   })
 
   it('compiles with custom parsers', async function () {
@@ -98,14 +90,13 @@ describe('rollup-plugin-riot', function () {
     })
   })
 
-  it('compiles with sourcemaps', function () {
+  it('compiles with sourcemaps', async function () {
     const filename = 'single.js'
     const opts = { sourcemap: true, globals: { riot: 'riot' } }
 
-    return rollupRiot(filename, opts, true).then((result) => {
-      expect(result).to.be.an('object')
-      expect(result).to.include.keys('map')
-      expect(result.map).to.be.an('object')
-    })
+    const result = await rollupRiot(filename, opts, true)
+    expect(result).to.be.an('object')
+    expect(result).to.include.keys('map')
+    expect(result.map).to.be.an('object')
   })
 })

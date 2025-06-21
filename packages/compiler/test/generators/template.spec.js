@@ -35,15 +35,23 @@ import simpleBinding from '../../dist/module/generators/template/bindings/simple
 import slotBinding from '../../dist/module/generators/template/bindings/slot.js'
 import tagBinding from '../../dist/module/generators/template/bindings/tag.js'
 
-const FAKE_SRC_FILE = 'fake-file.js'
-const renderExpr = compose(renderExpression, toScopedFunction, (expr) => ({
-  text: expr,
-}))
+const replaceEndline = (s) => s.replaceAll('\r', '')
 
+const FAKE_SRC_FILE = 'fake-file.js'
+const renderExpr = compose(
+  replaceEndline,
+  renderExpression,
+  toScopedFunction,
+  (expr) => ({
+    text: expr,
+  }),
+)
 const renderTextNode = (node, source) =>
-  generateJavascript(
-    mergeNodeExpressions(node, FAKE_SRC_FILE, source),
-  ).code.replace(/\.join\(([\r\n]|.)+/, '')
+  replaceEndline(
+    generateJavascript(
+      mergeNodeExpressions(node, FAKE_SRC_FILE, source),
+    ).code.replace(/\.join\(([\r\n]|.)+/, ''),
+  )
 
 const getSlotById = (slots, id) =>
   slots.find((slot) => slot[BINDING_ID_KEY] === id)

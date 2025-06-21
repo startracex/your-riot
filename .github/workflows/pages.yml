@@ -36,7 +36,7 @@ jobs:
       - name: Build
         run: |
           pnpm run build
-          pnpm run build:templates --base=/your-riot/
+          pnpm run build:templates -- --base=/your-riot/
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Upload artifact

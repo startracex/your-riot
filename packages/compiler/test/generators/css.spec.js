@@ -1,10 +1,10 @@
 import compileCSS, {
   addScopeToSelectorList,
   generateScopedCss,
-} from '../../src/generators/css/index.js'
+} from '../../dist/module/generators/css/index.js'
 import { evaluateScript, sassPreprocessor } from '../helpers.js'
-import { register, unregister } from '../../src/preprocessors.js'
-import { createInitialInput } from '../../src/index.js'
+import { register, unregister } from '../../dist/module/preprocessors.js'
+import { createInitialInput } from '../../dist/module/index.js'
 import { expect } from 'chai'
 import parser from '@your-riot/parser'
 import { print } from 'recast'

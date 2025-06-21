@@ -3,7 +3,7 @@ import {
   postprocessors,
   register,
   unregister,
-} from '../src/postprocessors.js'
+} from '../dist/module/postprocessors.js'
 import { expect } from 'chai'
 
 describe('Postprocessors', () => {

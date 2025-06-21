@@ -14,7 +14,7 @@ describe('lazy', () => {
     expect(lazy).to.be.ok
   })
 
-  it('Components with loader can be lazily loaded', async function () {
+  it('Components with loader can be lazily loaded', async () => {
     const div = document.createElement('div')
     const el = component(UserWrapper)(div, {
       name: 'Gianluca',
@@ -31,7 +31,7 @@ describe('lazy', () => {
     el.unmount()
   })
 
-  it('Components without loader can be lazily loaded', async function () {
+  it('Components without loader can be lazily loaded', async () => {
     const div = document.createElement('div')
     const el = component(UserWrapperWithoutLoader)(div, {
       name: 'Gianluca',
@@ -45,7 +45,7 @@ describe('lazy', () => {
     el.unmount()
   })
 
-  it('Components having slots can be lazily loaded', async function () {
+  it('Components having slots can be lazily loaded', async () => {
     const div = document.createElement('div')
     const el = component(ComponentWithSlotWrapper)(div, {
       greeting: 'Hello',
@@ -62,7 +62,7 @@ describe('lazy', () => {
     el.unmount()
   })
 
-  it('Lazy loaded component can dispatch load event', async function () {
+  it('Lazy loaded component can dispatch load event', async () => {
     const div = document.createElement('div')
     const el = component(ComponentWithLoadListener)(div, {
       name: 'Kal',

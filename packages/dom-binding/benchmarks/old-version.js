@@ -117,13 +117,17 @@ const udomdiff = (a, b, get, before) => {
             ? get(b[bStart - 1], -0).nextSibling
             : get(b[bEnd - bStart], 0)
           : before
-      while (bStart < bEnd) insertBefore(get(b[bStart++], 1), node)
+      while (bStart < bEnd) {
+        insertBefore(get(b[bStart++], 1), node)
+      }
     }
     // remove head or tail: fast path
     else if (bEnd === bStart) {
       while (aStart < aEnd) {
         // remove the node only if it's unknown or not live
-        if (!map || !map.has(a[aStart])) removeChild(get(a[aStart], -1))
+        if (!map || !map.has(a[aStart])) {
+          removeChild(get(a[aStart], -1))
+        }
         aStart++
       }
     }
@@ -168,7 +172,9 @@ const udomdiff = (a, b, get, before) => {
       if (!map) {
         map = new Map()
         let i = bStart
-        while (i < bEnd) map.set(b[i], i++)
+        while (i < bEnd) {
+          map.set(b[i], i++)
+        }
       }
       // if it's a future node, hence it needs some handling
       if (map.has(a[aStart])) {
@@ -179,8 +185,9 @@ const udomdiff = (a, b, get, before) => {
           let i = aStart
           // counts the amount of nodes that are the same in the future
           let sequence = 1
-          while (++i < aEnd && i < bEnd && map.get(a[i]) === index + sequence)
+          while (++i < aEnd && i < bEnd && map.get(a[i]) === index + sequence) {
             sequence++
+          }
           // effort decision here: if the sequence is longer than replaces
           // needed to reach such sequence, which would brings again this loop
           // to the fast path, prepend the difference before a sequence,
@@ -193,7 +200,9 @@ const udomdiff = (a, b, get, before) => {
           // will be processed at zero cost
           if (sequence > index - bStart) {
             const node = get(a[aStart], 0)
-            while (bStart < index) insertBefore(get(b[bStart++], 1), node)
+            while (bStart < index) {
+              insertBefore(get(b[bStart++], 1), node)
+            }
           }
           // if the effort wasn't good enough, fallback to a replace,
           // moving both source and target indexes forward, hoping that some
@@ -203,12 +212,16 @@ const udomdiff = (a, b, get, before) => {
           }
         }
         // otherwise move the source forward, 'cause there's nothing to do
-        else aStart++
+        else {
+          aStart++
+        }
       }
       // this node has no meaning in the future list, so it's more than safe
       // to remove it, and check the next live node out instead, meaning
       // that only the live list index should be forwarded
-      else removeChild(get(a[aStart++], -1))
+      else {
+        removeChild(get(a[aStart++], -1))
+      }
     }
   }
   return b
@@ -327,7 +340,9 @@ function mustFilterItem(condition, context) {
  */
 function extendScope(scope, { itemName, indexName, index, item }) {
   defineProperty(scope, itemName, item)
-  if (indexName) defineProperty(scope, indexName, index)
+  if (indexName) {
+    defineProperty(scope, indexName, index)
+  }
 
   return scope
 }
@@ -478,7 +493,9 @@ const IfBinding = {
         this.unmount(scope)
         break
       default:
-        if (value) this.template.update(scope, parentScope)
+        if (value) {
+          this.template.update(scope, parentScope)
+        }
     }
 
     this.value = value
@@ -510,7 +527,7 @@ function create$5(node, { evaluate, template }) {
 /* c8 ignore next */
 const ElementProto = typeof Element === 'undefined' ? {} : Element.prototype
 const isNativeHtmlProperty = memoize(
-  (name) => ElementProto.hasOwnProperty(name), // eslint-disable-line
+  (name) => Object.hasOwn(ElementProto, name), // eslint-disable-line
 )
 
 /**
@@ -557,7 +574,9 @@ function canRenderAttribute(value) {
  */
 function shouldRemoveAttribute(value, isBoolean) {
   // boolean attributes should be removed if the value is falsy
-  if (isBoolean) return !value && value !== 0
+  if (isBoolean) {
+    return !value && value !== 0
+  }
   // otherwise we can try to render it
   return typeof value === 'undefined' || value === null
 }
@@ -758,7 +777,9 @@ const Expression = {
    */
   unmount() {
     // unmount only the event handling expressions
-    if (this.type === EVENT) apply(this, null)
+    if (this.type === EVENT) {
+      apply(this, null)
+    }
 
     return this
   },
@@ -814,7 +835,9 @@ function create$3(node, { expressions }) {
 }
 
 function extendParentScope(attributes, scope, parentScope) {
-  if (!attributes || !attributes.length) return parentScope
+  if (!attributes || !attributes.length) {
+    return parentScope
+  }
 
   const expressions = attributes.map((attr) => ({
     ...attr,
@@ -897,9 +920,11 @@ const SlotBinding = {
  * @returns {undefined} it's a void method ¯\_(ツ)_/¯
  */
 function moveSlotInnerContent(slot) {
-  const child = slot && slot.firstChild
+  const child = slot?.firstChild
 
-  if (!child) return
+  if (!child) {
+    return
+  }
 
   insertBefore(child, slot)
   moveSlotInnerContent(slot)
@@ -1062,7 +1087,9 @@ function create$1(root, binding, templateTagOffset) {
   const node = selector ? root.querySelector(selector) : root
 
   // remove eventually additional attributes created only to select this node
-  if (redundantAttribute) node.removeAttribute(redundantAttribute)
+  if (redundantAttribute) {
+    node.removeAttribute(redundantAttribute)
+  }
   const bindingExpressions = expressions || []
 
   // init the binding
@@ -1106,7 +1133,9 @@ function createSVGTree(html, container) {
  */
 function createDOMTree(root, html) {
   /* c8 ignore next */
-  if (isSvg(root)) return createSVGTree(html, root)
+  if (isSvg(root)) {
+    return createSVGTree(html, root)
+  }
 
   return createHTMLTree(html, root)
 }
@@ -1193,9 +1222,13 @@ const TemplateChunk = {
    * @returns {TemplateChunk} self
    */
   mount(el, scope, parentScope, meta = {}) {
-    if (!el) panic('Please provide DOM node to mount properly your template')
+    if (!el) {
+      panic('Please provide DOM node to mount properly your template')
+    }
 
-    if (this.el) this.unmount(scope)
+    if (this.el) {
+      this.unmount(scope)
+    }
 
     // <template> tags require a bit more work
     // the template fragment might be already created via meta outside of this call
@@ -1225,7 +1258,9 @@ const TemplateChunk = {
       : null
 
     // inject the DOM into the el only if a fragment is available
-    if (!avoidDOMInjection && cloneNode) injectDOM(el, cloneNode)
+    if (!avoidDOMInjection && cloneNode) {
+      injectDOM(el, cloneNode)
+    }
 
     // create the bindings
     this.bindings = this.bindingsData.map((binding) =>

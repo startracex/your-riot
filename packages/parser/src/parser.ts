@@ -7,7 +7,12 @@ import panic from './utils/panic.js'
 import tag from './parsers/tag.js'
 import text from './parsers/text.js'
 import treeBuilder from './tree-builder.js'
-import { Parser, ParserOptions, ParserOutput, ParserState } from './types.js'
+import type {
+  Parser,
+  ParserOptions,
+  ParserOutput,
+  ParserState,
+} from './types.js'
 
 /**
  * Factory for the Parser class, exposing only the `parse` method.

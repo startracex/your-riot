@@ -23,11 +23,12 @@ export function createOutput(data, meta) {
     meta,
   }
 
-  if (!output.map && meta && meta.options && meta.options.file)
+  if (!output.map && meta && meta.options && meta.options.file) {
     return {
       ...output,
       map: createSourcemap({ file: meta.options.file }),
     }
+  }
 
   return output
 }

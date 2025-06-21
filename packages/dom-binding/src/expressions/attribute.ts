@@ -4,12 +4,12 @@ import {
   isObject,
 } from '@your-riot/utils/checks'
 import { memoize } from '@your-riot/utils/misc'
-import { Expression } from '../types.js'
+import type { Expression } from '../types.js'
 
 /* c8 ignore next */
 const ElementProto = typeof Element === 'undefined' ? {} : Element.prototype
 const isNativeHtmlProperty = memoize(
-  (name) => ElementProto.hasOwnProperty(name), // eslint-disable-line
+  (name) => Object.hasOwn(ElementProto, name), // eslint-disable-line
 )
 
 /**

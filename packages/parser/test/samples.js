@@ -10,7 +10,7 @@ const opts = {
 }
 
 process.chdir(__dirname)
-;(function () {
+;(() => {
   console.log('Tree Builder')
   console.log('------------')
 
@@ -21,7 +21,7 @@ process.chdir(__dirname)
   console.dir(result, { depth: 12, colors: true })
   console.log()
 })()
-;(function () {
+;(() => {
   console.log('Tree Builder')
   console.log('------------')
 
@@ -34,7 +34,7 @@ process.chdir(__dirname)
   console.dir(result, { depth: 12, colors: true })
   console.log()
 })()
-;(function () {
+;(() => {
   console.log('------------------')
   console.log('Tree Builder (svg)')
   console.log('------------------')
@@ -46,7 +46,7 @@ process.chdir(__dirname)
   console.dir(result, { depth: 12, colors: true })
   console.log()
 })()
-;(function () {
+;(() => {
   console.log('------------------')
   console.log('History Router APP')
   console.log('------------------')

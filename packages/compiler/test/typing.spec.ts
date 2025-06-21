@@ -13,14 +13,10 @@ compile('<my-tag><p>hello</p></my-tag>', {
   scopedCss: true,
 })
 
-registerPostprocessor(function (code) {
-  return {
-    code: code.toUpperCase(),
-  }
-})
+registerPostprocessor((code) => ({
+  code: code.toUpperCase(),
+}))
 
-registerPreprocessor('javascript', 'upper', function (code) {
-  return {
-    code: code.toUpperCase(),
-  }
-})
+registerPreprocessor('javascript', 'upper', (code) => ({
+  code: code.toUpperCase(),
+}))

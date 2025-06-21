@@ -3,8 +3,10 @@
   Simple object comparison.
 */
 function isEmpty(v) {
-  if (!v) return true
-  return typeof v == 'object'
+  if (!v) {
+    return true
+  }
+  return typeof v === 'object'
     ? Array.isArray(v)
       ? !v.length
       : !Object.keys(v).length
@@ -12,11 +14,13 @@ function isEmpty(v) {
 }
 
 export default function compareObjects(a, b) {
-  if (a === b) return true
+  if (a === b) {
+    return true
+  }
   let p
 
   for (p in a) {
-    if (typeof b[p] == 'undefined') {
+    if (typeof b[p] === 'undefined') {
       if (/^(?:start|end)$/.test(p) && isEmpty(a[p])) {
         continue
       }
@@ -30,7 +34,7 @@ export default function compareObjects(a, b) {
           }
           break
         case 'function':
-          if (typeof b[p] != 'function') {
+          if (typeof b[p] !== 'function') {
             return false
           }
           break
@@ -45,7 +49,7 @@ export default function compareObjects(a, b) {
   }
 
   for (p in b) {
-    if (typeof a[p] == 'undefined') {
+    if (typeof a[p] === 'undefined') {
       return false
     }
   }

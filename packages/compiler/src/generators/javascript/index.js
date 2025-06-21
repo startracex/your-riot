@@ -50,10 +50,11 @@ export default function javascript(sourceNode, source, meta, ast) {
   const componentInterface = findComponentInterface(generatedAstBody)
 
   // throw in case of mixed component exports
-  if (exportDefaultNode && generatedAstBody.some(isThisExpressionStatement))
+  if (exportDefaultNode && generatedAstBody.some(isThisExpressionStatement)) {
     throw new Error(
       'You can\t use "export default {}" and root this statements in the same component',
     )
+  }
 
   // add to the ast the "private" javascript content of our tag script node
   outputBody.unshift(
@@ -68,14 +69,17 @@ export default function javascript(sourceNode, source, meta, ast) {
   )
 
   // create the public component export properties from the root this statements
-  if (isLegacyRiotSyntax)
+  if (isLegacyRiotSyntax) {
     extendTagProperty(
       ast,
       createDefaultExportFromLegacySyntax(generatedAstBody),
     )
+  }
 
   // convert the export default adding its content to the component property exported
-  if (exportDefaultNode) extendTagProperty(ast, exportDefaultNode)
+  if (exportDefaultNode) {
+    extendTagProperty(ast, exportDefaultNode)
+  }
 
   return componentInterface
     ? // add the component interface to the component object exported

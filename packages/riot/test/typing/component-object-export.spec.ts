@@ -1,4 +1,8 @@
-import { RiotComponentWrapper, RiotComponent, withTypes } from '../../riot'
+import {
+  type RiotComponentWrapper,
+  type RiotComponent,
+  withTypes,
+} from '../../riot'
 
 export interface RandomComponentState {
   number: number | null
@@ -43,8 +47,8 @@ const Random = withTypes<RandomComponent>({
 export default {
   css: undefined,
   exports: Random,
-  template: function (template, expressionTypes, bindingTypes, getComponent) {
-    return template(
+  template: (template, expressionTypes, bindingTypes, getComponent) =>
+    template(
       '<h3 expr1="expr1"> </h3><button expr2="expr2">\n    Generate\n  </button><h1 expr3="expr3"> </h1><logs expr4="expr4"></logs>',
       [
         {
@@ -56,9 +60,7 @@ export default {
               type: expressionTypes.TEXT,
               childNodeIndex: 0,
 
-              evaluate: function (_scope) {
-                return _scope.props.title
-              },
+              evaluate: (_scope) => _scope.props.title,
             },
           ],
         },
@@ -71,9 +73,7 @@ export default {
               type: expressionTypes.EVENT,
               name: 'onclick',
 
-              evaluate: function (_scope) {
-                return _scope.generate
-              },
+              evaluate: (_scope) => _scope.generate,
             },
           ],
         },
@@ -86,9 +86,7 @@ export default {
               type: expressionTypes.TEXT,
               childNodeIndex: 0,
 
-              evaluate: function (_scope) {
-                return [_scope.state.number].join('')
-              },
+              evaluate: (_scope) => [_scope.state.number].join(''),
             },
           ],
         },
@@ -96,9 +94,7 @@ export default {
           type: bindingTypes.TAG,
           getComponent: getComponent,
 
-          evaluate: function (_scope) {
-            return 'logs'
-          },
+          evaluate: (_scope) => 'logs',
 
           slots: [],
 
@@ -107,17 +103,13 @@ export default {
               type: expressionTypes.ATTRIBUTE,
               name: 'logs',
 
-              evaluate: function (_scope) {
-                return _scope.state.logs
-              },
+              evaluate: (_scope) => _scope.state.logs,
             },
             {
               type: expressionTypes.EVENT,
               name: 'onclear',
 
-              evaluate: function (_scope) {
-                return _scope.clearLogs
-              },
+              evaluate: (_scope) => _scope.clearLogs,
             },
           ],
 
@@ -125,8 +117,7 @@ export default {
           selector: '[expr4]',
         },
       ],
-    )
-  },
+    ),
 
   name: 'random',
 } as RiotComponentWrapper<RandomComponent>

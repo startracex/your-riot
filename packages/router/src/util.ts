@@ -37,8 +37,10 @@ export const getAttribute = (
   attributes: any[],
   name: string,
   context: any,
-): void => {
-  if (!attributes) return null
+): string | null => {
+  if (!attributes) {
+    return null
+  }
 
   const normalizedAttributes = attributes.flatMap((attr) =>
     isNil(attr.name)

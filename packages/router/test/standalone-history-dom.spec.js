@@ -6,7 +6,7 @@ import $ from 'bianco.query'
 import { expect } from 'chai'
 import { spy } from 'sinon'
 
-describe('standalone history', function () {
+describe('standalone history', () => {
   let teardown // eslint-disable-line
 
   beforeEach(() => {
@@ -30,7 +30,7 @@ describe('standalone history', function () {
     teardown()
   })
 
-  it('html5 history links dispatch events', async function () {
+  it('html5 history links dispatch events', async () => {
     const onRoute = spy()
     const hello = route('/hello').on.value(onRoute)
 

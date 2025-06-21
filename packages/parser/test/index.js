@@ -16,7 +16,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url))
 process.chdir(__dirname)
 
 function getOpts(test) {
-  return Object.assign({ brackets: ['{', '}'] }, test && test.options)
+  return Object.assign({ brackets: ['{', '}'] }, test?.options)
 }
 
 function cat(dir, name) {
@@ -25,14 +25,14 @@ function cat(dir, name) {
 
 function throwException(test) {
   const _p = parser(getOpts(test))
-  return expect(function () {
+  return expect(() => {
     _p.parse(test.data)
   }).throw(test.throws)
 }
 
-describe('The Parser', function () {
+describe('The Parser', () => {
   Object.keys(parserTests).forEach((title) => {
-    it(title, function () {
+    it(title, () => {
       const test = parserTests[title]
       const _p = parser(getOpts(test), echoBuilder)
 
@@ -53,9 +53,9 @@ describe('The Parser', function () {
   })
 })
 
-describe('Expressions', function () {
+describe('Expressions', () => {
   Object.keys(expressionTests).forEach((title) => {
-    it(title, function () {
+    it(title, () => {
       const test = expressionTests[title]
       const _p = parser(getOpts(test), echoBuilder)
 
@@ -76,7 +76,7 @@ describe('Expressions', function () {
   })
 })
 
-describe('Tree Builder', function () {
+describe('Tree Builder', () => {
   const titles = fs.readdirSync('./fixtures')
   const _p = parser(
     getOpts({
@@ -97,10 +97,11 @@ describe('Tree Builder', function () {
     }
     const name = path.basename(title, ext)
 
-    it(title, function () {
+    it(title, () => {
       const src = cat('fixtures', title)
 
-      if (name === _TDEBUG) debugger
+      if (name === _TDEBUG) {
+      }
       const res = _p.parse(src)
 
       expect(res).to.be.an('object')
@@ -114,19 +115,23 @@ describe('Tree Builder', function () {
         fs.writeFile(
           path.join('.', 'expected', `${name}_out.json`),
           json,
-          function (err) {
-            if (err) throw err
+          (err) => {
+            if (err) {
+              throw err
+            }
           },
         )
       }
       expect(json.trim()).to.be.equal(cat('expected', `${name}.json`).trim())
     })
 
-    if (_TDEBUG && title === _TDEBUG) break
+    if (_TDEBUG && title === _TDEBUG) {
+      break
+    }
   }
 })
 
-describe('HTML Builder', function () {
+describe('HTML Builder', () => {
   const titles = Object.keys(htmlBuilderTests)
 
   const _TDEBUG = 0 //'Attributes: Single quoted values are converted to double quoted'
@@ -134,15 +139,16 @@ describe('HTML Builder', function () {
   for (let i = 0; i < titles.length; i++) {
     const title = titles[i]
 
-    it(title, function () {
+    it(title, () => {
       const test = htmlBuilderTests[title]
       const _p = parser(getOpts(test), echoBuilder)
       const builder = htmlBuilder(test.builderOptions)
 
-      if (_TDEBUG && title === _TDEBUG) debugger
+      if (_TDEBUG && title === _TDEBUG) {
+      }
 
       if (test.throws) {
-        expect(function () {
+        expect(() => {
           builder.build(_p.parse(test.data))
         }).throw(test.throws)
       } else {
@@ -151,10 +157,12 @@ describe('HTML Builder', function () {
       }
     })
 
-    if (_TDEBUG && title === _TDEBUG) break
+    if (_TDEBUG && title === _TDEBUG) {
+      break
+    }
   }
 
-  it('SVG Test', function () {
+  it('SVG Test', () => {
     const source = fs
       .readFileSync('fixtures/loop-svg-nodes.riot', 'utf8')
       .trim()

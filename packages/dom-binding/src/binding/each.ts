@@ -3,7 +3,7 @@ import { defineProperty } from '@your-riot/utils/objects'
 import { isTemplate } from '@your-riot/utils/checks'
 import createTemplateMeta from '../utils/create-template-meta.js'
 import udomdiff from '../utils/udomdiff.js'
-import { TemplateChunk } from '../template.js'
+import type { TemplateChunk } from '../template.js'
 
 const UNMOUNT_SCOPE: unique symbol = Symbol('unmount')
 
@@ -61,7 +61,9 @@ function mustFilterItem(condition, context) {
  */
 function extendScope(scope, { itemName, indexName, index, item }) {
   defineProperty(scope, itemName, item)
-  if (indexName) defineProperty(scope, indexName, index)
+  if (indexName) {
+    defineProperty(scope, indexName, index)
+  }
 
   return scope
 }
@@ -155,7 +157,7 @@ export class EachBinding<
   Scope = any,
   ItemName extends string = string,
   IndexName extends string = string,
-  ItemValue extends any = any,
+  ItemValue = any,
   ExtendedScope = Scope & { [Property in ItemName]: ItemValue } & {
     [Property in IndexName]: number
   },

@@ -46,14 +46,17 @@ export default (
             ? get(b[bStart - 1], -0).nextSibling
             : get(b[bEnd - bStart], 0)
           : before
-      while (bStart < bEnd) insertBefore(get(b[bStart++], 1), node)
+      while (bStart < bEnd) {
+        insertBefore(get(b[bStart++], 1), node)
+      }
     }
     // remove head or tail: fast path
     else if (bEnd === bStart) {
       while (aStart < aEnd) {
         // remove the node only if it's unknown or not live
-        if (!map || !map.has(a[aStart]))
+        if (!map || !map.has(a[aStart])) {
           removeChild(get(a[aStart], -1) as Element)
+        }
         aStart++
       }
     }
@@ -98,7 +101,9 @@ export default (
       if (!map) {
         map = new Map()
         let i = bStart
-        while (i < bEnd) map.set(b[i], i++)
+        while (i < bEnd) {
+          map.set(b[i], i++)
+        }
       }
       // if it's a future node, hence it needs some handling
       if (map.has(a[aStart])) {
@@ -109,8 +114,9 @@ export default (
           let i = aStart
           // counts the amount of nodes that are the same in the future
           let sequence = 1
-          while (++i < aEnd && i < bEnd && map.get(a[i]) === index + sequence)
+          while (++i < aEnd && i < bEnd && map.get(a[i]) === index + sequence) {
             sequence++
+          }
           // effort decision here: if the sequence is longer than replaces
           // needed to reach such sequence, which would brings again this loop
           // to the fast path, prepend the difference before a sequence,
@@ -123,7 +129,9 @@ export default (
           // will be processed at zero cost
           if (sequence > index - bStart) {
             const node = get(a[aStart], 0)
-            while (bStart < index) insertBefore(get(b[bStart++], 1), node)
+            while (bStart < index) {
+              insertBefore(get(b[bStart++], 1), node)
+            }
           }
           // if the effort wasn't good enough, fallback to a replace,
           // moving both source and target indexes forward, hoping that some
@@ -133,12 +141,16 @@ export default (
           }
         }
         // otherwise move the source forward, 'cause there's nothing to do
-        else aStart++
+        else {
+          aStart++
+        }
       }
       // this node has no meaning in the future list, so it's more than safe
       // to remove it, and check the next live node out instead, meaning
       // that only the live list index should be forwarded
-      else removeChild(get(a[aStart++], -1) as Element)
+      else {
+        removeChild(get(a[aStart++], -1) as Element)
+      }
     }
   }
   return b

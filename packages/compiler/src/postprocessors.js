@@ -50,7 +50,7 @@ export function unregister(postprocessor) {
  */
 export function execute(compilerOutput, meta) {
   return Array.from(postprocessors).reduce(
-    function (acc, postprocessor) {
+    (acc, postprocessor) => {
       const { code, map } = acc
       const output = postprocessor(code, meta)
 

@@ -15,8 +15,11 @@ export const MOCKED_TEMPLATE_INTERFACE = {
   },
   [UPDATE_METHOD_KEY]: noop,
   [UNMOUNT_METHOD_KEY](_, __, mustRemoveRoot = false) {
-    if (mustRemoveRoot) removeChild(this.el)
-    else if (!mustRemoveRoot) cleanNode(this.el)
+    if (mustRemoveRoot) {
+      removeChild(this.el)
+    } else if (!mustRemoveRoot) {
+      cleanNode(this.el)
+    }
   },
   clone() {
     return { ...this }

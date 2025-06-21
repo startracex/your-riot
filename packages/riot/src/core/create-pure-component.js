@@ -23,8 +23,12 @@ export function createPureComponent(
   pureFactoryFunction,
   { slots, attributes, props, css, template },
 ) {
-  if (template) panic('Pure components can not have html')
-  if (css) panic('Pure components do not have css')
+  if (template) {
+    panic('Pure components can not have html')
+  }
+  if (css) {
+    panic('Pure components do not have css')
+  }
 
   const component = defineDefaults(
     pureFactoryFunction({ slots, attributes, props }),

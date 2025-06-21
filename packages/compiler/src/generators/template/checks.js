@@ -241,8 +241,7 @@ export function hasExpressions(node) {
     // has expression attributes
     getNodeAttributes(node).some((attribute) => hasExpressions(attribute)) ||
     // has child text nodes with expressions
-    (node.nodes &&
-      node.nodes.some((node) => isTextNode(node) && hasExpressions(node)))
+    node.nodes?.some((node) => isTextNode(node) && hasExpressions(node))
   )
 }
 

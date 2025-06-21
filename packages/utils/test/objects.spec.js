@@ -8,7 +8,7 @@ import {
 } from '../dist/module/objects.js'
 import { expect } from 'chai'
 
-describe('Objects', function () {
+describe('Objects', () => {
   it('defineProperty', () => {
     const source = {}
     defineProperty(source, 'name', 'hello')

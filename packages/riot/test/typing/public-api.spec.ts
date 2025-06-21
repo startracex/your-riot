@@ -1,11 +1,11 @@
 import {
-  RiotComponent,
+  type RiotComponent,
   mount,
   unmount,
   register,
   unregister,
   version,
-  RiotComponentWrapper,
+  type RiotComponentWrapper,
 } from '../../riot'
 
 interface TodoItem {

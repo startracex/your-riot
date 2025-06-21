@@ -1,4 +1,4 @@
-import { AutobindObjectMethods, RiotComponent } from '../../riot'
+import type { AutobindObjectMethods, RiotComponent } from '../../riot'
 
 type BaseObject = {
   method(example: number): boolean
@@ -28,6 +28,6 @@ export const object2: BoundObject = {
    */
   //@ts-expect-error
   method(example: string) {
-    return example != ''
+    return example !== ''
   },
 }

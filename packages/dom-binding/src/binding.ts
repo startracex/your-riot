@@ -1,7 +1,7 @@
 import bindingTypes from '@your-riot/utils/binding-types'
 import expressionTypes from '@your-riot/utils/expression-types'
 import bindings from './binding/index.js'
-import { Binding, BindingData, Expression } from './types.js'
+import type { Binding, BindingData, Expression } from './types.js'
 
 /**
  * Text expressions in a template tag will get childNodeIndex value normalized
@@ -37,7 +37,9 @@ export function createBinding<Scope = any>(
 
   // remove eventually additional attributes created only to select this node
   // @ts-ignore
-  if (redundantAttribute) node.removeAttribute(redundantAttribute)
+  if (redundantAttribute) {
+    node.removeAttribute(redundantAttribute)
+  }
   const bindingExpressions = expressions || []
 
   // init the binding

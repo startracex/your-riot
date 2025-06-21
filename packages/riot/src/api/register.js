@@ -8,8 +8,9 @@ import { createComponentFromWrapper } from '../core/create-component-from-wrappe
  * @returns {Map} map containing all the components implementations
  */
 export function register(name, { css, template, exports }) {
-  if (COMPONENTS_IMPLEMENTATION_MAP.has(name))
+  if (COMPONENTS_IMPLEMENTATION_MAP.has(name)) {
     panic(`The component "${name}" was already registered`)
+  }
 
   COMPONENTS_IMPLEMENTATION_MAP.set(
     name,

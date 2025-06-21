@@ -153,7 +153,7 @@ describe('tag bindings', () => {
     const spyUnmount = sinon.spy()
 
     const components = {
-      'my-tag-1': function ({ slots, attributes }) {
+      'my-tag-1': ({ slots, attributes }) => {
         expect(slots).to.be.ok
         expect(attributes).to.be.ok
 
@@ -170,7 +170,7 @@ describe('tag bindings', () => {
           },
         }
       },
-      'my-tag-2': function ({ slots, attributes }) {
+      'my-tag-2': ({ slots, attributes }) => {
         expect(slots).to.be.ok
         expect(attributes).to.be.ok
 
@@ -225,7 +225,7 @@ describe('tag bindings', () => {
     const target = document.createElement('div')
     const spy = sinon.spy()
     const components = {
-      'my-tag': function ({ slots, attributes }) {
+      'my-tag': ({ slots, attributes }) => {
         expect(slots).to.be.ok
         expect(attributes).to.be.ok
 
@@ -266,7 +266,7 @@ describe('tag bindings', () => {
     const target = document.createElement('div')
     const spy = sinon.spy()
     const components = {
-      'my-tag': function ({ slots, attributes }) {
+      'my-tag': ({ slots, attributes }) => {
         expect(slots).to.be.ok
         expect(attributes).to.be.ok
 
@@ -307,7 +307,7 @@ describe('tag bindings', () => {
   it('shouldRemoveRoot should always be null for each directives', () => {
     const target = document.createElement('div')
     const components = {
-      'my-tag': function ({ slots, attributes }) {
+      'my-tag': ({ slots, attributes }) => {
         expect(slots).to.be.ok
         expect(attributes).to.be.ok
 
@@ -352,7 +352,7 @@ describe('tag bindings', () => {
     const target = document.createElement('div')
     const spy = sinon.spy()
     const components = {
-      'my-tag': function ({ slots, attributes }) {
+      'my-tag': ({ slots, attributes }) => {
         expect(slots).to.be.ok
         expect(attributes).to.be.ok
 
@@ -397,7 +397,7 @@ describe('tag bindings', () => {
     const target = document.createElement('div')
     const spy = sinon.spy()
     const components = {
-      'my-tag': function ({ slots, attributes }) {
+      'my-tag': ({ slots, attributes }) => {
         expect(slots).to.be.ok
         expect(attributes).to.be.ok
 

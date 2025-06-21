@@ -24,7 +24,7 @@ export function autobindMethods(
  */
 export function callOrAssign(source: any): any {
   return isFunction(source)
-    ? source.prototype && source.prototype.constructor
+    ? source.prototype?.constructor
       ? new (source as any)()
       : source()
     : source

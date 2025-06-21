@@ -3,7 +3,9 @@ import resolve from '@rollup/plugin-node-resolve'
 export default {
   input: 'benchmarks/index.js',
   onwarn(message) {
-    if (/Circular/.test(message)) return
+    if (/Circular/.test(message)) {
+      return
+    }
     console.error(message) // eslint-disable-line
   },
   plugins: [resolve()],

@@ -17,8 +17,12 @@ const evaluateWithScriptInjection = (code, url) => {
 export function evaluate(code, url) {
   // browsers can evaluate the code via script injection and sourcemaps
   /* c8 ignore start */
-  if (isBrowser) evaluateWithScriptInjection(code, url)
+  if (isBrowser) {
+    evaluateWithScriptInjection(code, url)
+  }
   /* c8 ignore end */
   // in other environments we rely on a simple Function eval
-  else new Function(code)()
+  else {
+    new Function(code)()
+  }
 }

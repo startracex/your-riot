@@ -38,7 +38,7 @@ const RE_DOT_CHAR = /.*/g
  * starting with `pos - 1`.
  */
 function _prev(code: string, pos: number): number {
-  while (--pos >= 0 && /\s/.test(code[pos]));
+  while (--pos >= 0 && /\s/.test(code[pos])) {}
   return pos
 }
 
@@ -91,7 +91,7 @@ export default function skipRegex(code: string, start: number): number {
         const end = pos + 1
 
         // get the complete (previous) keyword
-        while (--pos >= 0 && RE_JS_VCHAR.test(code[pos]));
+        while (--pos >= 0 && RE_JS_VCHAR.test(code[pos])) {}
 
         // it is in the allowed keywords list?
         if (beforeReWords.includes(code.slice(pos + 1, end))) {

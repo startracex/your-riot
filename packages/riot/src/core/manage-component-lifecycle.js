@@ -120,8 +120,9 @@ export function manageComponentLifecycle(
                 this[ATTRIBUTES_KEY_SYMBOL].expressions,
               ),
             }
-            if (this[SHOULD_UPDATE_KEY](newProps, this[PROPS_KEY]) === false)
+            if (this[SHOULD_UPDATE_KEY](newProps, this[PROPS_KEY]) === false) {
               return
+            }
 
             defineProperty(
               this,

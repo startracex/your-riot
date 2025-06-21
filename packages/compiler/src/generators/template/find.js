@@ -14,9 +14,7 @@ import { hasExpressions } from './checks.js'
  * @returns { riotParser.nodeTypes.ATTR } attribute node
  */
 export function findAttribute(name, node) {
-  return (
-    node.attributes && node.attributes.find((attr) => getName(attr) === name)
-  )
+  return node.attributes?.find((attr) => getName(attr) === name)
 }
 
 export function findIfAttribute(node) {

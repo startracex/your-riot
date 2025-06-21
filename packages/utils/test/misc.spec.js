@@ -7,7 +7,7 @@ import expressionTypes from '../dist/module/expression-types.js'
 import { expect } from 'chai'
 
 const { ATTRIBUTE, REF } = expressionTypes
-describe('Misc', function () {
+describe('Misc', () => {
   it('panic', () => {
     expect(() => panic('err')).to.throw()
   })
@@ -38,7 +38,7 @@ describe('Misc', function () {
 
   it('memoize', () => {
     let count = 0 // eslint-disable-line
-    const increment = memoize(function () {
+    const increment = memoize(() => {
       count++
 
       return count

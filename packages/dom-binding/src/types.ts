@@ -72,7 +72,7 @@ export interface EachBindingData<
   Scope = any,
   ItemName extends string = string,
   IndexName extends string = string,
-  ItemValue extends any = any,
+  ItemValue = any,
   ExtendedScope = Scope & { [Property in ItemName]: ItemValue } & {
     [Property in IndexName]: number
   },

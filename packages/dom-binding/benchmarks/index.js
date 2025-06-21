@@ -11,7 +11,9 @@ import ifBench from './if.js'
 import mountBench from './mount.js'
 
 // created the dom only on node env
-if (globalThis.process) jsdomGlobal()
+if (globalThis.process) {
+  jsdomGlobal()
+}
 
 const suite = new Benchmark.Suite()
 
@@ -29,7 +31,7 @@ Object.entries(benchmarks).forEach(([key, bench]) => {
 })
 
 suite
-  .on('cycle', function (event) {
+  .on('cycle', (event) => {
     if (!globalThis.process) {
       console.log(String(event.target))
       return
@@ -39,7 +41,7 @@ suite
     console.log(String(event.target), `Memory usage: ${mem} MiB`)
     global.gc()
   })
-  .on('error', function (e) {
+  .on('error', (e) => {
     console.log(e.target.error)
   })
   .run({ async: true })

@@ -1,7 +1,7 @@
 import expressionTypes from '@your-riot/utils/expression-types'
 import expressions from './expressions/index.js'
 import { getTextNode } from './expressions/text.js'
-import { ExpressionData, Expression as ExpressionType } from './types.js'
+import type { ExpressionData, Expression as ExpressionType } from './types.js'
 
 export const Expression = {
   // Static props
@@ -46,8 +46,9 @@ export const Expression = {
    */
   unmount() {
     // unmount event and ref expressions
-    if ([expressionTypes.EVENT, expressionTypes.REF].includes(this.type))
+    if ([expressionTypes.EVENT, expressionTypes.REF].includes(this.type)) {
       expressions[this.type](this, null)
+    }
 
     return this
   },

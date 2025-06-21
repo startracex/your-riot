@@ -40,7 +40,7 @@ import generateAST from '../../utils/generate-ast.js'
 import unescapeChar from '../../utils/unescape-char.js'
 
 const scope = builders.identifier(SCOPE)
-export const getName = (node) => (node && node.name ? node.name : node)
+export const getName = (node) => (node?.name ? node.name : node)
 
 /**
  * Replace the path scope with a member Expression
@@ -81,7 +81,7 @@ function visitMemberExpression(path) {
 
   switch (true) {
     case isGlobal(path):
-      if (currentObject.arguments && currentObject.arguments.length) {
+      if (currentObject.arguments?.length) {
         traversePathObject()
       }
       break
@@ -106,7 +106,9 @@ function visitObjectProperty(path) {
 
   if (isIdentifier(value) || isMemberExpression(value) || isShorthand) {
     // disable shorthand object properties
-    if (isShorthand) path.node.shorthand = false
+    if (isShorthand) {
+      path.node.shorthand = false
+    }
 
     updateNodeScope.call(this, path.get('value'))
   } else {
@@ -277,7 +279,9 @@ export function transformExpression(expression, sourceFile, sourceCode) {
  * @returns {AST.Expression} program expression output without parenthesis
  */
 export function removeExtraParenthesis(expr) {
-  if (expr.extra) expr.extra.parenthesized = false
+  if (expr.extra) {
+    expr.extra.parenthesized = false
+  }
 
   return expr
 }
@@ -373,10 +377,11 @@ export function cloneNodeWithoutSelectorAttribute(node, selectorAttribute) {
  * @returns {Array<RiotParser.Attr>} filtered attributes
  */
 export function getAttributesWithoutSelector(attributes, selectorAttribute) {
-  if (selectorAttribute)
+  if (selectorAttribute) {
     return attributes.filter(
       (attribute) => attribute.name !== selectorAttribute,
     )
+  }
 
   return attributes
 }
@@ -448,7 +453,9 @@ export function createNestedRootNode(node) {
  */
 export function transformStaticAttributesIntoExpressions(attributes) {
   return attributes.map((attribute) => {
-    if (attribute.expressions) return attribute
+    if (attribute.expressions) {
+      return attribute
+    }
 
     return {
       ...attribute,
@@ -476,7 +483,7 @@ export function transformStaticAttributesIntoExpressions(attributes) {
  * @returns {Array<RiotParser.Node>} all the child nodes found
  */
 export function getChildrenNodes(node) {
-  return node && node.nodes ? node.nodes : []
+  return node?.nodes ? node.nodes : []
 }
 
 /**

@@ -42,6 +42,6 @@ describe('plugins API', () => {
   })
 
   it('uninstalling plugins never registered before must throw', () => {
-    expect(() => riot.uninstall(function () {})).to.throw()
+    expect(() => riot.uninstall(() => {})).to.throw()
   })
 })

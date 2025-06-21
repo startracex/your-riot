@@ -30,7 +30,7 @@ describe('Riot compiler api', () => {
     ])
   })
 
-  it('compiler can load asynchronously tags via url', async function () {
+  it('compiler can load asynchronously tags via url', async () => {
     const { code } = await riot.compileFromUrl(
       `${getBaseUrl()}/test/components/simple.riot`,
     )
@@ -38,7 +38,7 @@ describe('Riot compiler api', () => {
     expect(code).to.match(/scope\.props\.message/)
   })
 
-  it('compiler can load asynchronously script tags', async function () {
+  it('compiler can load asynchronously script tags', async () => {
     const script = document.createElement('script')
     script.setAttribute('type', 'riot')
     script.setAttribute(
@@ -48,7 +48,7 @@ describe('Riot compiler api', () => {
     document.body.appendChild(script)
     await riot.compile()
 
-    expect(window[GLOBAL_REGISTRY]['simple']).to.be.ok
+    expect(window[GLOBAL_REGISTRY].simple).to.be.ok
 
     riot.unregister('simple')
   })

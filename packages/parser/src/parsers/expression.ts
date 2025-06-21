@@ -3,7 +3,7 @@ import exprExtr from '../utils/expr-extr.js'
 import panic from '../utils/panic.js'
 import pushText from '../utils/push-text.js'
 import { unexpectedEndOfFile } from '../messages.js'
-import { Expr, ParserState } from '../types.js'
+import type { Expr, ParserState } from '../types.js'
 
 /**
  * Find the end of the attribute value or text node.
@@ -86,7 +86,9 @@ function b0re(state: ParserState, str: string): RegExp {
   const { brackets } = state.options
   const re = state.regexCache[str]
 
-  if (re) return re
+  if (re) {
+    return re
+  }
 
   const b0 = escapeStr(brackets[0])
   // cache the regex extending the regexCache object

@@ -41,12 +41,13 @@ function generateLiteralStringChunksFromNode(node, sourceCode) {
         chunks.push(index === 0 ? trimStart(string) : string)
 
         // add the tail to the string
-        if (index === node.expressions.length - 1)
+        if (index === node.expressions.length - 1) {
           chunks.push(
             encodeHTMLEntities(
               trimEnd(sourceCode.substring(expression.end, node.end)),
             ),
           )
+        }
 
         return chunks
       }, [])
@@ -65,8 +66,9 @@ function generateLiteralStringChunksFromNode(node, sourceCode) {
  * @returns { Object } a template literal expression object
  */
 export function mergeNodeExpressions(node, sourceFile, sourceCode) {
-  if (node.parts.length === 1)
+  if (node.parts.length === 1) {
     return transformExpression(node.expressions[0], sourceFile, sourceCode)
+  }
 
   const pureStringChunks = generateLiteralStringChunksFromNode(node, sourceCode)
   const stringsArray = pureStringChunks

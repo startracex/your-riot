@@ -41,7 +41,9 @@ const BuildingState = Object.freeze({
  * @returns {RiotParser.Node} the original node parsed having the new binding selector attribute
  */
 function createBindingsTag(sourceNode, bindingsSelector) {
-  if (!bindingsSelector) return sourceNode
+  if (!bindingsSelector) {
+    return sourceNode
+  }
 
   return {
     ...sourceNode,
@@ -133,7 +135,9 @@ function createTagWithBindings(sourceNode, sourceFile, sourceCode) {
  */
 function parseNode(sourceNode, sourceFile, sourceCode, state) {
   // static nodes have no bindings
-  if (isStaticNode(sourceNode)) return [nodeToString(sourceNode), []]
+  if (isStaticNode(sourceNode)) {
+    return [nodeToString(sourceNode), []]
+  }
   return createDynamicNode(sourceNode, sourceFile, sourceCode, state)
 }
 
@@ -168,10 +172,11 @@ export function createNestedBindings(
  * @returns {Array} array containing the html output and the dom bindings
  */
 export default function build(sourceNode, sourceFile, sourceCode, state) {
-  if (!sourceNode)
+  if (!sourceNode) {
     panic(
       "Something went wrong with your tag DOM parsing, your tag template can't be created",
     )
+  }
 
   const [nodeHTML, nodeBindings] = parseNode(
     sourceNode,

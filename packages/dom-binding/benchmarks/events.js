@@ -79,7 +79,7 @@ export default function (suite, testName, domBindings, rootNode) {
   ])
   suite.add(
     testName,
-    function () {
+    () => {
       const items = generateItems(3, true)
       tag.update({ items })
       const beforeLi = rootNode.querySelector('li:nth-child(2)')
@@ -94,11 +94,11 @@ export default function (suite, testName, domBindings, rootNode) {
       fireEvent(afterLi, 'hover')
     },
     {
-      onStart: function () {
+      onStart: () => {
         document.body.appendChild(rootNode)
         tag.mount(rootNode, { items: [] })
       },
-      onComplete: function () {
+      onComplete: () => {
         tag.unmount({}, {}, true)
       },
     },

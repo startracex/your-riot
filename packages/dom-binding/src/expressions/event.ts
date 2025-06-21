@@ -1,4 +1,4 @@
-import { Expression } from '../types.js'
+import type { Expression } from '../types.js'
 
 const RE_EVENTS_PREFIX = /^on/
 

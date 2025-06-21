@@ -6,7 +6,9 @@ import { PLUGINS_SET, panic } from '@your-riot/utils'
  * @returns {Set} the set containing all the plugins installed
  */
 export function uninstall(plugin) {
-  if (!PLUGINS_SET.has(plugin)) panic('This plugin was never installed')
+  if (!PLUGINS_SET.has(plugin)) {
+    panic('This plugin was never installed')
+  }
 
   PLUGINS_SET.delete(plugin)
 

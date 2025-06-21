@@ -59,7 +59,7 @@ describe('Sourcemap specs', () => {
     expect(map.sourcesContent[0]).to.be.equal(source)
   })
 
-  it('Sourcemaps contain info about css, javascript and template', async function () {
+  it('Sourcemaps contain info about css, javascript and template', async () => {
     const source = getFixture('my-component.riot')
     const result = compile(source, {
       file: 'my-component.riot',
@@ -127,7 +127,7 @@ describe('Sourcemap specs', () => {
     sourcemapConsumer.destroy()
   })
 
-  it('Sourcemaps work also with preprocessors', async function () {
+  it('Sourcemaps work also with preprocessors', async () => {
     register('javascript', 'babel', babelPreprocessor)
 
     const source = getFixture('my-babel-component.riot')

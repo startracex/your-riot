@@ -11,8 +11,9 @@ import { getName } from '../utils/dom.js'
  */
 export function mountComponent(element, initialProps, componentName, slots) {
   const name = componentName || getName(element)
-  if (!COMPONENTS_IMPLEMENTATION_MAP.has(name))
+  if (!COMPONENTS_IMPLEMENTATION_MAP.has(name)) {
     panic(`The component named "${name}" was never registered`)
+  }
 
   const component = COMPONENTS_IMPLEMENTATION_MAP.get(name)({
     props: initialProps,

@@ -36,8 +36,9 @@ const createChildComponentGetter = (componentWrapper) => {
 
   return (name) => {
     // improve support for recursive components
-    if (name === componentWrapper.name)
+    if (name === componentWrapper.name) {
       return memoizedCreateComponentFromWrapper(componentWrapper)
+    }
     // return the registered components
     return childrenComponents[name] || COMPONENTS_IMPLEMENTATION_MAP.get(name)
   }
@@ -71,7 +72,7 @@ export function createComponentFromWrapper(componentWrapper) {
 
   return ({ slots, attributes, props }) => {
     // pure components rendering will be managed by the end user
-    if (exports && exports[IS_PURE_SYMBOL])
+    if (exports?.[IS_PURE_SYMBOL]) {
       return createPureComponent(exports, {
         slots,
         attributes,
@@ -79,6 +80,7 @@ export function createComponentFromWrapper(componentWrapper) {
         css,
         template,
       })
+    }
 
     const componentAPI = callOrAssign(exports) || {}
 

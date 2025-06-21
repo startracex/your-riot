@@ -4,12 +4,12 @@ import { getCurrentRoute } from '../dist/module/get-current-route.js'
 import { expect } from 'chai'
 import { normalizeBase, setBase } from '../dist/module/set-base.js'
 
-describe('misc methods', function () {
+describe('misc methods', () => {
   beforeEach(() => {
     setBase(`${base}#`)
   })
 
-  it('getCurrentRoute returns properly the current router value', async function () {
+  it('getCurrentRoute returns properly the current router value', async () => {
     router.push(`${base}#/hello`)
 
     await sleep()
@@ -17,7 +17,7 @@ describe('misc methods', function () {
     expect(getCurrentRoute()).to.be.equal(`${base}#/hello`)
   })
 
-  it('normalizeBase returns the expected paths', async function () {
+  it('normalizeBase returns the expected paths', async () => {
     expect(normalizeBase('#')).to.be.equal(`${base}#`)
     expect(normalizeBase('/')).to.be.equal(`${base}`)
     expect(normalizeBase('')).to.be.equal(`${base}`)

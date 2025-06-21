@@ -39,7 +39,9 @@ export function defineProperties(
  */
 export function defineDefaults(source: object, defaults: object): object {
   Object.entries(defaults).forEach(([key, value]) => {
-    if (!source[key]) source[key] = value
+    if (!source[key]) {
+      source[key] = value
+    }
   })
   return source
 }

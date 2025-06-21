@@ -2,10 +2,10 @@ import * as dom from './dom.js'
 import {
   __,
   component,
-  DefaultProps,
-  DefaultState,
-  RiotComponent,
-  RiotComponentWrapper,
+  type DefaultProps,
+  type DefaultState,
+  type RiotComponent,
+  type RiotComponentWrapper,
 } from '@your-riot/riot'
 import curry from 'curri'
 
@@ -25,7 +25,7 @@ const hasPasswordAttributeType = (el) =>
 
 // defer callbacks if the rendering is async
 const defer = (callback) =>
-  globalThis.window && globalThis.window.requestAnimationFrame
+  globalThis.window?.requestAnimationFrame
     ? globalThis.window.requestAnimationFrame(callback)
     : setTimeout(callback)
 
@@ -63,9 +63,7 @@ interface RendererPayload {
   getCSS: () => string
 }
 
-interface Renderer {
-  (arg0: RendererPayload): any
-}
+type Renderer = (arg0: RendererPayload) => any
 
 /**
  * Create the renderer function that can produce different types of output from the DOM rendered.
@@ -145,15 +143,16 @@ const renderComponentAsync = curry(
   (renderer: Renderer, rendererPayload: RendererPayload) => {
     const { element } = rendererPayload
 
-    if (!element.onAsyncRendering)
+    if (!element.onAsyncRendering) {
       throw new Error(
         'Please provide the onAsyncRendering callback to SSR asynchronously your components',
       )
+    }
 
     const promise = new Promise((resolve, reject) => {
       const ret = element.onAsyncRendering(resolve, reject)
 
-      if (ret && ret.then) {
+      if (ret?.then) {
         ret.then(resolve, reject)
       }
     })
@@ -161,7 +160,7 @@ const renderComponentAsync = curry(
     return Promise.race([
       promise.then(() => renderer(rendererPayload)),
       new Promise((resolve, reject) => {
-        setTimeout(function () {
+        setTimeout(() => {
           reject(
             new Error(
               `Timeout error:: the component "${element.name}" didn't resolve the "onAsyncRendering" promise during the rendering process`,
@@ -175,7 +174,7 @@ const renderComponentAsync = curry(
 
 export const asyncRenderTimeout = 3000
 export const domGlobals: typeof dom = dom
-export const renderAsync: <Props extends unknown>(
+export const renderAsync: <Props>(
   componentName: string,
   componentShell: RiotComponentWrapper<Props>,
   props?: Props,
@@ -187,7 +186,7 @@ export const renderAsync: <Props extends unknown>(
     ),
   )
 
-export const renderAsyncFragments: <Props extends unknown>(
+export const renderAsyncFragments: <Props>(
   componentName: string,
   componentShell: RiotComponentWrapper<Props>,
   props?: Props,
@@ -198,7 +197,7 @@ export const renderAsyncFragments: <Props extends unknown>(
       getFragmentsFromRenderer(rendererPayload, true),
     ),
   )
-export const fragments: <Props extends unknown>(
+export const fragments: <Props>(
   componentName: string,
   componentShell: RiotComponentWrapper<Props>,
   props?: Props,
@@ -206,7 +205,7 @@ export const fragments: <Props extends unknown>(
   // @ts-ignore
   curry(createRenderer)(getFragmentsFromRenderer)
 
-export const render: <Props extends unknown>(
+export const render: <Props>(
   componentName: string,
   componentShell: RiotComponentWrapper<Props>,
   props?: Props,

@@ -5,5 +5,5 @@
  * @returns {string} cleaned up string
  */
 export default function unescapeChar(string, char) {
-  return string.replace(RegExp(`\\\\${char}`, 'gm'), char)
+  return string.replace(RegExp(`\\\\${char}`, "gm"), char);
 }

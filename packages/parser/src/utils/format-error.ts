@@ -4,13 +4,13 @@ export default function formatError(
   pos: number,
 ) {
   if (!pos) {
-    pos = data.length
+    pos = data.length;
   }
   // count unix/mac/win eols
-  const line = (data.slice(0, pos).match(/\r\n?|\n/g) || '').length + 1
-  let col = 0
+  const line = (data.slice(0, pos).match(/\r\n?|\n/g) || "").length + 1;
+  let col = 0;
   while (--pos >= 0 && !/[\r\n]/.test(data[pos])) {
-    ++col
+    ++col;
   }
-  return `[${line},${col}]: ${message}`
+  return `[${line},${col}]: ${message}`;
 }

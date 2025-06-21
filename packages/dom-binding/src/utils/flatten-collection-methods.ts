@@ -12,11 +12,11 @@ export default function flattenCollectionMethods<T, K extends keyof T, C>(
       return {
         ...acc,
         [method]: (scope?: any) => {
-          collection.map((item) => (item[method] as Function)(scope))
-          return context
+          collection.map((item) => (item[method] as Function)(scope));
+          return context;
         },
-      }
+      };
     },
     {} as Record<K, (scope?: any) => C>,
-  )
+  );
 }

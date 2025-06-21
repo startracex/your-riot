@@ -1,2 +1,2 @@
 /** @type {string} current riot version */
-export const version = 'WIP'
+export const version = "WIP";

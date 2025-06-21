@@ -1,7 +1,7 @@
-import { isObject } from '@your-riot/utils'
-import riotParser from '@your-riot/parser'
-import hasHTMLOutsideRootNode from './has-html-outside-root-node.js'
-import { execute as runPreprocessor } from '../preprocessors.js'
+import { isObject } from "@your-riot/utils";
+import riotParser from "@your-riot/parser";
+import hasHTMLOutsideRootNode from "./has-html-outside-root-node.js";
+import { execute as runPreprocessor } from "../preprocessors.js";
 
 /**
  * Get an object containing the template, css and javascript ast. The origianl source code and the sourcemap are also included
@@ -14,25 +14,25 @@ export default function preProcessSource(source, meta) {
   // if the source is a parser output we can return it directly
   // @link https://github.com/riot/compiler/issues/178
   if (isObject(source)) {
-    return { ...source.output, code: source.data, map: null }
+    return { ...source.output, code: source.data, map: null };
   }
 
-  const { options } = meta
+  const { options } = meta;
 
   const { code, map } = runPreprocessor(
-    'template',
+    "template",
     options.template,
     meta,
     source,
-  )
+  );
 
-  const parse = riotParser(options).parse
-  const { template, css, javascript } = parse(code).output
+  const parse = riotParser(options).parse;
+  const { template, css, javascript } = parse(code).output;
 
   // see also https://github.com/riot/compiler/issues/130
   if (hasHTMLOutsideRootNode(template || css || javascript, source, parse)) {
-    throw new Error('Multiple HTML root nodes are not supported')
+    throw new Error("Multiple HTML root nodes are not supported");
   }
 
-  return { template, css, javascript, map, code }
+  return { template, css, javascript, map, code };
 }

@@ -1,5 +1,5 @@
-import { parse as customParser } from 'recast/parsers/typescript.js'
-import { parse } from 'recast'
+import { parse as customParser } from "recast/parsers/typescript.js";
+import { parse } from "recast";
 /**
  * Parse a js source to generate the AST
  * @param   {string} source - javascript source
@@ -12,9 +12,9 @@ export default function generateAST(source, options) {
       parse: (source, opts) =>
         customParser(source, {
           ...opts,
-          ecmaVersion: 'latest',
+          ecmaVersion: "latest",
         }),
     },
     ...options,
-  })
+  });
 }

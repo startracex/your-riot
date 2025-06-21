@@ -11,7 +11,7 @@ import {
   GET_COMPONENT_FN,
   SLOT_ATTRIBUTE,
   TAG_BINDING_TYPE,
-} from '../constants.js'
+} from "../constants.js";
 import {
   createBindingAttributes,
   createCustomNodeNameEvaluationFunction,
@@ -19,12 +19,12 @@ import {
   createSelectorProperties,
   getChildrenNodes,
   getNodeAttributes,
-} from '../utils.js'
-import build from '../builder.js'
-import { builders } from '../../../utils/build-types.js'
-import compose from 'cumpa'
-import { simplePropertyNode } from '../../../utils/custom-ast-nodes.js'
-import { hasChildrenNodes, isSlotNode } from '../checks.js'
+} from "../utils.js";
+import build from "../builder.js";
+import { builders } from "../../../utils/build-types.js";
+import compose from "cumpa";
+import { simplePropertyNode } from "../../../utils/custom-ast-nodes.js";
+import { hasChildrenNodes, isSlotNode } from "../checks.js";
 
 /**
  * Find the slots in the current component and group them under the same id
@@ -34,22 +34,22 @@ import { hasChildrenNodes, isSlotNode } from '../checks.js'
 function groupSlots(sourceNode) {
   return getChildrenNodes(sourceNode).reduce(
     (acc, node) => {
-      const slotAttribute = findSlotAttribute(node)
+      const slotAttribute = findSlotAttribute(node);
 
       if (slotAttribute) {
-        acc[slotAttribute.value] = node
+        acc[slotAttribute.value] = node;
       } else {
         acc.default = createNestedRootNode({
           nodes: [...getChildrenNodes(acc.default), node],
-        })
+        });
       }
 
-      return acc
+      return acc;
     },
     {
       default: null,
     },
-  )
+  );
 }
 
 /**
@@ -64,13 +64,13 @@ function buildSlot(id, sourceNode, sourceFile, sourceCode) {
   const cloneNode = {
     ...sourceNode,
     attributes: getNodeAttributes(sourceNode),
-  }
+  };
 
   // If the node is an empty slot we do not create the html key (https://github.com/riot/riot/issues/3055)
   const [html, bindings] =
     isSlotNode(cloneNode) && !hasChildrenNodes(cloneNode)
       ? [null, null]
-      : build(cloneNode, sourceFile, sourceCode)
+      : build(cloneNode, sourceFile, sourceCode);
 
   return builders.objectExpression(
     [
@@ -85,7 +85,7 @@ function buildSlot(id, sourceNode, sourceFile, sourceCode) {
           )
         : null,
     ].filter(Boolean),
-  )
+  );
 }
 
 /**
@@ -106,7 +106,7 @@ export function createSlotsArray(sourceNode, sourceFile, sourceCode) {
       Object.entries,
       groupSlots,
     )(sourceNode),
-  ])
+  ]);
 }
 
 /**
@@ -117,7 +117,7 @@ export function createSlotsArray(sourceNode, sourceFile, sourceCode) {
 function findSlotAttribute(sourceNode) {
   return getNodeAttributes(sourceNode).find(
     (attribute) => attribute.name === SLOT_ATTRIBUTE,
-  )
+  );
 }
 
 /**
@@ -169,5 +169,5 @@ export default function createTagBinding(
       ),
     ),
     ...createSelectorProperties(selectorAttribute),
-  ])
+  ]);
 }

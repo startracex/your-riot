@@ -1,8 +1,8 @@
-import { IS_CUSTOM, IS_VOID } from '../constants.js'
-import { isCustom, isVoid } from 'dom-nodes/index.next.js'
-import { TAG } from '../node-types.js'
-import flush from './flush-parser-state.js'
-import type { ParserState } from '../types.js'
+import { IS_CUSTOM, IS_VOID } from "../constants.js";
+import { isCustom, isVoid } from "dom-nodes/index.next.js";
+import { TAG } from "../node-types.js";
+import flush from "./flush-parser-state.js";
+import type { ParserState } from "../types.js";
 
 /**
  * Pushes a new *tag* and set `last` to this, so any attributes
@@ -15,31 +15,31 @@ export default function pushTag(
   start: number,
   end: number,
 ): void {
-  const root = state.root
-  const last = { type: TAG, name, start, end }
+  const root = state.root;
+  const last = { type: TAG, name, start, end };
 
   if (isCustom(name)) {
-    last[IS_CUSTOM] = true
+    last[IS_CUSTOM] = true;
   }
 
   if (isVoid(name)) {
-    last[IS_VOID] = true
+    last[IS_VOID] = true;
   }
 
-  state.pos = end
+  state.pos = end;
 
   if (root) {
     if (name === root.name) {
-      state.count++
+      state.count++;
     } else if (name === root.close) {
-      state.count--
+      state.count--;
     }
-    flush(state)
+    flush(state);
   } else {
     // start with root (keep ref to output)
-    state.root = { name: last.name, close: `/${name}` }
-    state.count = 1
+    state.root = { name: last.name, close: `/${name}` };
+    state.count = 1;
   }
 
-  state.last = last
+  state.last = last;
 }

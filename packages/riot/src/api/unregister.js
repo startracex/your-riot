@@ -1,5 +1,5 @@
-import { COMPONENTS_IMPLEMENTATION_MAP, panic } from '@your-riot/utils'
-import cssManager from '../core/css-manager.js'
+import { COMPONENTS_IMPLEMENTATION_MAP, panic } from "@your-riot/utils";
+import cssManager from "../core/css-manager.js";
 
 /**
  * Unregister a riot web component
@@ -8,11 +8,11 @@ import cssManager from '../core/css-manager.js'
  */
 export function unregister(name) {
   if (!COMPONENTS_IMPLEMENTATION_MAP.has(name)) {
-    panic(`The component "${name}" was never registered`)
+    panic(`The component "${name}" was never registered`);
   }
 
-  COMPONENTS_IMPLEMENTATION_MAP.delete(name)
-  cssManager.remove(name)
+  COMPONENTS_IMPLEMENTATION_MAP.delete(name);
+  cssManager.remove(name);
 
-  return COMPONENTS_IMPLEMENTATION_MAP
+  return COMPONENTS_IMPLEMENTATION_MAP;
 }

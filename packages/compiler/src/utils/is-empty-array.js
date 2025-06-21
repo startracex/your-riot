@@ -4,5 +4,5 @@
  * @returns {boolean} target is empty or null
  */
 export default function isEmptyArray(target) {
-  return !target || !target.length
+  return !target || !target.length;
 }

@@ -1,6 +1,6 @@
-import { IS_DIRECTIVE } from '@your-riot/utils'
-import { getName } from '../utils/dom.js'
-import { set as setAttr } from 'bianco.attr'
+import { IS_DIRECTIVE } from "@your-riot/utils";
+import { getName } from "../utils/dom.js";
+import { set as setAttr } from "bianco.attr";
 
 /**
  * Add eventually the "is" attribute to link this DOM node to its css
@@ -11,6 +11,6 @@ import { set as setAttr } from 'bianco.attr'
 
 export function addCssHook(element, name) {
   if (getName(element) !== name) {
-    setAttr(element, IS_DIRECTIVE, name)
+    setAttr(element, IS_DIRECTIVE, name);
   }
 }

@@ -1,14 +1,14 @@
-import { expressionTypes, template } from '../../dist/module/index.js'
-import { spy } from 'sinon'
-import { expect } from 'chai'
+import { expressionTypes, template } from "../../dist/module/index.js";
+import { spy } from "sinon";
+import { expect } from "chai";
 
-describe('ref specs', () => {
-  it('ref attributes register/unregister a dom node', () => {
-    const target = document.createElement('div')
-    const ref = spy()
-    const el = template('<p expr0></p>', [
+describe("ref specs", () => {
+  it("ref attributes register/unregister a dom node", () => {
+    const target = document.createElement("div");
+    const ref = spy();
+    const el = template("<p expr0></p>", [
       {
-        selector: '[expr0]',
+        selector: "[expr0]",
         expressions: [
           {
             type: expressionTypes.REF,
@@ -16,16 +16,16 @@ describe('ref specs', () => {
           },
         ],
       },
-    ]).mount(target, { ref })
+    ]).mount(target, { ref });
 
-    expect(ref).to.have.been.calledWith(target.querySelector('p'))
+    expect(ref).to.have.been.calledWith(target.querySelector("p"));
 
-    el.update({ ref })
+    el.update({ ref });
 
-    expect(ref).to.have.been.calledOnce
+    expect(ref).to.have.been.calledOnce;
 
-    el.unmount()
+    el.unmount();
 
-    expect(ref).to.have.been.calledWith(null)
-  })
-})
+    expect(ref).to.have.been.calledWith(null);
+  });
+});

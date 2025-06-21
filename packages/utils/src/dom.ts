@@ -1,4 +1,4 @@
-import { dashToCamelCase } from './strings.js'
+import { dashToCamelCase } from "./strings.js";
 
 /**
  * Get all the element attributes as object.
@@ -8,11 +8,11 @@ export function DOMattributesToObject(
 ): Record<string, string> {
   return Array.from(element.attributes).reduce(
     (acc: Record<string, string>, attribute: Attr) => {
-      acc[dashToCamelCase(attribute.name)] = attribute.value
-      return acc
+      acc[dashToCamelCase(attribute.name)] = attribute.value;
+      return acc;
     },
     {},
-  )
+  );
 }
 
 /**
@@ -20,7 +20,7 @@ export function DOMattributesToObject(
  */
 export function moveChildren(source: Node, target: Node): void {
   while (source.firstChild) {
-    target.appendChild(source.firstChild)
+    target.appendChild(source.firstChild);
   }
 }
 
@@ -29,7 +29,7 @@ export function moveChildren(source: Node, target: Node): void {
  */
 export function cleanNode(node: Node): void {
   while (node.firstChild) {
-    node.removeChild(node.firstChild)
+    node.removeChild(node.firstChild);
   }
 }
 
@@ -38,25 +38,25 @@ export function cleanNode(node: Node): void {
  */
 export function clearChildren(children: Element[]): void {
   for (let i = 0; i < children.length; i++) {
-    removeChild(children[i])
+    removeChild(children[i]);
   }
 }
 
 /**
  * Remove a node.
  */
-export const removeChild = (node: Element): void => node.remove()
+export const removeChild = (node: Element): void => node.remove();
 
 /**
  * Insert before a node.
  */
 export const insertBefore = (newNode: Node, refNode: Node): void => {
-  refNode?.parentNode?.insertBefore(newNode, refNode)
-}
+  refNode?.parentNode?.insertBefore(newNode, refNode);
+};
 
 /**
  * Replace a node.
  */
 export const replaceChild = (newNode: Node, replaced: Node): void => {
-  replaced?.parentNode?.replaceChild(newNode, replaced)
-}
+  replaced?.parentNode?.replaceChild(newNode, replaced);
+};

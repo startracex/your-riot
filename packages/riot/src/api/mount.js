@@ -1,5 +1,5 @@
-import $ from 'bianco.query'
-import { mountComponent } from '../core/mount-component.js'
+import $ from "bianco.query";
+import { mountComponent } from "../core/mount-component.js";
 
 /**
  * Mounting function that will work only for the components that were globally registered
@@ -11,5 +11,5 @@ import { mountComponent } from '../core/mount-component.js'
 export function mount(selector, initialProps, name) {
   return $(selector).map((element) =>
     mountComponent(element, initialProps, name),
-  )
+  );
 }

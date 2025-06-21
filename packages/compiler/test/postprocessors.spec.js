@@ -3,68 +3,68 @@ import {
   postprocessors,
   register,
   unregister,
-} from '../dist/module/postprocessors.js'
-import { expect } from 'chai'
+} from "../dist/module/postprocessors.js";
+import { expect } from "chai";
 
-describe('Postprocessors', () => {
+describe("Postprocessors", () => {
   function postprocessor(source) {
     return {
-      code: source.replace('foo', 'bar'),
-    }
+      code: source.replace("foo", "bar"),
+    };
   }
 
   function postprocessor2(source) {
     return {
-      code: source.replace('bar', 'baz'),
-    }
+      code: source.replace("bar", "baz"),
+    };
   }
 
-  describe('postprocessors.register', () => {
-    it('postprocessors can be properly registered', () => {
-      register(postprocessor)
+  describe("postprocessors.register", () => {
+    it("postprocessors can be properly registered", () => {
+      register(postprocessor);
 
-      expect(postprocessors.size).to.be.equal(1)
+      expect(postprocessors.size).to.be.equal(1);
 
-      unregister(postprocessor)
-    })
+      unregister(postprocessor);
+    });
 
-    it('the same postprocessor can no be registred twice', () => {
-      register(postprocessor)
+    it("the same postprocessor can no be registred twice", () => {
+      register(postprocessor);
 
-      expect(() => register(postprocessor)).to.throw()
+      expect(() => register(postprocessor)).to.throw();
 
-      expect(postprocessors.size).to.be.equal(1)
-      unregister(postprocessor)
-    })
-  })
+      expect(postprocessors.size).to.be.equal(1);
+      unregister(postprocessor);
+    });
+  });
 
-  describe('postprocessors.unregister', () => {
-    it('postprocessors can not be unregistered if it was never previously registered', () => {
-      expect(() => unregister(postprocessor)).to.throw()
-    })
-  })
+  describe("postprocessors.unregister", () => {
+    it("postprocessors can not be unregistered if it was never previously registered", () => {
+      expect(() => unregister(postprocessor)).to.throw();
+    });
+  });
 
-  describe('postprocessors.execute', () => {
-    it('postprocessors can be properly executed', () => {
-      register(postprocessor)
+  describe("postprocessors.execute", () => {
+    it("postprocessors can be properly executed", () => {
+      register(postprocessor);
 
-      const result = execute({ code: 'foo' })
+      const result = execute({ code: "foo" });
 
-      expect(result.code).to.be.equal('bar')
+      expect(result.code).to.be.equal("bar");
 
-      unregister(postprocessor)
-    })
+      unregister(postprocessor);
+    });
 
-    it('postprocessors can be properly executed in series', () => {
-      register(postprocessor)
-      register(postprocessor2)
+    it("postprocessors can be properly executed in series", () => {
+      register(postprocessor);
+      register(postprocessor2);
 
-      const result = execute({ code: 'foo' })
+      const result = execute({ code: "foo" });
 
-      expect(result.code).to.be.equal('baz')
+      expect(result.code).to.be.equal("baz");
 
-      unregister(postprocessor)
-      unregister(postprocessor2)
-    })
-  })
-})
+      unregister(postprocessor);
+      unregister(postprocessor2);
+    });
+  });
+});

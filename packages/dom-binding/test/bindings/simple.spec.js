@@ -1,10 +1,10 @@
-import { expressionTypes, template } from '../../dist/module/index.js'
-import { expect } from 'chai'
+import { expressionTypes, template } from "../../dist/module/index.js";
+import { expect } from "chai";
 
 function createDummyTemplate() {
-  return template('<p expr0> </p>', [
+  return template("<p expr0> </p>", [
     {
-      selector: '[expr0]',
+      selector: "[expr0]",
       expressions: [
         {
           type: expressionTypes.TEXT,
@@ -13,49 +13,49 @@ function createDummyTemplate() {
         },
         {
           type: expressionTypes.ATTRIBUTE,
-          name: 'class',
+          name: "class",
           evaluate: (scope) => scope.class,
         },
       ],
     },
-  ])
+  ]);
 }
 
-describe('simple bindings', () => {
-  it('A simple binding will only evaluate the expressions without modifying the DOM structure', () => {
-    const target = document.createElement('div')
+describe("simple bindings", () => {
+  it("A simple binding will only evaluate the expressions without modifying the DOM structure", () => {
+    const target = document.createElement("div");
 
     const el = createDummyTemplate().mount(target, {
-      text: 'hello',
-      class: 'foo',
-    })
+      text: "hello",
+      class: "foo",
+    });
 
-    const p = target.querySelector('p')
+    const p = target.querySelector("p");
 
-    expect(p.textContent).to.be.equal('hello')
-    expect(p.getAttribute('class')).to.be.equal('foo')
-    expect(p).to.be.ok
+    expect(p.textContent).to.be.equal("hello");
+    expect(p.getAttribute("class")).to.be.equal("foo");
+    expect(p).to.be.ok;
 
-    el.unmount()
-  })
+    el.unmount();
+  });
 
-  it('A simple bindings can be updated', () => {
-    const target = document.createElement('div')
+  it("A simple bindings can be updated", () => {
+    const target = document.createElement("div");
     const el = createDummyTemplate().mount(target, {
-      text: 'hello',
-      class: 'foo',
-    })
+      text: "hello",
+      class: "foo",
+    });
 
-    const p = target.querySelector('p')
+    const p = target.querySelector("p");
 
-    expect(p.textContent).to.be.equal('hello')
-    expect(p.getAttribute('class')).to.be.equal('foo')
+    expect(p.textContent).to.be.equal("hello");
+    expect(p.getAttribute("class")).to.be.equal("foo");
 
-    el.update({ text: 'world', class: 'bar' })
+    el.update({ text: "world", class: "bar" });
 
-    expect(p.textContent).to.be.equal('world')
-    expect(p.getAttribute('class')).to.be.equal('bar')
+    expect(p.textContent).to.be.equal("world");
+    expect(p.getAttribute("class")).to.be.equal("bar");
 
-    el.unmount()
-  })
-})
+    el.unmount();
+  });
+});

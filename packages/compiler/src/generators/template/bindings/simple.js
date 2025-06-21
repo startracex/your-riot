@@ -1,17 +1,17 @@
 import {
   createAttributeExpressions,
   createExpression,
-} from '../expressions/index.js'
-import { createSelectorProperties, getChildrenNodes } from '../utils.js'
+} from "../expressions/index.js";
+import { createSelectorProperties, getChildrenNodes } from "../utils.js";
 import {
   hasExpressions,
   isRemovableNode,
   isRootNode,
   isTextNode,
-} from '../checks.js'
-import { BINDING_EXPRESSIONS_KEY } from '../constants.js'
-import { builders } from '../../../utils/build-types.js'
-import { simplePropertyNode } from '../../../utils/custom-ast-nodes.js'
+} from "../checks.js";
+import { BINDING_EXPRESSIONS_KEY } from "../constants.js";
+import { builders } from "../../../utils/build-types.js";
+import { simplePropertyNode } from "../../../utils/custom-ast-nodes.js";
 
 /**
  * Create the text node expressions
@@ -21,7 +21,7 @@ import { simplePropertyNode } from '../../../utils/custom-ast-nodes.js'
  * @returns {Array} array containing all the text node expressions
  */
 function createTextNodeExpressions(sourceNode, sourceFile, sourceCode) {
-  const childrenNodes = getChildrenNodes(sourceNode)
+  const childrenNodes = getChildrenNodes(sourceNode);
 
   return childrenNodes
     .filter(isTextNode)
@@ -34,7 +34,7 @@ function createTextNodeExpressions(sourceNode, sourceFile, sourceCode) {
         childrenNodes.indexOf(node),
         sourceNode,
       ),
-    )
+    );
 }
 
 /**
@@ -63,5 +63,5 @@ export default function createSimpleBinding(
         ...createAttributeExpressions(sourceNode, sourceFile, sourceCode),
       ]),
     ),
-  ])
+  ]);
 }

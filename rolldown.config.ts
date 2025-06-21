@@ -1,48 +1,48 @@
-import { globSync } from 'glob'
-import type { OutputOptions } from 'rolldown'
+import { globSync } from "glob";
+import type { OutputOptions } from "rolldown";
 
 export const inputGlob = (...paths: string[]) => {
-  const includes = []
-  const exclude = []
+  const includes = [];
+  const exclude = [];
   paths.forEach((path) => {
-    if (path.startsWith('!')) {
-      exclude.push(path.slice(1))
+    if (path.startsWith("!")) {
+      exclude.push(path.slice(1));
     } else {
-      includes.push(path)
+      includes.push(path);
     }
-  })
+  });
   return globSync(includes, {
     ignore: exclude,
-  })
-}
+  });
+};
 
 export const packageDependencies = (pkg: any): RegExp[] => {
   return [
     /^node:/,
-    ...['dependencies', 'peerDependencies'].flatMap((key) =>
+    ...["dependencies", "peerDependencies"].flatMap((key) =>
       Object.keys(pkg[key] || {}).map((dep) => new RegExp(`^${dep}`)),
     ),
-  ]
-}
+  ];
+};
 
 const commonOutput: OutputOptions = {
   preserveModules: true,
   sourcemap: true,
   // minify: true,
-}
+};
 
 export const outputs: OutputOptions[] = [
   {
-    dir: 'dist/module',
-    format: 'esm',
-    exports: 'named',
+    dir: "dist/module",
+    format: "esm",
+    exports: "named",
     ...commonOutput,
   },
   {
-    dir: 'dist/node',
-    format: 'cjs',
-    entryFileNames: '[name].cjs',
-    exports: 'named',
+    dir: "dist/node",
+    format: "cjs",
+    entryFileNames: "[name].cjs",
+    exports: "named",
     ...commonOutput,
   },
-]
+];

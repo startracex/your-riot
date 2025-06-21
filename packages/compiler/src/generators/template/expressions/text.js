@@ -4,23 +4,23 @@ import {
   BINDING_TYPE_KEY,
   EXPRESSION_TYPES,
   TEXT_EXPRESSION_TYPE,
-} from '../constants.js'
+} from "../constants.js";
 import {
   createArrayString,
   transformExpression,
   wrapASTInFunctionWithScope,
-} from '../utils.js'
+} from "../utils.js";
 import {
   nullNode,
   simplePropertyNode,
-} from '../../../utils/custom-ast-nodes.js'
-import { builders } from '../../../utils/build-types.js'
-import encodeHTMLEntities from '../../../utils/html-entities/encode.js'
-import { isCommentString } from '../checks.js'
-import { isLiteral } from '../../../utils/ast-nodes-checks.js'
-import trimEnd from '../../../utils/trim-end.js'
-import trimStart from '../../../utils/trim-start.js'
-import unescapeChar from '../../../utils/unescape-char.js'
+} from "../../../utils/custom-ast-nodes.js";
+import { builders } from "../../../utils/build-types.js";
+import encodeHTMLEntities from "../../../utils/html-entities/encode.js";
+import { isCommentString } from "../checks.js";
+import { isLiteral } from "../../../utils/ast-nodes-checks.js";
+import trimEnd from "../../../utils/trim-end.js";
+import trimStart from "../../../utils/trim-start.js";
+import unescapeChar from "../../../utils/unescape-char.js";
 
 /**
  * Generate the pure immutable string chunks from a RiotParser.Node.Text
@@ -32,13 +32,13 @@ function generateLiteralStringChunksFromNode(node, sourceCode) {
   return (
     node.expressions
       .reduce((chunks, expression, index) => {
-        const start = index ? node.expressions[index - 1].end : node.start
+        const start = index ? node.expressions[index - 1].end : node.start;
         const string = encodeHTMLEntities(
           sourceCode.substring(start, expression.start),
-        )
+        );
 
         // trimStart the first string
-        chunks.push(index === 0 ? trimStart(string) : string)
+        chunks.push(index === 0 ? trimStart(string) : string);
 
         // add the tail to the string
         if (index === node.expressions.length - 1) {
@@ -46,15 +46,15 @@ function generateLiteralStringChunksFromNode(node, sourceCode) {
             encodeHTMLEntities(
               trimEnd(sourceCode.substring(expression.end, node.end)),
             ),
-          )
+          );
         }
 
-        return chunks
+        return chunks;
       }, [])
       // comments are not supported here
       .filter((str) => !isCommentString(str))
       .map((str) => (node.unescape ? unescapeChar(str, node.unescape) : str))
-  )
+  );
 }
 
 /**
@@ -67,24 +67,27 @@ function generateLiteralStringChunksFromNode(node, sourceCode) {
  */
 export function mergeNodeExpressions(node, sourceFile, sourceCode) {
   if (node.parts.length === 1) {
-    return transformExpression(node.expressions[0], sourceFile, sourceCode)
+    return transformExpression(node.expressions[0], sourceFile, sourceCode);
   }
 
-  const pureStringChunks = generateLiteralStringChunksFromNode(node, sourceCode)
+  const pureStringChunks = generateLiteralStringChunksFromNode(
+    node,
+    sourceCode,
+  );
   const stringsArray = pureStringChunks
     .reduce((acc, str, index) => {
-      const expr = node.expressions[index]
+      const expr = node.expressions[index];
 
       return [
         ...acc,
         builders.literal(str),
         expr ? transformExpression(expr, sourceFile, sourceCode) : nullNode(),
-      ]
+      ];
     }, [])
     // filter the empty literal expressions
-    .filter((expr) => !isLiteral(expr) || expr.value)
+    .filter((expr) => !isLiteral(expr) || expr.value);
 
-  return createArrayString(stringsArray)
+  return createArrayString(stringsArray);
 }
 
 /**
@@ -120,5 +123,5 @@ export default function createTextExpression(
         mergeNodeExpressions(sourceNode, sourceFile, sourceCode),
       ),
     ),
-  ])
+  ]);
 }

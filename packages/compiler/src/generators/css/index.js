@@ -1,20 +1,20 @@
-import { builders, types } from '../../utils/build-types.js'
-import { TAG_CSS_PROPERTY } from '../../constants.js'
-import cssEscape from 'cssesc'
-import CSSParser from 'css-simple-parser'
-import getPreprocessorTypeByAttribute from '../../utils/get-preprocessor-type-by-attribute.js'
-import preprocess from '../../utils/preprocess-node.js'
-import replaceInRange from '../../utils/replace-in-range.js'
+import { builders, types } from "../../utils/build-types.js";
+import { TAG_CSS_PROPERTY } from "../../constants.js";
+import cssEscape from "cssesc";
+import CSSParser from "css-simple-parser";
+import getPreprocessorTypeByAttribute from "../../utils/get-preprocessor-type-by-attribute.js";
+import preprocess from "../../utils/preprocess-node.js";
+import replaceInRange from "../../utils/replace-in-range.js";
 
-const HOST = ':host'
-const DISABLED_SELECTORS = ['from', 'to']
+const HOST = ":host";
+const DISABLED_SELECTORS = ["from", "to"];
 
 /**
  * Matches valid, multiline JavaScript comments in almost all its forms.
  * @const {RegExp}
  * @static
  */
-const R_MLCOMMS = /\/\*[^*]*\*+(?:[^*/][^*]*\*+)*\//g
+const R_MLCOMMS = /\/\*[^*]*\*+(?:[^*/][^*]*\*+)*\//g;
 
 /**
  * Matches the list of css selectors excluding the pseudo selectors
@@ -23,7 +23,7 @@ const R_MLCOMMS = /\/\*[^*]*\*+(?:[^*/][^*]*\*+)*\//g
  */
 
 const R_CSS_SELECTOR_LIST =
-  /([^,]+)(?::(?!host)\w+(?:[\s|\S]*?\))?(?:[^,:]*)?)+|([^,]+)/g
+  /([^,]+)(?::(?!host)\w+(?:[\s|\S]*?\))?(?:[^,:]*)?)+|([^,]+)/g;
 
 /**
  * Scope the css selectors prefixing them with the tag name
@@ -33,33 +33,33 @@ const R_CSS_SELECTOR_LIST =
  */
 export function addScopeToSelectorList(tag, selectorList) {
   return selectorList.replace(R_CSS_SELECTOR_LIST, (match, selector) => {
-    const trimmedMatch = match.trim()
-    const trimmedSelector = selector ? selector.trim() : trimmedMatch
+    const trimmedMatch = match.trim();
+    const trimmedSelector = selector ? selector.trim() : trimmedMatch;
     // skip selectors already using the tag name
     if (trimmedSelector.indexOf(tag) === 0) {
-      return match
+      return match;
     }
 
     // skips the keywords and percents of css animations
     if (
       !trimmedSelector ||
       DISABLED_SELECTORS.indexOf(trimmedSelector) > -1 ||
-      trimmedSelector.slice(-1) === '%'
+      trimmedSelector.slice(-1) === "%"
     ) {
-      return match
+      return match;
     }
 
     // replace the `:host` pseudo-selector, where it is, with the root tag name;
     // if `:host` was not included, add the tag name as prefix, and mirror all `[is]`
     if (trimmedMatch.indexOf(HOST) < 0) {
-      return `${tag} ${trimmedMatch},[is="${tag}"] ${trimmedMatch}`
+      return `${tag} ${trimmedMatch},[is="${tag}"] ${trimmedMatch}`;
     } else {
       return `${trimmedMatch.replace(HOST, tag)},${trimmedMatch.replace(
         HOST,
         `[is="${tag}"]`,
-      )}`
+      )}`;
     }
-  })
+  });
 }
 
 /**
@@ -69,17 +69,17 @@ export function addScopeToSelectorList(tag, selectorList) {
  * @returns {CSSParser.AST | CSSParser.NODE} the original ast received
  */
 const traverse = (ast, fn) => {
-  const { children } = ast
+  const { children } = ast;
 
   children.forEach((child) => {
     // if fn returns false we stop the recursion
     if (fn(child) !== false) {
-      traverse(child, fn)
+      traverse(child, fn);
     }
-  })
+  });
 
-  return ast
-}
+  return ast;
+};
 
 /**
  * Parses styles enclosed in a "scoped" tag
@@ -90,16 +90,16 @@ const traverse = (ast, fn) => {
  * @returns {string} CSS with the styles scoped to the root element
  */
 export function generateScopedCss(tag, css) {
-  const ast = CSSParser.parse(css)
-  const originalCssLength = css.length
+  const ast = CSSParser.parse(css);
+  const originalCssLength = css.length;
 
   traverse(ast, (node) => {
     // calculate the selector offset from the original css length
-    const newSelectorOffset = css.length - originalCssLength
+    const newSelectorOffset = css.length - originalCssLength;
 
-    if (!node.selector.trim().startsWith('@')) {
+    if (!node.selector.trim().startsWith("@")) {
       // the css parser doesn't detect the comments so we manually remove them
-      const selector = node.selector.replace(R_MLCOMMS, '')
+      const selector = node.selector.replace(R_MLCOMMS, "");
 
       // replace the selector and override the original css
       css = replaceInRange(
@@ -107,14 +107,14 @@ export function generateScopedCss(tag, css) {
         node.selectorIndex + newSelectorOffset,
         node.selectorIndexEnd + newSelectorOffset,
         addScopeToSelectorList(tag, selector),
-      )
+      );
 
       // stop the recursion
-      return false
+      return false;
     }
-  })
+  });
 
-  return css
+  return css;
 }
 
 /**
@@ -123,16 +123,16 @@ export function generateScopedCss(tag, css) {
  * @returns { string } css code normalized
  */
 function compactCss(code) {
-  return code.replace(R_MLCOMMS, '').replace(/\s+/g, ' ').trim()
+  return code.replace(R_MLCOMMS, "").replace(/\s+/g, " ").trim();
 }
 
-const escapeBackslashes = (s) => s.replace(/\\/g, '\\\\')
+const escapeBackslashes = (s) => s.replace(/\\/g, "\\\\");
 const escapeIdentifier = (identifier) =>
   escapeBackslashes(
     cssEscape(identifier, {
       isIdentifier: true,
     }),
-  )
+  );
 
 /**
  * Generate the component css
@@ -143,16 +143,16 @@ const escapeIdentifier = (identifier) =>
  * @returns { AST } the AST generated
  */
 export default function css(sourceNode, source, meta, ast) {
-  const preprocessorName = getPreprocessorTypeByAttribute(sourceNode)
-  const { options } = meta
+  const preprocessorName = getPreprocessorTypeByAttribute(sourceNode);
+  const { options } = meta;
   const preprocessorOutput = preprocess(
-    'css',
+    "css",
     preprocessorName,
     meta,
     sourceNode.text,
-  )
-  const normalizedCssCode = compactCss(preprocessorOutput.code)
-  const escapedCssIdentifier = escapeIdentifier(meta.tagName)
+  );
+  const normalizedCssCode = compactCss(preprocessorOutput.code);
+  const escapedCssIdentifier = escapeIdentifier(meta.tagName);
 
   const cssCode = (
     options.scopedCss
@@ -161,22 +161,22 @@ export default function css(sourceNode, source, meta, ast) {
           escapeBackslashes(normalizedCssCode),
         )
       : escapeBackslashes(normalizedCssCode)
-  ).trim()
+  ).trim();
 
   types.visit(ast, {
     visitProperty(path) {
       if (path.value.key.name === TAG_CSS_PROPERTY) {
         path.value.value = builders.templateLiteral(
-          [builders.templateElement({ raw: cssCode, cooked: '' }, false)],
+          [builders.templateElement({ raw: cssCode, cooked: "" }, false)],
           [],
-        )
+        );
 
-        return false
+        return false;
       }
 
-      this.traverse(path)
+      this.traverse(path);
     },
-  })
+  });
 
-  return ast
+  return ast;
 }

@@ -5,12 +5,12 @@ import {
   STATE_KEY,
   defineDefaults,
   defineProperties,
-} from '@your-riot/utils'
-import { COMPONENT_DOM_SELECTORS } from './component-dom-selectors.js'
-import { COMPONENT_LIFECYCLE_METHODS } from './component-lifecycle-methods.js'
-import cssManager from './css-manager.js'
-import curry from 'curri'
-import { manageComponentLifecycle } from './manage-component-lifecycle.js'
+} from "@your-riot/utils";
+import { COMPONENT_DOM_SELECTORS } from "./component-dom-selectors.js";
+import { COMPONENT_LIFECYCLE_METHODS } from "./component-lifecycle-methods.js";
+import cssManager from "./css-manager.js";
+import curry from "curri";
+import { manageComponentLifecycle } from "./manage-component-lifecycle.js";
 
 /**
  * Component definition function
@@ -21,7 +21,7 @@ import { manageComponentLifecycle } from './manage-component-lifecycle.js'
 export function instantiateComponent({ css, template, componentAPI, name }) {
   // add the component css into the DOM
   if (css && name) {
-    cssManager.add(name, css)
+    cssManager.add(name, css);
   }
 
   return curry(manageComponentLifecycle)(
@@ -43,5 +43,5 @@ export function instantiateComponent({ css, template, componentAPI, name }) {
         template,
       },
     ),
-  )
+  );
 }

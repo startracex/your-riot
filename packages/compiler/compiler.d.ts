@@ -1,69 +1,69 @@
-import { ParserOptions, ParserOutput } from '@your-riot/parser'
-import { RawSourceMap } from 'source-map'
+import { ParserOptions, ParserOutput } from "@your-riot/parser";
+import { RawSourceMap } from "source-map";
 
 export type CompilerOptions = {
-  template?: string
-  file?: string
-  scopedCss?: boolean
-} & ParserOptions
+  template?: string;
+  file?: string;
+  scopedCss?: boolean;
+} & ParserOptions;
 
 export type CompilerOutput = {
-  code: string
-  map: RawSourceMap
-}
+  code: string;
+  map: RawSourceMap;
+};
 
 export type CompilerOutputFragments = {
-  template: object
-  css: object
-  javascript: object
-}
+  template: object;
+  css: object;
+  javascript: object;
+};
 
 export type PreProcessorOutput = {
-  code: string
-  map?: RawSourceMap
-}
+  code: string;
+  map?: RawSourceMap;
+};
 
 export type PreProcessorMeta = {
-  tagName: string
-  fragments: CompilerOutputFragments
-  options: CompilerOptions
-  source: string
-}
+  tagName: string;
+  fragments: CompilerOutputFragments;
+  options: CompilerOptions;
+  source: string;
+};
 
 export type ProcessorFunction = (
   code: string,
   meta: PreProcessorMeta,
-) => PreProcessorOutput
+) => PreProcessorOutput;
 
 export type PreProcessorsMap = {
-  template: Map<string, ProcessorFunction>
-  javascript: Map<string, ProcessorFunction>
-  css: Map<string, ProcessorFunction>
-}
+  template: Map<string, ProcessorFunction>;
+  javascript: Map<string, ProcessorFunction>;
+  css: Map<string, ProcessorFunction>;
+};
 
-export type PostProcessorsMap = Map<string, ProcessorFunction>
-export type PreProcessorType = 'template' | 'javascript' | 'css'
+export type PostProcessorsMap = Map<string, ProcessorFunction>;
+export type PreProcessorType = "template" | "javascript" | "css";
 
 // public API
 export function generateTemplateFunctionFromString(
   source: string,
   parserOptions: any,
-): string
+): string;
 export function generateSlotsFromString(
   source: string,
   parserOptions: any,
-): string
+): string;
 
 export function compile(
   source: string | ParserOutput,
   options?: CompilerOptions,
   file?: string,
-): CompilerOutput
+): CompilerOutput;
 
 export function registerPreprocessor(
   type: PreProcessorType,
   name: string,
   fn: ProcessorFunction,
-): PreProcessorsMap
+): PreProcessorsMap;
 
-export function registerPostprocessor(fn: ProcessorFunction): PostProcessorsMap
+export function registerPostprocessor(fn: ProcessorFunction): PostProcessorsMap;

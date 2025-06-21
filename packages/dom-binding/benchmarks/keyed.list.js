@@ -1,57 +1,57 @@
 export default function (suite, testName, domBindings, rootNode) {
   function generateItems(amount, hasChildren) {
-    const items = []
+    const items = [];
     while (amount--) {
       // eslint-disable-line
       items.push({
         name: `foo ${Math.random()}`,
         props: hasChildren ? generateItems(3, false) : [],
-      })
+      });
     }
-    return items
+    return items;
   }
 
-  const tag = domBindings.template('<ul><li expr0></li></ul>', [
+  const tag = domBindings.template("<ul><li expr0></li></ul>", [
     {
-      selector: '[expr0]',
+      selector: "[expr0]",
       type: domBindings.bindingTypes.EACH,
-      itemName: 'item',
+      itemName: "item",
       getKey(scope) {
-        return scope.item.name
+        return scope.item.name;
       },
       evaluate(scope) {
-        return scope.items
+        return scope.items;
       },
-      template: domBindings.template(' <p expr1></p>', [
+      template: domBindings.template(" <p expr1></p>", [
         {
           expressions: [
             {
               type: domBindings.expressionTypes.TEXT,
               childNodeIndex: 0,
               evaluate(scope) {
-                return scope.item.name
+                return scope.item.name;
               },
             },
           ],
         },
         {
-          selector: '[expr1]',
+          selector: "[expr1]",
           type: domBindings.bindingTypes.EACH,
-          itemName: 'prop',
+          itemName: "prop",
           getKey(scope) {
-            return scope.prop.name
+            return scope.prop.name;
           },
           evaluate(scope) {
-            return scope.item.props
+            return scope.item.props;
           },
-          template: domBindings.template(' ', [
+          template: domBindings.template(" ", [
             {
               expressions: [
                 {
                   type: domBindings.expressionTypes.TEXT,
                   childNodeIndex: 0,
                   evaluate(scope) {
-                    return scope.prop.name
+                    return scope.prop.name;
                   },
                 },
               ],
@@ -60,28 +60,28 @@ export default function (suite, testName, domBindings, rootNode) {
         },
       ]),
     },
-  ])
+  ]);
 
   suite.add(
     testName,
     () => {
-      const items = generateItems(3, true)
-      tag.update({ items })
-      items.splice(2, 1)
-      items.splice(4, 1)
-      items.splice(6, 1)
-      items.splice(9, 1)
-      tag.update({ items: items.concat(generateItems(3, true)) })
-      tag.update({ items: [] })
+      const items = generateItems(3, true);
+      tag.update({ items });
+      items.splice(2, 1);
+      items.splice(4, 1);
+      items.splice(6, 1);
+      items.splice(9, 1);
+      tag.update({ items: items.concat(generateItems(3, true)) });
+      tag.update({ items: [] });
     },
     {
       onStart: () => {
-        document.body.appendChild(rootNode)
-        tag.mount(rootNode, { items: [] })
+        document.body.appendChild(rootNode);
+        tag.mount(rootNode, { items: [] });
       },
       onComplete: () => {
-        tag.unmount({}, {}, true)
+        tag.unmount({}, {}, true);
       },
     },
-  )
+  );
 }

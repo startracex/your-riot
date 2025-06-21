@@ -1,6 +1,6 @@
-import expressionTypes from '@your-riot/utils/expression-types'
-import template, { type TemplateChunk } from '../template.js'
-import type { AttributeExpressionData, TagSlotData } from '../types.js'
+import expressionTypes from "@your-riot/utils/expression-types";
+import template, { type TemplateChunk } from "../template.js";
+import type { AttributeExpressionData, TagSlotData } from "../types.js";
 
 /**
  * Create a new tag object if it was registered before, otherwise fallback to the simple
@@ -12,7 +12,7 @@ import type { AttributeExpressionData, TagSlotData } from '../types.js'
  */
 function getTag(component, slots = [], attributes = []): TemplateChunk {
   if (component) {
-    return component({ slots, attributes })
+    return component({ slots, attributes });
   }
 
   return template(slotsToMarkup(slots), [
@@ -22,10 +22,10 @@ function getTag(component, slots = [], attributes = []): TemplateChunk {
         return {
           type: expressionTypes.ATTRIBUTE,
           ...attr,
-        }
+        };
       }),
     },
-  ])
+  ]);
 }
 
 /**
@@ -34,7 +34,7 @@ function getTag(component, slots = [], attributes = []): TemplateChunk {
  * @returns {Array<Bindings>} flatten bindings array
  */
 function slotBindings(slots) {
-  return slots.reduce((acc, { bindings }) => acc.concat(bindings), [])
+  return slots.reduce((acc, { bindings }) => acc.concat(bindings), []);
 }
 
 /**
@@ -44,71 +44,71 @@ function slotBindings(slots) {
  */
 function slotsToMarkup(slots: any[]): string {
   return slots.reduce((acc, slot) => {
-    return acc + slot.html
-  }, '')
+    return acc + slot.html;
+  }, "");
 }
 
 interface Options {
-  evaluate: TagBinding['evaluate']
-  getComponent: TagBinding['getComponent']
-  slots: TagBinding['slots']
-  attributes: TagBinding['attributes']
+  evaluate: TagBinding["evaluate"];
+  getComponent: TagBinding["getComponent"];
+  slots: TagBinding["slots"];
+  attributes: TagBinding["attributes"];
 }
 
 export class TagBinding<Scope = any, ParentScope = any> {
-  node: HTMLElement
-  slots: TagSlotData[]
-  evaluate: (scope: Scope) => any
-  attributes: AttributeExpressionData[]
-  tag: TemplateChunk
-  name: string
+  node: HTMLElement;
+  slots: TagSlotData[];
+  evaluate: (scope: Scope) => any;
+  attributes: AttributeExpressionData[];
+  tag: TemplateChunk;
+  name: string;
   getComponent: (
     name: string,
   ) => ({
     slots,
     attributes,
   }: {
-    slots: TagSlotData<Scope>[]
-    attributes: AttributeExpressionData<Scope>[]
-  }) => Pick<TemplateChunk<Scope>, 'mount' | 'update' | 'unmount'>
+    slots: TagSlotData<Scope>[];
+    attributes: AttributeExpressionData<Scope>[];
+  }) => Pick<TemplateChunk<Scope>, "mount" | "update" | "unmount">;
 
   constructor(node: HTMLElement, options: Options) {
-    this.node = node
-    const { evaluate, getComponent, slots, attributes } = options
-    this.evaluate = evaluate
-    this.slots = slots || []
-    this.attributes = attributes || []
-    this.getComponent = getComponent
-    this.name = null
-    this.tag = null
+    this.node = node;
+    const { evaluate, getComponent, slots, attributes } = options;
+    this.evaluate = evaluate;
+    this.slots = slots || [];
+    this.attributes = attributes || [];
+    this.getComponent = getComponent;
+    this.name = null;
+    this.tag = null;
   }
 
   mount(scope: Scope): this {
-    return this.update(scope)
+    return this.update(scope);
   }
 
   update(scope: Scope, parentScope?: ParentScope): this {
-    const name = this.evaluate(scope)
+    const name = this.evaluate(scope);
 
     if (name && name === this.name) {
-      this.tag.update(scope)
+      this.tag.update(scope);
     } else {
-      this.unmount(scope, parentScope, true)
+      this.unmount(scope, parentScope, true);
 
-      this.name = name
-      this.tag = getTag(this.getComponent(name), this.slots, this.attributes)
-      this.tag.mount(this.node, scope)
+      this.name = name;
+      this.tag = getTag(this.getComponent(name), this.slots, this.attributes);
+      this.tag.mount(this.node, scope);
     }
 
-    return this
+    return this;
   }
 
   unmount(scope: Scope, parentScope: ParentScope, keepRootTag?: boolean): this {
     if (this.tag) {
-      this.tag.unmount(keepRootTag)
+      this.tag.unmount(keepRootTag);
     }
 
-    return this
+    return this;
   }
 }
 
@@ -116,5 +116,5 @@ export default function create(
   node: HTMLElement,
   options: Options,
 ): TagBinding {
-  return new TagBinding(node, options)
+  return new TagBinding(node, options);
 }

@@ -7,7 +7,7 @@ import {
   DEFAULT_SLOT_NAME,
   NAME_ATTRIBUTE,
   SLOT_BINDING_TYPE,
-} from '../constants.js'
+} from "../constants.js";
 import {
   createBindingAttributes,
   createSelectorProperties,
@@ -15,11 +15,11 @@ import {
   getChildrenNodes,
   getName,
   getNodeAttributes,
-} from '../utils.js'
-import { builders } from '../../../utils/build-types.js'
-import { findAttribute } from '../find.js'
-import { simplePropertyNode } from '../../../utils/custom-ast-nodes.js'
-import { createNestedBindings } from '../builder.js'
+} from "../utils.js";
+import { builders } from "../../../utils/build-types.js";
+import { findAttribute } from "../find.js";
+import { simplePropertyNode } from "../../../utils/custom-ast-nodes.js";
+import { createNestedBindings } from "../builder.js";
 
 /**
  * Transform a RiotParser.Node.Tag of type slot into a slot binding
@@ -35,10 +35,10 @@ export default function createSlotBinding(
   sourceFile,
   sourceCode,
 ) {
-  const slotNameAttribute = findAttribute(NAME_ATTRIBUTE, sourceNode)
+  const slotNameAttribute = findAttribute(NAME_ATTRIBUTE, sourceNode);
   const slotName = slotNameAttribute
     ? slotNameAttribute.value
-    : DEFAULT_SLOT_NAME
+    : DEFAULT_SLOT_NAME;
 
   return builders.objectExpression([
     simplePropertyNode(
@@ -77,5 +77,5 @@ export default function createSlotBinding(
         )
       : simplePropertyNode(BINDING_TEMPLATE_KEY, builders.nullLiteral()),
     ...createSelectorProperties(selectorAttribute),
-  ])
+  ]);
 }

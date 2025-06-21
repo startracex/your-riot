@@ -1,4 +1,4 @@
-import { execute as runPreprocessor } from '../preprocessors.js'
+import { execute as runPreprocessor } from "../preprocessors.js";
 
 /**
  * Preprocess a riot parser node
@@ -14,9 +14,9 @@ export default function preprocess(
   meta,
   node,
 ) {
-  const code = node.text
+  const code = node.text;
 
   return preprocessorName
     ? runPreprocessor(preprocessorType, preprocessorName, meta, code)
-    : { code }
+    : { code };
 }

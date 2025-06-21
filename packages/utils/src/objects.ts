@@ -1,4 +1,4 @@
-import { isObject } from './checks.js'
+import { isObject } from "./checks.js";
 
 /**
  * Helper function to set an immutable property.
@@ -15,8 +15,8 @@ export function defineProperty<T extends object>(
     writable: false,
     configurable: true,
     ...options,
-  })
-  return source
+  });
+  return source;
 }
 
 /**
@@ -28,10 +28,10 @@ export function defineProperties(
   options: PropertyDescriptor,
 ): object {
   Object.entries(properties).forEach(([key, value]) => {
-    defineProperty(source, key, value, options)
-  })
+    defineProperty(source, key, value, options);
+  });
 
-  return source
+  return source;
 }
 
 /**
@@ -40,17 +40,17 @@ export function defineProperties(
 export function defineDefaults(source: object, defaults: object): object {
   Object.entries(defaults).forEach(([key, value]) => {
     if (!source[key]) {
-      source[key] = value
+      source[key] = value;
     }
-  })
-  return source
+  });
+  return source;
 }
 
 /**
  * Simple clone deep function, do not use it for classes or recursive objects.
  */
 export function cloneDeep<T>(source: T): T {
-  return structuredClone(source)
+  return structuredClone(source);
 }
 
 /**
@@ -64,7 +64,7 @@ export function filter<T extends object>(
     ? (Object.fromEntries(
         Object.entries(source).filter(([key, value]) => filter(key, value)),
       ) as T)
-    : source
+    : source;
 }
 
 /**
@@ -76,5 +76,5 @@ export function pick<T extends object, K extends keyof T>(
 ): Pick<T, K> {
   return isObject(source)
     ? (Object.fromEntries(keys.map((key) => [key, source[key]])) as Pick<T, K>)
-    : source
+    : source;
 }

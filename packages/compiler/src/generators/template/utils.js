@@ -15,32 +15,32 @@ import {
   SLOT_ATTRIBUTE,
   TEMPLATE_FN,
   TEXT_NODE_EXPRESSION_PLACEHOLDER,
-} from './constants.js'
-import { builders, types } from '../../utils/build-types.js'
-import { findIsAttribute, findStaticAttributes } from './find.js'
+} from "./constants.js";
+import { builders, types } from "../../utils/build-types.js";
+import { findIsAttribute, findStaticAttributes } from "./find.js";
 import {
   hasExpressions,
   isGlobal,
   isTagNode,
   isTextNode,
   isVoidNode,
-} from './checks.js'
+} from "./checks.js";
 import {
   isIdentifier,
   isLiteral,
   isMemberExpression,
   isObjectExpression,
-} from '../../utils/ast-nodes-checks.js'
-import { nullNode, simplePropertyNode } from '../../utils/custom-ast-nodes.js'
-import addLinesOffset from '../../utils/add-lines-offset.js'
-import compose from 'cumpa'
-import { createExpression } from './expressions/index.js'
-import encodeHTMLEntities from '../../utils/html-entities/encode.js'
-import generateAST from '../../utils/generate-ast.js'
-import unescapeChar from '../../utils/unescape-char.js'
+} from "../../utils/ast-nodes-checks.js";
+import { nullNode, simplePropertyNode } from "../../utils/custom-ast-nodes.js";
+import addLinesOffset from "../../utils/add-lines-offset.js";
+import compose from "cumpa";
+import { createExpression } from "./expressions/index.js";
+import encodeHTMLEntities from "../../utils/html-entities/encode.js";
+import generateAST from "../../utils/generate-ast.js";
+import unescapeChar from "../../utils/unescape-char.js";
 
-const scope = builders.identifier(SCOPE)
-export const getName = (node) => (node?.name ? node.name : node)
+const scope = builders.identifier(SCOPE);
+export const getName = (node) => (node?.name ? node.name : node);
 
 /**
  * Replace the path scope with a member Expression
@@ -50,8 +50,8 @@ export const getName = (node) => (node?.name ? node.name : node)
  */
 function replacePathScope(path, property) {
   // make sure that for the scope injection the extra parenthesis get removed
-  removeExtraParenthesis(property)
-  path.replace(builders.memberExpression(scope, property, false))
+  removeExtraParenthesis(property);
+  path.replace(builders.memberExpression(scope, property, false));
 }
 
 /**
@@ -62,12 +62,12 @@ function replacePathScope(path, property) {
  */
 function updateNodeScope(path) {
   if (!isGlobal(path)) {
-    replacePathScope(path, path.node)
+    replacePathScope(path, path.node);
 
-    return false
+    return false;
   }
 
-  this.traverse(path)
+  this.traverse(path);
 }
 
 /**
@@ -76,23 +76,23 @@ function updateNodeScope(path) {
  * @returns { boolean } return always false because we want to check only the first node object
  */
 function visitMemberExpression(path) {
-  const traversePathObject = () => this.traverse(path.get('object'))
-  const currentObject = path.node.object
+  const traversePathObject = () => this.traverse(path.get("object"));
+  const currentObject = path.node.object;
 
   switch (true) {
     case isGlobal(path):
       if (currentObject.arguments?.length) {
-        traversePathObject()
+        traversePathObject();
       }
-      break
+      break;
     case !path.value.computed && isIdentifier(currentObject):
-      replacePathScope(path, path.node)
-      break
+      replacePathScope(path, path.node);
+      break;
     default:
-      this.traverse(path)
+      this.traverse(path);
   }
 
-  return false
+  return false;
 }
 
 /**
@@ -101,21 +101,21 @@ function visitMemberExpression(path) {
  * @returns { boolean } return false if we want to stop the tree traversal
  */
 function visitObjectProperty(path) {
-  const value = path.node.value
-  const isShorthand = path.node.shorthand
+  const value = path.node.value;
+  const isShorthand = path.node.shorthand;
 
   if (isIdentifier(value) || isMemberExpression(value) || isShorthand) {
     // disable shorthand object properties
     if (isShorthand) {
-      path.node.shorthand = false
+      path.node.shorthand = false;
     }
 
-    updateNodeScope.call(this, path.get('value'))
+    updateNodeScope.call(this, path.get("value"));
   } else {
-    this.traverse(path.get('value'))
+    this.traverse(path.get("value"));
   }
 
-  return false
+  return false;
 }
 
 /**
@@ -124,10 +124,10 @@ function visitObjectProperty(path) {
  * @returns { boolean|undefined } return false if we want to stop the tree traversal
  */
 function visitThisExpression(path) {
-  path.replace(scope)
-  this.traverse(path)
+  path.replace(scope);
+  this.traverse(path);
 
-  return false
+  return false;
 }
 
 /**
@@ -136,7 +136,7 @@ function visitThisExpression(path) {
  * @returns { boolean|undefined } return false if we want to stop the tree traversal
  */
 function visitIdentifier(path) {
-  const parentValue = path.parent.value
+  const parentValue = path.parent.value;
 
   if (
     (!isMemberExpression(parentValue) &&
@@ -145,10 +145,10 @@ function visitIdentifier(path) {
       parentValue.key !== path.node) ||
     parentValue.computed
   ) {
-    updateNodeScope.call(this, path)
+    updateNodeScope.call(this, path);
   }
 
-  return false
+  return false;
 }
 
 /**
@@ -157,7 +157,7 @@ function visitIdentifier(path) {
  * @returns { Object } the ast program with all the global nodes updated
  */
 export function updateNodesScope(ast) {
-  const ignorePath = () => false
+  const ignorePath = () => false;
 
   types.visit(ast, {
     visitIdentifier,
@@ -165,9 +165,9 @@ export function updateNodesScope(ast) {
     visitObjectProperty,
     visitThisExpression,
     visitClassExpression: ignorePath,
-  })
+  });
 
-  return ast
+  return ast;
 }
 
 /**
@@ -180,11 +180,11 @@ export function updateNodesScope(ast) {
 export function createASTFromExpression(expression, sourceFile, sourceCode) {
   const code = sourceFile
     ? addLinesOffset(expression.text, sourceCode, expression)
-    : expression.text
+    : expression.text;
 
   return generateAST(`(${code})`, {
     sourceFileName: sourceFile,
-  })
+  });
 }
 
 /**
@@ -196,7 +196,7 @@ export function createTemplateProperty(args) {
   return simplePropertyNode(
     BINDING_TEMPLATE_KEY,
     args ? callTemplateFunction(...args) : nullNode(),
-  )
+  );
 }
 
 /**
@@ -211,7 +211,7 @@ export function getAttributeExpression(attribute) {
         // if no expression was found try to typecast the attribute value
         ...attribute,
         text: attribute.value,
-      }
+      };
 }
 
 /**
@@ -220,7 +220,7 @@ export function getAttributeExpression(attribute) {
  * @returns {FunctionExpresion} function having the scope argument injected
  */
 export function wrapASTInFunctionWithScope(ast) {
-  const fn = builders.arrowFunctionExpression([scope], ast)
+  const fn = builders.arrowFunctionExpression([scope], ast);
 
   // object expressions need to be wrapped in parentheses
   // recast doesn't allow it
@@ -230,10 +230,10 @@ export function wrapASTInFunctionWithScope(ast) {
     // trying to figure out how the recast printer works internally
     ast.extra = {
       parenthesized: true,
-    }
+    };
   }
 
-  return fn
+  return fn;
 }
 
 /**
@@ -254,7 +254,7 @@ export function toScopedFunction(expression, sourceFile, sourceCode) {
     expression,
     sourceFile,
     sourceCode,
-  )
+  );
 }
 
 /**
@@ -270,7 +270,7 @@ export function transformExpression(expression, sourceFile, sourceCode) {
     getExpressionAST,
     updateNodesScope,
     createASTFromExpression,
-  )(expression, sourceFile, sourceCode)
+  )(expression, sourceFile, sourceCode);
 }
 
 /**
@@ -280,10 +280,10 @@ export function transformExpression(expression, sourceFile, sourceCode) {
  */
 export function removeExtraParenthesis(expr) {
   if (expr.extra) {
-    expr.extra.parenthesized = false
+    expr.extra.parenthesized = false;
   }
 
-  return expr
+  return expr;
 }
 
 /**
@@ -292,9 +292,9 @@ export function removeExtraParenthesis(expr) {
  * @returns {AST.Expression} program expression output
  */
 export function getExpressionAST(sourceAST) {
-  const astBody = sourceAST.program.body
+  const astBody = sourceAST.program.body;
 
-  return astBody[0] ? astBody[0].expression : astBody
+  return astBody[0] ? astBody[0].expression : astBody;
 }
 
 /**
@@ -307,7 +307,7 @@ export function callTemplateFunction(template, bindings) {
   return builders.callExpression(builders.identifier(TEMPLATE_FN), [
     template ? builders.literal(template) : nullNode(),
     bindings ? builders.arrayExpression(bindings) : nullNode(),
-  ])
+  ]);
 }
 
 /**
@@ -321,7 +321,7 @@ export const createTemplateDependenciesInjectionWrapper = (body) =>
       builders.identifier,
     ),
     body,
-  )
+  );
 
 /**
  * Convert any DOM attribute into a valid DOM selector useful for the querySelector API
@@ -329,7 +329,7 @@ export const createTemplateDependenciesInjectionWrapper = (body) =>
  * @returns { string } the attribute transformed to a query selector
  */
 export const attributeNameToDOMQuerySelector = (attributeName) =>
-  `[${attributeName}]`
+  `[${attributeName}]`;
 
 /**
  * Create the properties to query a DOM node
@@ -351,7 +351,7 @@ export function createSelectorProperties(attributeName) {
           )(attributeName),
         ),
       ]
-    : []
+    : [];
 }
 
 /**
@@ -367,7 +367,7 @@ export function cloneNodeWithoutSelectorAttribute(node, selectorAttribute) {
       getNodeAttributes(node),
       selectorAttribute,
     ),
-  }
+  };
 }
 
 /**
@@ -380,10 +380,10 @@ export function getAttributesWithoutSelector(attributes, selectorAttribute) {
   if (selectorAttribute) {
     return attributes.filter(
       (attribute) => attribute.name !== selectorAttribute,
-    )
+    );
   }
 
-  return attributes
+  return attributes;
 }
 
 /**
@@ -401,7 +401,7 @@ export function cleanAttributes(node) {
         SLOT_ATTRIBUTE,
         IS_DIRECTIVE,
       ].includes(attribute.name),
-  )
+  );
 }
 
 /**
@@ -413,7 +413,7 @@ export function rootNodeFactory(node) {
   return {
     nodes: getChildrenNodes(node),
     isRoot: true,
-  }
+  };
 }
 
 /**
@@ -430,7 +430,7 @@ export function createRootNode(node) {
       // root nodes shouldn't have directives
       cleanAttributes,
     )(node),
-  }
+  };
 }
 
 /**
@@ -443,7 +443,7 @@ export function createNestedRootNode(node) {
     ...rootNodeFactory(node),
     isNestedRoot: true,
     attributes: cleanAttributes(node),
-  }
+  };
 }
 
 /**
@@ -454,7 +454,7 @@ export function createNestedRootNode(node) {
 export function transformStaticAttributesIntoExpressions(attributes) {
   return attributes.map((attribute) => {
     if (attribute.expressions) {
-      return attribute
+      return attribute;
     }
 
     return {
@@ -469,12 +469,12 @@ export function transformStaticAttributesIntoExpressions(attributes) {
               : // boolean attributes should be treated differently
                 attribute[IS_BOOLEAN_ATTRIBUTE]
                 ? attribute.name
-                : ''
+                : ""
           }'`,
         },
       ],
-    }
-  })
+    };
+  });
 }
 
 /**
@@ -483,7 +483,7 @@ export function transformStaticAttributesIntoExpressions(attributes) {
  * @returns {Array<RiotParser.Node>} all the child nodes found
  */
 export function getChildrenNodes(node) {
-  return node?.nodes ? node.nodes : []
+  return node?.nodes ? node.nodes : [];
 }
 
 /**
@@ -492,7 +492,7 @@ export function getChildrenNodes(node) {
  * @returns {Array<RiotParser.Node.Attribute>} all the attributes find
  */
 export function getNodeAttributes(node) {
-  return node.attributes ? node.attributes : []
+  return node.attributes ? node.attributes : [];
 }
 
 /**
@@ -507,8 +507,8 @@ export function createCustomNodeNameEvaluationFunction(
   sourceFile,
   sourceCode,
 ) {
-  const isAttribute = findIsAttribute(node)
-  const toRawString = (val) => `'${val}'`
+  const isAttribute = findIsAttribute(node);
+  const toRawString = (val) => `'${val}'`;
 
   if (isAttribute) {
     return isAttribute.expressions
@@ -522,14 +522,14 @@ export function createCustomNodeNameEvaluationFunction(
           },
           sourceFile,
           sourceCode,
-        )
+        );
   }
 
   return toScopedFunction(
     { ...node, text: toRawString(getName(node)) },
     sourceFile,
     sourceCode,
-  )
+  );
 }
 
 /**
@@ -542,9 +542,9 @@ export function staticAttributesToString(node) {
     .map((attribute) =>
       attribute[IS_BOOLEAN_ATTRIBUTE] || !attribute.value
         ? attribute.name
-        : `${attribute.name}="${unescapeNode(attribute, 'value').value}"`,
+        : `${attribute.name}="${unescapeNode(attribute, "value").value}"`,
     )
-    .join(' ')
+    .join(" ");
 }
 
 /**
@@ -558,10 +558,10 @@ export function unescapeNode(node, key) {
     return {
       ...node,
       [key]: unescapeChar(node[key], node.unescape),
-    }
+    };
   }
 
-  return node
+  return node;
 }
 
 /**
@@ -570,19 +570,19 @@ export function unescapeNode(node, key) {
  * @returns {string} the node as string
  */
 export function nodeToString(node) {
-  const attributes = staticAttributesToString(node)
+  const attributes = staticAttributesToString(node);
 
   switch (true) {
     case isTagNode(node):
-      return `<${node.name}${attributes ? ` ${attributes}` : ''}${
-        isVoidNode(node) ? '/' : ''
-      }>`
+      return `<${node.name}${attributes ? ` ${attributes}` : ""}${
+        isVoidNode(node) ? "/" : ""
+      }>`;
     case isTextNode(node):
       return hasExpressions(node)
         ? TEXT_NODE_EXPRESSION_PLACEHOLDER
-        : unescapeNode(node, 'text').text
+        : unescapeNode(node, "text").text;
     default:
-      return node.text || ''
+      return node.text || "";
   }
 }
 
@@ -592,7 +592,7 @@ export function nodeToString(node) {
  * @returns {string} the closing tag of the html tag node passed to this function
  */
 export function closeTag(node) {
-  return node.name ? `</${node.name}>` : ''
+  return node.name ? `</${node.name}>` : "";
 }
 
 /**
@@ -604,11 +604,11 @@ export function createArrayString(stringsArray) {
   return builders.callExpression(
     builders.memberExpression(
       builders.arrayExpression(stringsArray),
-      builders.identifier('join'),
+      builders.identifier("join"),
       false,
     ),
-    [builders.literal('')],
-  )
+    [builders.literal("")],
+  );
 }
 
 /**
@@ -621,22 +621,22 @@ export function createArrayString(stringsArray) {
  */
 export function mergeAttributeExpressions(node, sourceFile, sourceCode) {
   if (!node.parts || node.parts.length === 1) {
-    return transformExpression(node.expressions[0], sourceFile, sourceCode)
+    return transformExpression(node.expressions[0], sourceFile, sourceCode);
   }
   const stringsArray = [
     ...node.parts.reduce((acc, str) => {
-      const expression = node.expressions.find((e) => e.text.trim() === str)
+      const expression = node.expressions.find((e) => e.text.trim() === str);
 
       return [
         ...acc,
         expression
           ? transformExpression(expression, sourceFile, sourceCode)
           : builders.literal(encodeHTMLEntities(str)),
-      ]
+      ];
     }, []),
-  ].filter((expr) => !isLiteral(expr) || expr.value)
+  ].filter((expr) => !isLiteral(expr) || expr.value);
 
-  return createArrayString(stringsArray)
+  return createArrayString(stringsArray);
 }
 
 /**
@@ -645,8 +645,8 @@ export function mergeAttributeExpressions(node, sourceFile, sourceCode) {
  * @returns {string} selector attribute needed to bind a riot expression
  */
 export const createBindingSelector = (function createSelector(id = 0) {
-  return () => `${BINDING_SELECTOR_PREFIX}${id++}`
-})()
+  return () => `${BINDING_SELECTOR_PREFIX}${id++}`;
+})();
 
 /**
  * Create the AST array containing the attributes to bind to this node
@@ -673,7 +673,7 @@ export function createBindingAttributes(
         getAttributesWithoutSelector(attributes, selectorAttribute),
       cleanAttributes,
     )(sourceNode),
-  ])
+  ]);
 }
 
 /**
@@ -690,5 +690,5 @@ export function createAttributeEvaluationFunction(
 ) {
   return wrapASTInFunctionWithScope(
     mergeAttributeExpressions(sourceNode, sourceFile, sourceCode),
-  )
+  );
 }

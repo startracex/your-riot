@@ -6,5 +6,5 @@ export default function getChunk(
   start: number,
   end: number,
 ): string {
-  return source.slice(start, end)
+  return source.slice(start, end);
 }

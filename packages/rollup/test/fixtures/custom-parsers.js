@@ -1,2 +1,2 @@
-import CustomParser from './custom-parsers.riot'
-export default CustomParser
+import CustomParser from "./custom-parsers.riot";
+export default CustomParser;

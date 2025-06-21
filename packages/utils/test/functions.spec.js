@@ -2,46 +2,46 @@ import {
   autobindMethods,
   callOrAssign,
   noop,
-} from '../dist/module/functions.js'
-import { expect } from 'chai'
+} from "../dist/module/functions.js";
+import { expect } from "chai";
 
-describe('Functions', () => {
-  it('noop', () => {
-    expect(() => noop()).to.not.throw
-    expect(noop.call({ hello: 'hello' })).to.be.deep.equal({ hello: 'hello' })
-  })
+describe("Functions", () => {
+  it("noop", () => {
+    expect(() => noop()).to.not.throw;
+    expect(noop.call({ hello: "hello" })).to.be.deep.equal({ hello: "hello" });
+  });
 
-  it('autobindMethods', () => {
+  it("autobindMethods", () => {
     const methods = autobindMethods(
       {
-        name: 'me',
+        name: "me",
         onMount() {
-          return this
+          return this;
         },
         onUnmount() {
-          return this
+          return this;
         },
       },
-      ['onMount', 'onUnmount'],
-    )
-    expect(methods.onMount().name).to.be.equal('me')
-    expect(methods.onUnmount().name).to.be.equal('me')
-  })
+      ["onMount", "onUnmount"],
+    );
+    expect(methods.onMount().name).to.be.equal("me");
+    expect(methods.onUnmount().name).to.be.equal("me");
+  });
 
-  it('callOrAssign', () => {
+  it("callOrAssign", () => {
     /* eslint-disable fp/no-class */
     class MyClas {
       hello() {
-        return 'me'
+        return "me";
       }
     }
     /* eslint-enable fp/no-class */
-    expect(callOrAssign(() => ({ hello: 'hello' }))).to.be.deep.equal({
-      hello: 'hello',
-    })
-    expect(callOrAssign({ hello: 'hello' })).to.be.deep.equal({
-      hello: 'hello',
-    })
-    expect(callOrAssign(MyClas).hello()).to.be.equal('me')
-  })
-})
+    expect(callOrAssign(() => ({ hello: "hello" }))).to.be.deep.equal({
+      hello: "hello",
+    });
+    expect(callOrAssign({ hello: "hello" })).to.be.deep.equal({
+      hello: "hello",
+    });
+    expect(callOrAssign(MyClas).hello()).to.be.equal("me");
+  });
+});

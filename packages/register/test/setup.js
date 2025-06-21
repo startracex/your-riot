@@ -1,4 +1,4 @@
-import { pathToFileURL } from 'node:url'
-import { register } from 'node:module'
+import { pathToFileURL } from "node:url";
+import { register } from "node:module";
 
-register('./dist/module/index.js', pathToFileURL('./'))
+register("./dist/module/index.js", pathToFileURL("./"));

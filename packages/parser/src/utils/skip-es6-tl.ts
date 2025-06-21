@@ -1,6 +1,6 @@
-import formatError from './format-error.js'
-import { unclosedTemplateLiteral } from '../messages.js'
-export const $_ES6_BQ = '`'
+import formatError from "./format-error.js";
+import { unclosedTemplateLiteral } from "../messages.js";
+export const $_ES6_BQ = "`";
 
 /**
  * Searches the next backquote that signals the end of the ES6 Template Literal
@@ -14,19 +14,19 @@ export default function skipES6TL(
 ): number {
   // we are in the char following the backquote (`),
   // find the next unescaped backquote or the sequence "${"
-  const re = /[`$\\]/g
-  let c
+  const re = /[`$\\]/g;
+  let c;
   while (((re.lastIndex = pos), re.exec(code))) {
-    pos = re.lastIndex
-    c = code[pos - 1]
-    if (c === '`') {
-      return pos
+    pos = re.lastIndex;
+    c = code[pos - 1];
+    if (c === "`") {
+      return pos;
     }
-    if (c === '$' && code[pos++] === '{') {
-      stack.push($_ES6_BQ, '}')
-      return pos
+    if (c === "$" && code[pos++] === "{") {
+      stack.push($_ES6_BQ, "}");
+      return pos;
     }
     // else this is an escaped char
   }
-  throw formatError(code, unclosedTemplateLiteral, pos)
+  throw formatError(code, unclosedTemplateLiteral, pos);
 }

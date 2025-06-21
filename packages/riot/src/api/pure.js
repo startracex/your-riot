@@ -1,4 +1,4 @@
-import { IS_PURE_SYMBOL, isFunction, panic } from '@your-riot/utils'
+import { IS_PURE_SYMBOL, isFunction, panic } from "@your-riot/utils";
 
 /**
  * Lift a riot component Interface into a pure riot object
@@ -7,8 +7,8 @@ import { IS_PURE_SYMBOL, isFunction, panic } from '@your-riot/utils'
  */
 export function pure(func) {
   if (!isFunction(func)) {
-    panic('riot.pure accepts only arguments of type "function"')
+    panic('riot.pure accepts only arguments of type "function"');
   }
-  func[IS_PURE_SYMBOL] = true
-  return func
+  func[IS_PURE_SYMBOL] = true;
+  return func;
 }

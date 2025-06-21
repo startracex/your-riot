@@ -6,7 +6,7 @@ import {
   getChildrenNodes,
   getNodeAttributes,
   nodeToString,
-} from './utils.js'
+} from "./utils.js";
 import {
   hasEachAttribute,
   hasIfAttribute,
@@ -19,20 +19,20 @@ import {
   isTagNode,
   isTextNode,
   isVoidNode,
-} from './checks.js'
-import cloneDeep from 'nanoclone'
-import eachBinding from './bindings/each.js'
-import ifBinding from './bindings/if.js'
-import { panic } from '@your-riot/utils/misc'
-import simpleBinding from './bindings/simple.js'
-import slotBinding from './bindings/slot.js'
-import tagBinding from './bindings/tag.js'
+} from "./checks.js";
+import cloneDeep from "nanoclone";
+import eachBinding from "./bindings/each.js";
+import ifBinding from "./bindings/if.js";
+import { panic } from "@your-riot/utils/misc";
+import simpleBinding from "./bindings/simple.js";
+import slotBinding from "./bindings/slot.js";
+import tagBinding from "./bindings/tag.js";
 
 const BuildingState = Object.freeze({
   html: [],
   bindings: [],
   parent: null,
-})
+});
 
 /**
  * Nodes having bindings should be cloned and new selector properties should be added to them
@@ -42,7 +42,7 @@ const BuildingState = Object.freeze({
  */
 function createBindingsTag(sourceNode, bindingsSelector) {
   if (!bindingsSelector) {
-    return sourceNode
+    return sourceNode;
   }
 
   return {
@@ -55,7 +55,7 @@ function createBindingsTag(sourceNode, bindingsSelector) {
       },
       ...getNodeAttributes(sourceNode),
     ],
-  }
+  };
 }
 
 /**
@@ -70,9 +70,9 @@ function createDynamicNode(sourceNode, sourceFile, sourceCode, state) {
   switch (true) {
     case isTextNode(sourceNode):
       // text nodes will not have any bindings
-      return [nodeToString(sourceNode), []]
+      return [nodeToString(sourceNode), []];
     default:
-      return createTagWithBindings(sourceNode, sourceFile, sourceCode, state)
+      return createTagWithBindings(sourceNode, sourceFile, sourceCode, state);
   }
 }
 
@@ -87,9 +87,9 @@ function createDynamicNode(sourceNode, sourceFile, sourceCode, state) {
 function createTagWithBindings(sourceNode, sourceFile, sourceCode) {
   const bindingsSelector = isRootNode(sourceNode)
     ? null
-    : createBindingSelector()
-  const cloneNode = createBindingsTag(sourceNode, bindingsSelector)
-  const tagOpeningHTML = nodeToString(cloneNode)
+    : createBindingSelector();
+  const cloneNode = createBindingsTag(sourceNode, bindingsSelector);
+  const tagOpeningHTML = nodeToString(cloneNode);
 
   switch (true) {
     case hasEachAttribute(cloneNode):
@@ -97,31 +97,31 @@ function createTagWithBindings(sourceNode, sourceFile, sourceCode) {
       return [
         tagOpeningHTML,
         [eachBinding(cloneNode, bindingsSelector, sourceFile, sourceCode)],
-      ]
+      ];
     case hasIfAttribute(cloneNode):
       // IF bindings have prio 2
       return [
         tagOpeningHTML,
         [ifBinding(cloneNode, bindingsSelector, sourceFile, sourceCode)],
-      ]
+      ];
     case isCustomNode(cloneNode):
       // TAG bindings have prio 3
       return [
         tagOpeningHTML,
         [tagBinding(cloneNode, bindingsSelector, sourceFile, sourceCode)],
-      ]
+      ];
     case isSlotNode(cloneNode):
       // slot tag
       return [
         tagOpeningHTML,
         [slotBinding(cloneNode, bindingsSelector, sourceFile, sourceCode)],
-      ]
+      ];
     default:
       // this node has expressions bound to it
       return [
         tagOpeningHTML,
         [simpleBinding(cloneNode, bindingsSelector, sourceFile, sourceCode)],
-      ]
+      ];
   }
 }
 
@@ -136,9 +136,9 @@ function createTagWithBindings(sourceNode, sourceFile, sourceCode) {
 function parseNode(sourceNode, sourceFile, sourceCode, state) {
   // static nodes have no bindings
   if (isStaticNode(sourceNode)) {
-    return [nodeToString(sourceNode), []]
+    return [nodeToString(sourceNode), []];
   }
-  return createDynamicNode(sourceNode, sourceFile, sourceCode, state)
+  return createDynamicNode(sourceNode, sourceFile, sourceCode, state);
 }
 
 /**
@@ -155,12 +155,12 @@ export function createNestedBindings(
   sourceCode,
   selector,
 ) {
-  const mightBeARiotComponent = isCustomNode(sourceNode)
-  const node = cloneNodeWithoutSelectorAttribute(sourceNode, selector)
+  const mightBeARiotComponent = isCustomNode(sourceNode);
+  const node = cloneNodeWithoutSelectorAttribute(sourceNode, selector);
 
   return mightBeARiotComponent
     ? [null, [tagBinding(node, null, sourceFile, sourceCode)]]
-    : build(createNestedRootNode(node), sourceFile, sourceCode)
+    : build(createNestedRootNode(node), sourceFile, sourceCode);
 }
 
 /**
@@ -175,7 +175,7 @@ export default function build(sourceNode, sourceFile, sourceCode, state) {
   if (!sourceNode) {
     panic(
       "Something went wrong with your tag DOM parsing, your tag template can't be created",
-    )
+    );
   }
 
   const [nodeHTML, nodeBindings] = parseNode(
@@ -183,14 +183,14 @@ export default function build(sourceNode, sourceFile, sourceCode, state) {
     sourceFile,
     sourceCode,
     state,
-  )
-  const childrenNodes = getChildrenNodes(sourceNode)
-  const canRenderNodeHTML = isRemovableNode(sourceNode) === false
-  const currentState = { ...cloneDeep(BuildingState), ...state }
+  );
+  const childrenNodes = getChildrenNodes(sourceNode);
+  const canRenderNodeHTML = isRemovableNode(sourceNode) === false;
+  const currentState = { ...cloneDeep(BuildingState), ...state };
 
   // mutate the original arrays
-  canRenderNodeHTML && currentState.html.push(...nodeHTML)
-  currentState.bindings.push(...nodeBindings)
+  canRenderNodeHTML && currentState.html.push(...nodeHTML);
+  currentState.bindings.push(...nodeBindings);
 
   // do recursion if
   // this tag has children and it has no special directives bound to it
@@ -200,13 +200,13 @@ export default function build(sourceNode, sourceFile, sourceCode, state) {
         parent: sourceNode,
         ...currentState,
       }),
-    )
+    );
   }
 
   // close the tag if it's not a void one
   if (canRenderNodeHTML && isTagNode(sourceNode) && !isVoidNode(sourceNode)) {
-    currentState.html.push(closeTag(sourceNode))
+    currentState.html.push(closeTag(sourceNode));
   }
 
-  return [currentState.html.join(''), currentState.bindings]
+  return [currentState.html.join(""), currentState.bindings];
 }

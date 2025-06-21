@@ -8,25 +8,25 @@ import {
   SLOT_TAG_NODE_NAME,
   TEMPLATE_TAG_NODE_NAME,
   VALUE_ATTRIBUTE,
-} from './constants.js'
+} from "./constants.js";
 import {
   findAttribute,
   findEachAttribute,
   findIfAttribute,
   findIsAttribute,
   findKeyAttribute,
-} from './find.js'
-import { getName, getNodeAttributes } from './utils.js'
+} from "./find.js";
+import { getName, getNodeAttributes } from "./utils.js";
 import {
   isBrowserAPI,
   isBuiltinAPI,
   isNewExpression,
   isRaw,
-} from '../../utils/ast-nodes-checks.js'
-import compose from 'cumpa'
-import { isNil } from '@your-riot/utils/checks'
-import { nodeTypes } from '@your-riot/parser'
-import { types } from '../../utils/build-types.js'
+} from "../../utils/ast-nodes-checks.js";
+import compose from "cumpa";
+import { isNil } from "@your-riot/utils/checks";
+import { nodeTypes } from "@your-riot/parser";
+import { types } from "../../utils/build-types.js";
 
 /**
  * True if the node has not expression set nor bindings directives
@@ -40,7 +40,7 @@ export function isStaticNode(node) {
     findIfAttribute,
     isCustomNode,
     isSlotNode,
-  ].every((test) => !test(node))
+  ].every((test) => !test(node));
 }
 
 /**
@@ -56,7 +56,7 @@ export function isRemovableNode(node) {
     !isNil(findAttribute(SLOT_ATTRIBUTE, node)) &&
     !hasEachAttribute(node) &&
     !hasIfAttribute(node)
-  )
+  );
 }
 
 /**
@@ -67,7 +67,7 @@ export function isRemovableNode(node) {
 export function isGlobal({ scope, node }) {
   // recursively find the identifier of this AST path
   if (node.object) {
-    return isGlobal({ node: node.object, scope })
+    return isGlobal({ node: node.object, scope });
   }
 
   return Boolean(
@@ -76,7 +76,7 @@ export function isGlobal({ scope, node }) {
       isBrowserAPI(node) ||
       isNewExpression(node) ||
       isNodeInScope(scope, node),
-  )
+  );
 }
 
 /**
@@ -90,17 +90,17 @@ function isNodeInScope(scope, node) {
     types.visit(node, {
       visitIdentifier(path) {
         if (scope.lookup(getName(path.node))) {
-          isInScope = true
+          isInScope = true;
         }
 
-        this.abort()
+        this.abort();
       },
-    })
+    });
 
-    return isInScope
-  }
+    return isInScope;
+  };
 
-  return traverse()
+  return traverse();
 }
 
 /**
@@ -109,7 +109,7 @@ function isNodeInScope(scope, node) {
  * @returns {boolean} true if either it's a riot component or a custom element
  */
 export function isCustomNode(node) {
-  return !!(node[IS_CUSTOM_NODE] || hasIsAttribute(node))
+  return !!(node[IS_CUSTOM_NODE] || hasIsAttribute(node));
 }
 
 /**
@@ -118,7 +118,7 @@ export function isCustomNode(node) {
  * @returns {boolean} true if it's a slot node
  */
 export function isSlotNode(node) {
-  return node.name === SLOT_TAG_NODE_NAME
+  return node.name === SLOT_TAG_NODE_NAME;
 }
 
 /**
@@ -127,7 +127,7 @@ export function isSlotNode(node) {
  * @returns {boolean} true if the node is self closing
  */
 export function isVoidNode(node) {
-  return !!node[IS_VOID_NODE]
+  return !!node[IS_VOID_NODE];
 }
 
 /**
@@ -136,7 +136,7 @@ export function isVoidNode(node) {
  * @returns {boolean} true only for the tag nodes
  */
 export function isTagNode(node) {
-  return node.type === nodeTypes.TAG
+  return node.type === nodeTypes.TAG;
 }
 
 /**
@@ -145,7 +145,7 @@ export function isTagNode(node) {
  * @returns {boolean} true only for the text nodes
  */
 export function isTextNode(node) {
-  return node.type === nodeTypes.TEXT
+  return node.type === nodeTypes.TEXT;
 }
 
 /**
@@ -154,7 +154,7 @@ export function isTextNode(node) {
  * @returns {boolean} true only for the root nodes
  */
 export function isRootNode(node) {
-  return node.isRoot
+  return node.isRoot;
 }
 
 /**
@@ -163,7 +163,7 @@ export function isRootNode(node) {
  * @returns {boolean} true only for the root nodes
  */
 export function isAbsoluteRootNode(node) {
-  return node.isRoot && !node.isNestedRoot
+  return node.isRoot && !node.isNestedRoot;
 }
 
 /**
@@ -172,7 +172,7 @@ export function isAbsoluteRootNode(node) {
  * @returns {boolean} true if the attribute node is of type spread
  */
 export function isSpreadAttribute(node) {
-  return node[IS_SPREAD_ATTRIBUTE]
+  return node[IS_SPREAD_ATTRIBUTE];
 }
 
 /**
@@ -181,7 +181,7 @@ export function isSpreadAttribute(node) {
  * @returns {boolean} true only for value attribute nodes
  */
 export function isValueAttribute(node) {
-  return node.name === VALUE_ATTRIBUTE
+  return node.name === VALUE_ATTRIBUTE;
 }
 
 /**
@@ -190,7 +190,7 @@ export function isValueAttribute(node) {
  * @returns {boolean} true only for ref attribute nodes
  */
 export function isRefAttribute(node) {
-  return node.name === REF_ATTRIBUTE
+  return node.name === REF_ATTRIBUTE;
 }
 
 /**
@@ -199,7 +199,7 @@ export function isRefAttribute(node) {
  * @returns {boolean} true for the progress tags
  */
 export function isProgressNode(node) {
-  return node.name === PROGRESS_TAG_NODE_NAME
+  return node.name === PROGRESS_TAG_NODE_NAME;
 }
 
 /**
@@ -208,7 +208,7 @@ export function isProgressNode(node) {
  * @returns {boolean} true for the progress tags
  */
 export function isTemplateNode(node) {
-  return node.name === TEMPLATE_TAG_NODE_NAME
+  return node.name === TEMPLATE_TAG_NODE_NAME;
 }
 
 /**
@@ -217,9 +217,9 @@ export function isTemplateNode(node) {
  * @returns {boolean} true only for dom listener attribute nodes
  */
 export const isEventAttribute = (() => {
-  const EVENT_ATTR_RE = /^on/
-  return (node) => EVENT_ATTR_RE.test(node.name)
-})()
+  const EVENT_ATTR_RE = /^on/;
+  return (node) => EVENT_ATTR_RE.test(node.name);
+})();
 
 /**
  * Check if a string is an html comment
@@ -227,7 +227,7 @@ export const isEventAttribute = (() => {
  * @returns {boolean} true if html comment
  */
 export function isCommentString(string) {
-  return string.trim().indexOf('<!') === 0
+  return string.trim().indexOf("<!") === 0;
 }
 
 /**
@@ -242,7 +242,7 @@ export function hasExpressions(node) {
     getNodeAttributes(node).some((attribute) => hasExpressions(attribute)) ||
     // has child text nodes with expressions
     node.nodes?.some((node) => isTextNode(node) && hasExpressions(node))
-  )
+  );
 }
 
 /**
@@ -253,11 +253,11 @@ export function hasExpressions(node) {
 export function hasItsOwnTemplate(node) {
   return [findEachAttribute, findIfAttribute, isCustomNode, isSlotNode].some(
     (test) => test(node),
-  )
+  );
 }
 
-export const hasIfAttribute = compose(Boolean, findIfAttribute)
-export const hasEachAttribute = compose(Boolean, findEachAttribute)
-export const hasIsAttribute = compose(Boolean, findIsAttribute)
-export const hasKeyAttribute = compose(Boolean, findKeyAttribute)
-export const hasChildrenNodes = (node) => node?.nodes?.length > 0
+export const hasIfAttribute = compose(Boolean, findIfAttribute);
+export const hasEachAttribute = compose(Boolean, findEachAttribute);
+export const hasIsAttribute = compose(Boolean, findIsAttribute);
+export const hasKeyAttribute = compose(Boolean, findKeyAttribute);
+export const hasChildrenNodes = (node) => node?.nodes?.length > 0;

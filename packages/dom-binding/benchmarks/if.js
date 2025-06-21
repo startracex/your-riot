@@ -1,45 +1,45 @@
 export default function (suite, testName, domBindings, rootNode) {
-  const tag = domBindings.template('<div></div><p expr0></p>', [
+  const tag = domBindings.template("<div></div><p expr0></p>", [
     {
-      selector: '[expr0]',
+      selector: "[expr0]",
       type: domBindings.bindingTypes.IF,
       evaluate(scope) {
-        return scope.isVisible
+        return scope.isVisible;
       },
-      template: domBindings.template('<b expr0> </b>', [
+      template: domBindings.template("<b expr0> </b>", [
         {
-          selector: '[expr0]',
+          selector: "[expr0]",
           expressions: [
             {
               type: domBindings.expressionTypes.TEXT,
               childNodeIndex: 0,
               evaluate(scope) {
-                return scope.text
+                return scope.text;
               },
             },
           ],
         },
       ]),
     },
-  ])
+  ]);
 
   suite.add(
     testName,
     () => {
-      tag.update({ isVisible: false, text: 'Hello' })
-      tag.update({ isVisible: true, text: 'Hello' })
+      tag.update({ isVisible: false, text: "Hello" });
+      tag.update({ isVisible: true, text: "Hello" });
     },
     {
       onStart: () => {
-        document.body.appendChild(rootNode)
+        document.body.appendChild(rootNode);
         tag.mount(rootNode, {
           isVisible: true,
-          text: 'Hello',
-        })
+          text: "Hello",
+        });
       },
       onComplete: () => {
-        tag.unmount({}, {}, true)
+        tag.unmount({}, {}, true);
       },
     },
-  )
+  );
 }

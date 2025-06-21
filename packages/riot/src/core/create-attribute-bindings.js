@@ -1,5 +1,5 @@
-import { createCoreAPIMethods } from './create-core-api-methods.js'
-import { createExpression } from '@your-riot/dom-binding'
+import { createCoreAPIMethods } from "./create-core-api-methods.js";
+import { createExpression } from "@your-riot/dom-binding";
 
 /**
  * Create the bindings to update the component attributes
@@ -8,15 +8,15 @@ import { createExpression } from '@your-riot/dom-binding'
  * @returns {TemplateChunk} - template bindings object
  */
 export function createAttributeBindings(node, attributes = []) {
-  const expressions = attributes.map((a) => createExpression(node, a))
-  const binding = {}
+  const expressions = attributes.map((a) => createExpression(node, a));
+  const binding = {};
 
   return Object.assign(binding, {
     expressions,
     ...createCoreAPIMethods((method) => (scope) => {
-      expressions.forEach((e) => e[method](scope))
+      expressions.forEach((e) => e[method](scope));
 
-      return binding
+      return binding;
     }),
-  })
+  });
 }

@@ -3,8 +3,8 @@ import {
   RIOT_MODULE_ID,
   RIOT_TAG_INTERFACE_NAME,
   TAG_LOGIC_PROPERTY,
-} from '../../constants.js'
-import { builders, types } from '../../utils/build-types.js'
+} from "../../constants.js";
+import { builders, types } from "../../utils/build-types.js";
 import {
   isExportDefaultStatement,
   isExportNamedDeclaration,
@@ -12,8 +12,8 @@ import {
   isInterfaceDeclaration,
   isThisExpressionStatement,
   isTypeAliasDeclaration,
-} from '../../utils/ast-nodes-checks.js'
-import compose from 'cumpa'
+} from "../../utils/ast-nodes-checks.js";
+import compose from "cumpa";
 
 /**
  * Find the export default statement
@@ -21,7 +21,7 @@ import compose from 'cumpa'
  * @returns { Object } node containing only the code of the export default statement
  */
 export function findExportDefaultStatement(body) {
-  return body.find(isExportDefaultStatement)
+  return body.find(isExportDefaultStatement);
 }
 
 /**
@@ -30,7 +30,7 @@ export function findExportDefaultStatement(body) {
  * @returns { Array } array containing all the import declarations detected
  */
 export function findAllImportDeclarations(body) {
-  return body.filter(isImportDeclaration)
+  return body.filter(isImportDeclaration);
 }
 
 /**
@@ -39,7 +39,7 @@ export function findAllImportDeclarations(body) {
  * @returns { Array } array containing all the named export declarations detected
  */
 export function findAllExportNamedDeclarations(body) {
-  return body.filter(isExportNamedDeclaration)
+  return body.filter(isExportNamedDeclaration);
 }
 
 /**
@@ -48,7 +48,7 @@ export function findAllExportNamedDeclarations(body) {
  * @returns { Array } array containing all the ast expressions without the import declarations
  */
 export function filterOutAllImportDeclarations(body) {
-  return body.filter((n) => !isImportDeclaration(n))
+  return body.filter((n) => !isImportDeclaration(n));
 }
 
 /**
@@ -59,7 +59,7 @@ export function filterOutAllImportDeclarations(body) {
 export function filterOutAllExportDeclarations(body) {
   return body.filter(
     (n) => !isExportNamedDeclaration(n) || isExportDefaultStatement(n),
-  )
+  );
 }
 
 /**
@@ -70,13 +70,13 @@ export function filterOutAllExportDeclarations(body) {
 export function findComponentInterface(body) {
   const exportNamedDeclarations = body
     .filter(isExportNamedDeclaration)
-    .map((n) => n.declaration)
-  const types = exportNamedDeclarations.filter(isTypeAliasDeclaration)
-  const interfaces = exportNamedDeclarations.filter(isInterfaceDeclaration)
+    .map((n) => n.declaration);
+  const types = exportNamedDeclarations.filter(isTypeAliasDeclaration);
+  const interfaces = exportNamedDeclarations.filter(isInterfaceDeclaration);
   const isRiotComponentTypeName = ({ typeName }) =>
-    typeName?.name ? typeName.name === RIOT_TAG_INTERFACE_NAME : false
+    typeName?.name ? typeName.name === RIOT_TAG_INTERFACE_NAME : false;
   const extendsRiotComponent = ({ expression }) =>
-    expression.name === RIOT_TAG_INTERFACE_NAME
+    expression.name === RIOT_TAG_INTERFACE_NAME;
 
   return (
     types.find(
@@ -84,7 +84,7 @@ export function findComponentInterface(body) {
         node.typeAnnotation.types?.some(isRiotComponentTypeName) ||
         isRiotComponentTypeName(node.typeAnnotation),
     ) || interfaces.find((node) => node.extends?.some(extendsRiotComponent))
-  )
+  );
 }
 
 /**
@@ -94,20 +94,20 @@ export function findComponentInterface(body) {
  * @returns { Object } the component object exported combined with the riot typescript interfaces
  */
 export function addComponentInterfaceToExportedObject(ast, componentInterface) {
-  const body = getProgramBody(ast)
+  const body = getProgramBody(ast);
   const RiotComponentWrapperImportSpecifier = builders.importSpecifier(
     builders.identifier(RIOT_INTERFACE_WRAPPER_NAME),
-  )
-  const componentInterfaceName = componentInterface.id.name
+  );
+  const componentInterfaceName = componentInterface.id.name;
   const riotImportDeclaration = findAllImportDeclarations(body).find(
     (node) => node.source.value === RIOT_MODULE_ID,
-  )
-  const exportDefaultStatement = body.find(isExportDefaultStatement)
-  const objectExport = exportDefaultStatement.declaration
+  );
+  const exportDefaultStatement = body.find(isExportDefaultStatement);
+  const objectExport = exportDefaultStatement.declaration;
 
   // add the RiotComponentWrapper to this component imports
   if (riotImportDeclaration) {
-    riotImportDeclaration.specifiers.push(RiotComponentWrapperImportSpecifier)
+    riotImportDeclaration.specifiers.push(RiotComponentWrapperImportSpecifier);
   } else {
     // otherwise create the whole import statement from riot
     body.unshift(
@@ -116,7 +116,7 @@ export function addComponentInterfaceToExportedObject(ast, componentInterface) {
         [RiotComponentWrapperImportSpecifier],
         builders.stringLiteral(RIOT_MODULE_ID),
       ),
-    )
+    );
   }
 
   // override the object export adding the types detected
@@ -128,9 +128,9 @@ export function addComponentInterfaceToExportedObject(ast, componentInterface) {
         builders.tsTypeReference(builders.identifier(componentInterfaceName)),
       ]),
     ),
-  )
+  );
 
-  return ast
+  return ast;
 }
 
 /**
@@ -151,7 +151,7 @@ export function createDefaultExportFromLegacySyntax(body) {
         builders.returnStatement(builders.thisExpression()),
       ]),
     ),
-  )
+  );
 }
 
 /**
@@ -163,7 +163,7 @@ export function filterNonExportDefaultStatements(body) {
   return body.filter(
     (node) =>
       !isExportDefaultStatement(node) && !isThisExpressionStatement(node),
-  )
+  );
 }
 
 /**
@@ -172,7 +172,7 @@ export function filterNonExportDefaultStatements(body) {
  * @returns { Array } array containing the program code
  */
 export function getProgramBody(ast) {
-  return ast.body || ast.program.body
+  return ast.body || ast.program.body;
 }
 
 /**
@@ -185,13 +185,13 @@ export function extendTagProperty(ast, exportDefaultNode) {
   types.visit(ast, {
     visitProperty(path) {
       if (path.value.key.name === TAG_LOGIC_PROPERTY) {
-        path.value.value = exportDefaultNode.declaration
-        return false
+        path.value.value = exportDefaultNode.declaration;
+        return false;
       }
 
-      this.traverse(path)
+      this.traverse(path);
     },
-  })
+  });
 
-  return ast
+  return ast;
 }

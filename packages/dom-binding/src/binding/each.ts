@@ -1,11 +1,11 @@
-import { insertBefore, removeChild } from '@your-riot/utils/dom'
-import { defineProperty } from '@your-riot/utils/objects'
-import { isTemplate } from '@your-riot/utils/checks'
-import createTemplateMeta from '../utils/create-template-meta.js'
-import udomdiff from '../utils/udomdiff.js'
-import type { TemplateChunk } from '../template.js'
+import { insertBefore, removeChild } from "@your-riot/utils/dom";
+import { defineProperty } from "@your-riot/utils/objects";
+import { isTemplate } from "@your-riot/utils/checks";
+import createTemplateMeta from "../utils/create-template-meta.js";
+import udomdiff from "../utils/udomdiff.js";
+import type { TemplateChunk } from "../template.js";
 
-const UNMOUNT_SCOPE: unique symbol = Symbol('unmount')
+const UNMOUNT_SCOPE: unique symbol = Symbol("unmount");
 
 /**
  * Patch the DOM while diffing
@@ -17,26 +17,26 @@ function patch(redundant, parentScope) {
   return (item, info) => {
     if (info < 0) {
       // get the last element added to the childrenMap saved previously
-      const element = redundant[redundant.length - 1]
+      const element = redundant[redundant.length - 1];
 
       if (element) {
         // get the nodes and the template in stored in the last child of the childrenMap
-        const { template, nodes, context } = element
+        const { template, nodes, context } = element;
         // remove the last node (notice <template> tags might have more children nodes)
-        nodes.pop()
+        nodes.pop();
 
         // notice that we pass null as last argument because
         // the root node and its children will be removed by domdiff
         if (!nodes.length) {
           // we have cleared all the children nodes and we can unmount this template
-          redundant.pop()
-          template.unmount(context, parentScope, null)
+          redundant.pop();
+          template.unmount(context, parentScope, null);
         }
       }
     }
 
-    return item
-  }
+    return item;
+  };
 }
 
 /**
@@ -46,7 +46,7 @@ function patch(redundant, parentScope) {
  * @returns {boolean} true if this item should be skipped
  */
 function mustFilterItem(condition, context) {
-  return condition ? !condition(context) : false
+  return condition ? !condition(context) : false;
 }
 
 /**
@@ -60,12 +60,12 @@ function mustFilterItem(condition, context) {
  * @returns {Object} enhanced scope object
  */
 function extendScope(scope, { itemName, indexName, index, item }) {
-  defineProperty(scope, itemName, item)
+  defineProperty(scope, itemName, item);
   if (indexName) {
-    defineProperty(scope, indexName, index)
+    defineProperty(scope, indexName, index);
   }
 
-  return scope
+  return scope;
 }
 
 /**
@@ -89,10 +89,10 @@ function createPatch(items, scope, parentScope, binding) {
     indexName,
     root,
     isTemplateTag,
-  } = binding
-  const newChildrenMap = new Map()
-  const batches = []
-  const futureNodes = []
+  } = binding;
+  const newChildrenMap = new Map();
+  const batches = [];
+  const futureNodes = [];
 
   items.forEach((item, index) => {
     const context = extendScope(Object.create(scope), {
@@ -100,42 +100,42 @@ function createPatch(items, scope, parentScope, binding) {
       indexName,
       index,
       item,
-    })
-    const key = getKey ? getKey(context) : index
-    const oldItem = childrenMap.get(key)
-    const nodes = []
+    });
+    const key = getKey ? getKey(context) : index;
+    const oldItem = childrenMap.get(key);
+    const nodes = [];
 
     if (mustFilterItem(condition, context)) {
-      return
+      return;
     }
 
-    const mustMount = !oldItem
-    const componentTemplate = oldItem ? oldItem.template : template.clone()
-    const el = componentTemplate.el || root.cloneNode()
+    const mustMount = !oldItem;
+    const componentTemplate = oldItem ? oldItem.template : template.clone();
+    const el = componentTemplate.el || root.cloneNode();
     const meta =
       isTemplateTag && mustMount
         ? createTemplateMeta(componentTemplate)
-        : componentTemplate.meta
+        : componentTemplate.meta;
 
     if (mustMount) {
       batches.push(() =>
         componentTemplate.mount(el, context, parentScope, meta),
-      )
+      );
     } else {
-      batches.push(() => componentTemplate.update(context, parentScope))
+      batches.push(() => componentTemplate.update(context, parentScope));
     }
 
     // create the collection of nodes to update or to add
     // in case of template tags we need to add all its children nodes
     if (isTemplateTag) {
-      nodes.push(...meta.children)
+      nodes.push(...meta.children);
     } else {
-      nodes.push(el)
+      nodes.push(el);
     }
 
     // delete the old item from the children map
-    childrenMap.delete(key)
-    futureNodes.push(...nodes)
+    childrenMap.delete(key);
+    futureNodes.push(...nodes);
 
     // update the children map
     newChildrenMap.set(key, {
@@ -143,14 +143,14 @@ function createPatch(items, scope, parentScope, binding) {
       template: componentTemplate,
       context,
       index,
-    })
-  })
+    });
+  });
 
   return {
     newChildrenMap,
     batches,
     futureNodes,
-  }
+  };
 }
 
 export class EachBinding<
@@ -159,23 +159,23 @@ export class EachBinding<
   IndexName extends string = string,
   ItemValue = any,
   ExtendedScope = Scope & { [Property in ItemName]: ItemValue } & {
-    [Property in IndexName]: number
+    [Property in IndexName]: number;
   },
 > {
-  isTemplateTag: boolean
-  itemName: ItemName
-  indexName?: IndexName | null
-  template: TemplateChunk<ExtendedScope>
-  getKey?: ((scope: ExtendedScope) => any) | null
-  condition?: ((scope: ExtendedScope) => any) | null
-  evaluate?: (scope: Scope) => ItemValue[]
-  selector?: string
-  redundantAttribute?: string
-  node: Node
-  root: Node
-  placeholder: Text
-  nodes: Node[]
-  childrenMap: Map<any, Node>
+  isTemplateTag: boolean;
+  itemName: ItemName;
+  indexName?: IndexName | null;
+  template: TemplateChunk<ExtendedScope>;
+  getKey?: ((scope: ExtendedScope) => any) | null;
+  condition?: ((scope: ExtendedScope) => any) | null;
+  evaluate?: (scope: Scope) => ItemValue[];
+  selector?: string;
+  redundantAttribute?: string;
+  node: Node;
+  root: Node;
+  placeholder: Text;
+  nodes: Node[];
+  childrenMap: Map<any, Node>;
   constructor(
     node: HTMLElement,
     {
@@ -186,42 +186,42 @@ export class EachBinding<
       getKey,
       template,
     }: {
-      itemName: ItemName
-      indexName?: IndexName | null
-      template: TemplateChunk<ExtendedScope>
-      getKey?: ((scope: ExtendedScope) => any) | null
-      condition?: ((scope: ExtendedScope) => any) | null
-      evaluate?: (scope: Scope) => ItemValue[]
+      itemName: ItemName;
+      indexName?: IndexName | null;
+      template: TemplateChunk<ExtendedScope>;
+      getKey?: ((scope: ExtendedScope) => any) | null;
+      condition?: ((scope: ExtendedScope) => any) | null;
+      evaluate?: (scope: Scope) => ItemValue[];
     },
   ) {
-    const placeholder = document.createTextNode('')
-    const root = node.cloneNode()
+    const placeholder = document.createTextNode("");
+    const root = node.cloneNode();
 
-    insertBefore(placeholder, node)
-    removeChild(node)
+    insertBefore(placeholder, node);
+    removeChild(node);
 
-    this.childrenMap = new Map()
-    this.node = node
-    this.root = root
-    this.condition = condition
-    this.evaluate = evaluate
-    this.template = template.createDOM(node)
-    this.isTemplateTag = isTemplate(root)
-    this.nodes = []
-    this.getKey = getKey
-    this.indexName = indexName
-    this.itemName = itemName
-    this.placeholder = placeholder
+    this.childrenMap = new Map();
+    this.node = node;
+    this.root = root;
+    this.condition = condition;
+    this.evaluate = evaluate;
+    this.template = template.createDOM(node);
+    this.isTemplateTag = isTemplate(root);
+    this.nodes = [];
+    this.getKey = getKey;
+    this.indexName = indexName;
+    this.itemName = itemName;
+    this.placeholder = placeholder;
   }
 
   mount(scope: Scope, parentScope: any): this {
-    return this.update(scope, parentScope)
+    return this.update(scope, parentScope);
   }
 
   update(scope: Scope | typeof UNMOUNT_SCOPE, parentScope: any): this {
-    const { placeholder, nodes, childrenMap } = this
-    const collection = scope === UNMOUNT_SCOPE ? null : this.evaluate(scope)
-    const items = collection ? Array.from(collection) : []
+    const { placeholder, nodes, childrenMap } = this;
+    const collection = scope === UNMOUNT_SCOPE ? null : this.evaluate(scope);
+    const items = collection ? Array.from(collection) : [];
 
     // prepare the diffing
     const { newChildrenMap, batches, futureNodes } = createPatch(
@@ -229,7 +229,7 @@ export class EachBinding<
       scope,
       parentScope,
       this,
-    )
+    );
 
     // patch the DOM only if there are new nodes
     udomdiff(
@@ -237,25 +237,25 @@ export class EachBinding<
       futureNodes,
       patch(Array.from(childrenMap.values()), parentScope),
       placeholder,
-    )
+    );
 
     // trigger the mounts and the updates
-    batches.forEach((fn) => fn())
+    batches.forEach((fn) => fn());
 
     // update the children map
-    this.childrenMap = newChildrenMap
-    this.nodes = futureNodes
+    this.childrenMap = newChildrenMap;
+    this.nodes = futureNodes;
 
-    return this
+    return this;
   }
 
   unmount(scope: Scope, parentScope: any): this {
-    this.update(UNMOUNT_SCOPE as any, parentScope)
+    this.update(UNMOUNT_SCOPE as any, parentScope);
 
-    return this
+    return this;
   }
 }
 
 export default function create(node: any, options: any): EachBinding {
-  return new EachBinding(node, options)
+  return new EachBinding(node, options);
 }

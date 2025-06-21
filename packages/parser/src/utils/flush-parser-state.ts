@@ -3,9 +3,9 @@
  * @private
  */
 export default function flush(store: any): void {
-  const last = store.last
-  store.last = null
+  const last = store.last;
+  store.last = null;
   if (last && store.root) {
-    store.builder.push(last)
+    store.builder.push(last);
   }
 }

@@ -1,4 +1,4 @@
-import { SourceMapGenerator } from 'source-map'
+import { SourceMapGenerator } from "source-map";
 
 /**
  * Create a new sourcemap generator
@@ -6,5 +6,5 @@ import { SourceMapGenerator } from 'source-map'
  * @returns { SourceMapGenerator } SourceMapGenerator instance
  */
 export default function createSourcemap(options) {
-  return new SourceMapGenerator(options)
+  return new SourceMapGenerator(options);
 }

@@ -1,5 +1,5 @@
-import type { Expression } from '../types.js'
-import normalizeStringValue from '../utils/normalize-string-value.js'
+import type { Expression } from "../types.js";
+import normalizeStringValue from "../utils/normalize-string-value.js";
 
 /**
  * This methods handles the input fields value updates.
@@ -9,5 +9,5 @@ export default function valueExpression(
   value: any,
 ): void {
   // @ts-ignore
-  node.value = normalizeStringValue(value)
+  node.value = normalizeStringValue(value);
 }

@@ -12,5 +12,5 @@ export default function replaceInRange(
   end,
   replacement,
 ) {
-  return `${originalString.substring(0, start)}${replacement}${originalString.substring(end)}`
+  return `${originalString.substring(0, start)}${replacement}${originalString.substring(end)}`;
 }

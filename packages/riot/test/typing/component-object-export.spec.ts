@@ -2,24 +2,24 @@ import {
   type RiotComponentWrapper,
   type RiotComponent,
   withTypes,
-} from '../../riot'
+} from "../../riot";
 
 export interface RandomComponentState {
-  number: number | null
-  logs: { text: string }[]
+  number: number | null;
+  logs: { text: string }[];
 }
 
 export interface RandomComponentProps {
-  title: string
+  title: string;
 }
 
 export interface RandomComponent
   extends RiotComponent<RandomComponentProps, RandomComponentState> {
-  generate(event: MouseEvent): void
+  generate(event: MouseEvent): void;
 
-  clearLogs(): void
+  clearLogs(): void;
 
-  state: RandomComponentState
+  state: RandomComponentState;
 }
 
 const Random = withTypes<RandomComponent>({
@@ -34,15 +34,15 @@ const Random = withTypes<RandomComponent>({
       logs: this.state.logs.concat({
         text: `Generate button clicked. Event type is ${event.type}`,
       }),
-    })
+    });
   },
 
   clearLogs(): void {
     this.update({
       logs: [],
-    })
+    });
   },
-})
+});
 
 export default {
   css: undefined,
@@ -52,8 +52,8 @@ export default {
       '<h3 expr1="expr1"> </h3><button expr2="expr2">\n    Generate\n  </button><h1 expr3="expr3"> </h1><logs expr4="expr4"></logs>',
       [
         {
-          redundantAttribute: 'expr1',
-          selector: '[expr1]',
+          redundantAttribute: "expr1",
+          selector: "[expr1]",
 
           expressions: [
             {
@@ -65,28 +65,28 @@ export default {
           ],
         },
         {
-          redundantAttribute: 'expr2',
-          selector: '[expr2]',
+          redundantAttribute: "expr2",
+          selector: "[expr2]",
 
           expressions: [
             {
               type: expressionTypes.EVENT,
-              name: 'onclick',
+              name: "onclick",
 
               evaluate: (_scope) => _scope.generate,
             },
           ],
         },
         {
-          redundantAttribute: 'expr3',
-          selector: '[expr3]',
+          redundantAttribute: "expr3",
+          selector: "[expr3]",
 
           expressions: [
             {
               type: expressionTypes.TEXT,
               childNodeIndex: 0,
 
-              evaluate: (_scope) => [_scope.state.number].join(''),
+              evaluate: (_scope) => [_scope.state.number].join(""),
             },
           ],
         },
@@ -94,30 +94,30 @@ export default {
           type: bindingTypes.TAG,
           getComponent: getComponent,
 
-          evaluate: (_scope) => 'logs',
+          evaluate: (_scope) => "logs",
 
           slots: [],
 
           attributes: [
             {
               type: expressionTypes.ATTRIBUTE,
-              name: 'logs',
+              name: "logs",
 
               evaluate: (_scope) => _scope.state.logs,
             },
             {
               type: expressionTypes.EVENT,
-              name: 'onclear',
+              name: "onclear",
 
               evaluate: (_scope) => _scope.clearLogs,
             },
           ],
 
-          redundantAttribute: 'expr4',
-          selector: '[expr4]',
+          redundantAttribute: "expr4",
+          selector: "[expr4]",
         },
       ],
     ),
 
-  name: 'random',
-} as RiotComponentWrapper<RandomComponent>
+  name: "random",
+} as RiotComponentWrapper<RandomComponent>;

@@ -1,7 +1,7 @@
-import entities from './entities.json'
-const HTMLEntityRe = /&(\S+);/g
-const HEX_NUMBER = /^[\da-fA-F]+$/
-const DECIMAL_NUMBER = /^\d+$/
+import entities from "./entities.json";
+const HTMLEntityRe = /&(\S+);/g;
+const HEX_NUMBER = /^[\da-fA-F]+$/;
+const DECIMAL_NUMBER = /^\d+$/;
 
 /**
  * Encode unicode hex html entities like for example &#x222;
@@ -9,9 +9,11 @@ const DECIMAL_NUMBER = /^\d+$/
  * @returns {string} encoded string
  */
 export function encodeHex(string) {
-  const hex = string.substr(2)
+  const hex = string.substr(2);
 
-  return HEX_NUMBER.test(hex) ? String.fromCodePoint(parseInt(hex, 16)) : string
+  return HEX_NUMBER.test(hex)
+    ? String.fromCodePoint(parseInt(hex, 16))
+    : string;
 }
 
 /**
@@ -20,11 +22,11 @@ export function encodeHex(string) {
  * @returns {string} encoded string
  */
 export function encodeDecimal(string) {
-  const nr = string.substr(1)
+  const nr = string.substr(1);
 
   return DECIMAL_NUMBER.test(nr)
     ? String.fromCodePoint(parseInt(nr, 10))
-    : string
+    : string;
 }
 
 /**
@@ -34,12 +36,12 @@ export function encodeDecimal(string) {
  */
 export default function encodeHTMLEntities(string) {
   return string.replace(HTMLEntityRe, (match, entity) => {
-    const [firstChar, secondChar] = entity
+    const [firstChar, secondChar] = entity;
 
-    if (firstChar === '#') {
-      return secondChar === 'x' ? encodeHex(entity) : encodeDecimal(entity)
+    if (firstChar === "#") {
+      return secondChar === "x" ? encodeHex(entity) : encodeDecimal(entity);
     } else {
-      return entities[entity] || entity
+      return entities[entity] || entity;
     }
-  })
+  });
 }

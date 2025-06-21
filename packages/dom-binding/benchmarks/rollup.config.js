@@ -1,23 +1,23 @@
-import resolve from '@rollup/plugin-node-resolve'
+import resolve from "@rollup/plugin-node-resolve";
 
 export default {
-  input: 'benchmarks/index.js',
+  input: "benchmarks/index.js",
   onwarn(message) {
     if (/Circular/.test(message)) {
-      return
+      return;
     }
-    console.error(message) // eslint-disable-line
+    console.error(message); // eslint-disable-line
   },
   plugins: [resolve()],
-  external: ['jsdom-global', 'benchmark'],
+  external: ["jsdom-global", "benchmark"],
   output: [
     {
-      file: 'benchmarks/bundle.js',
-      format: 'umd',
-      name: 'bench',
+      file: "benchmarks/bundle.js",
+      format: "umd",
+      name: "bench",
       generatedCode: {
         constBindings: true,
       },
     },
   ],
-}
+};

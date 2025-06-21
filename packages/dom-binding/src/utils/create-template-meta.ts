@@ -1,5 +1,5 @@
-import type { TemplateChunk, TemplateChunkMeta } from '../template.js'
-import createHeadTailPlaceholders from './create-head-tail-placeholders.js'
+import type { TemplateChunk, TemplateChunkMeta } from "../template.js";
+import createHeadTailPlaceholders from "./create-head-tail-placeholders.js";
 
 /**
  * Create the template meta object in case of <template> fragments.
@@ -7,8 +7,8 @@ import createHeadTailPlaceholders from './create-head-tail-placeholders.js'
 export default function createTemplateMeta(
   componentTemplate: TemplateChunk,
 ): TemplateChunkMeta {
-  const fragment = componentTemplate.dom.cloneNode(true) as DocumentFragment
-  const { head, tail } = createHeadTailPlaceholders()
+  const fragment = componentTemplate.dom.cloneNode(true) as DocumentFragment;
+  const { head, tail } = createHeadTailPlaceholders();
 
   return {
     avoidDOMInjection: true,
@@ -16,5 +16,5 @@ export default function createTemplateMeta(
     head,
     tail,
     children: [head, ...Array.from(fragment.childNodes), tail],
-  }
+  };
 }

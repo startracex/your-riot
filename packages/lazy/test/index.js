@@ -1,77 +1,77 @@
-import ComponentWithLoadListener from './components/component-with-load-listener.riot'
-import ComponentWithSlotWrapper from './components/component-with-slot-wrapper.riot'
-import UserWrapper from './components/user-wrapper.riot'
-import UserWrapperWithoutLoader from './components/user-wrapper-without-loader.riot'
-import { component } from '@your-riot/riot'
-import { expect } from 'chai'
-import lazy from '../dist/module/index.js'
+import ComponentWithLoadListener from "./components/component-with-load-listener.riot";
+import ComponentWithSlotWrapper from "./components/component-with-slot-wrapper.riot";
+import UserWrapper from "./components/user-wrapper.riot";
+import UserWrapperWithoutLoader from "./components/user-wrapper-without-loader.riot";
+import { component } from "@your-riot/riot";
+import { expect } from "chai";
+import lazy from "../dist/module/index.js";
 
-const defer = () => Promise.resolve().then.bind(Promise.resolve())
+const defer = () => Promise.resolve().then.bind(Promise.resolve());
 
-describe('lazy', () => {
+describe("lazy", () => {
   it("it's ok being lazy", () => {
     // istn't that funny :D
-    expect(lazy).to.be.ok
-  })
+    expect(lazy).to.be.ok;
+  });
 
-  it('Components with loader can be lazily loaded', async () => {
-    const div = document.createElement('div')
+  it("Components with loader can be lazily loaded", async () => {
+    const div = document.createElement("div");
     const el = component(UserWrapper)(div, {
-      name: 'Gianluca',
-    })
+      name: "Gianluca",
+    });
 
-    const loaderP = el.$('p')
-    expect(loaderP.innerHTML).to.be.equal('Loading...')
+    const loaderP = el.$("p");
+    expect(loaderP.innerHTML).to.be.equal("Loading...");
 
-    await defer()
+    await defer();
 
-    const userP = el.$('p')
-    expect(userP.innerHTML).to.be.equal('Gianluca')
+    const userP = el.$("p");
+    expect(userP.innerHTML).to.be.equal("Gianluca");
 
-    el.unmount()
-  })
+    el.unmount();
+  });
 
-  it('Components without loader can be lazily loaded', async () => {
-    const div = document.createElement('div')
+  it("Components without loader can be lazily loaded", async () => {
+    const div = document.createElement("div");
     const el = component(UserWrapperWithoutLoader)(div, {
-      name: 'Gianluca',
-    })
+      name: "Gianluca",
+    });
 
-    await defer()
+    await defer();
 
-    const p = el.$('p')
-    expect(p.innerHTML).to.be.equal('Gianluca')
+    const p = el.$("p");
+    expect(p.innerHTML).to.be.equal("Gianluca");
 
-    el.unmount()
-  })
+    el.unmount();
+  });
 
-  it('Components having slots can be lazily loaded', async () => {
-    const div = document.createElement('div')
+  it("Components having slots can be lazily loaded", async () => {
+    const div = document.createElement("div");
     const el = component(ComponentWithSlotWrapper)(div, {
-      greeting: 'Hello',
-    })
+      greeting: "Hello",
+    });
 
-    const loaderP = el.$('p')
-    expect(loaderP.innerHTML).to.be.equal('Loading...')
+    const loaderP = el.$("p");
+    expect(loaderP.innerHTML).to.be.equal("Loading...");
 
-    await defer()
+    await defer();
 
-    const p = el.$('p')
-    expect(p.innerHTML).to.be.equal('Hello')
+    const p = el.$("p");
+    expect(p.innerHTML).to.be.equal("Hello");
 
-    el.unmount()
-  })
+    el.unmount();
+  });
 
-  it('Lazy loaded component can dispatch load event', async () => {
-    const div = document.createElement('div')
+  it("Lazy loaded component can dispatch load event", async () => {
+    const div = document.createElement("div");
     const el = component(ComponentWithLoadListener)(div, {
-      name: 'Kal',
-    })
+      name: "Kal",
+    });
 
-    await defer()
+    await defer();
 
-    expect(el._loaded).to.be.equal(true)
+    expect(el._loaded).to.be.equal(true);
 
-    el.unmount()
-  })
-})
+    el.unmount();
+  });
+});

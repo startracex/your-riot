@@ -3,6 +3,6 @@ export default function execFromPos(
   pos: number,
   string: string,
 ): RegExpMatchArray | null {
-  re.lastIndex = pos
-  return re.exec(string)
+  re.lastIndex = pos;
+  return re.exec(string);
 }

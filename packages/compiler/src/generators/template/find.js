@@ -3,9 +3,9 @@ import {
   IF_DIRECTIVE,
   IS_DIRECTIVE,
   KEY_ATTRIBUTE,
-} from './constants.js'
-import { getName, getNodeAttributes } from './utils.js'
-import { hasExpressions } from './checks.js'
+} from "./constants.js";
+import { getName, getNodeAttributes } from "./utils.js";
+import { hasExpressions } from "./checks.js";
 
 /**
  * Find the attribute node
@@ -14,23 +14,23 @@ import { hasExpressions } from './checks.js'
  * @returns { riotParser.nodeTypes.ATTR } attribute node
  */
 export function findAttribute(name, node) {
-  return node.attributes?.find((attr) => getName(attr) === name)
+  return node.attributes?.find((attr) => getName(attr) === name);
 }
 
 export function findIfAttribute(node) {
-  return findAttribute(IF_DIRECTIVE, node)
+  return findAttribute(IF_DIRECTIVE, node);
 }
 
 export function findEachAttribute(node) {
-  return findAttribute(EACH_DIRECTIVE, node)
+  return findAttribute(EACH_DIRECTIVE, node);
 }
 
 export function findKeyAttribute(node) {
-  return findAttribute(KEY_ATTRIBUTE, node)
+  return findAttribute(KEY_ATTRIBUTE, node);
 }
 
 export function findIsAttribute(node) {
-  return findAttribute(IS_DIRECTIVE, node)
+  return findAttribute(IS_DIRECTIVE, node);
 }
 
 /**
@@ -41,7 +41,7 @@ export function findIsAttribute(node) {
 export function findStaticAttributes(node) {
   return getNodeAttributes(node).filter(
     (attribute) => !hasExpressions(attribute),
-  )
+  );
 }
 
 /**
@@ -50,5 +50,5 @@ export function findStaticAttributes(node) {
  * @returns {Array} list of all the dynamic attributes
  */
 export function findDynamicAttributes(node) {
-  return getNodeAttributes(node).filter(hasExpressions)
+  return getNodeAttributes(node).filter(hasExpressions);
 }

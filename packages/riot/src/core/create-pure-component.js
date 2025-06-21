@@ -4,10 +4,10 @@ import {
   defineDefaults,
   defineProperty,
   panic,
-} from '@your-riot/utils'
-import { PURE_COMPONENT_API } from './pure-component-api.js'
-import { bindDOMNodeToComponentInstance } from './bind-dom-node-to-component-instance.js'
-import { createCoreAPIMethods } from './create-core-api-methods.js'
+} from "@your-riot/utils";
+import { PURE_COMPONENT_API } from "./pure-component-api.js";
+import { bindDOMNodeToComponentInstance } from "./bind-dom-node-to-component-instance.js";
+import { createCoreAPIMethods } from "./create-core-api-methods.js";
 
 /**
  * Create a pure component
@@ -24,29 +24,29 @@ export function createPureComponent(
   { slots, attributes, props, css, template },
 ) {
   if (template) {
-    panic('Pure components can not have html')
+    panic("Pure components can not have html");
   }
   if (css) {
-    panic('Pure components do not have css')
+    panic("Pure components do not have css");
   }
 
   const component = defineDefaults(
     pureFactoryFunction({ slots, attributes, props }),
     PURE_COMPONENT_API,
-  )
+  );
 
   return createCoreAPIMethods((method) => (...args) => {
     // intercept the mount calls to bind the DOM node to the pure object created
     // see also https://github.com/riot/riot/issues/2806
     if (method === MOUNT_METHOD_KEY) {
-      const [element] = args
+      const [element] = args;
       // mark this node as pure element
-      defineProperty(element, IS_PURE_SYMBOL, true)
-      bindDOMNodeToComponentInstance(element, component)
+      defineProperty(element, IS_PURE_SYMBOL, true);
+      bindDOMNodeToComponentInstance(element, component);
     }
 
-    component[method](...args)
+    component[method](...args);
 
-    return component
-  })
+    return component;
+  });
 }

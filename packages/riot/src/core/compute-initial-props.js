@@ -1,4 +1,4 @@
-import { DOMattributesToObject, callOrAssign } from '@your-riot/utils'
+import { DOMattributesToObject, callOrAssign } from "@your-riot/utils";
 
 /**
  * Evaluate the component properties either from its real attributes or from its initial user properties
@@ -10,5 +10,5 @@ export function computeInitialProps(element, initialProps = {}) {
   return {
     ...DOMattributesToObject(element),
     ...callOrAssign(initialProps),
-  }
+  };
 }

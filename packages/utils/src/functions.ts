@@ -1,8 +1,8 @@
-import { isFunction } from './checks.js'
+import { isFunction } from "./checks.js";
 
 // does simply nothing
 export function noop<T = any>(this: T): T {
-  return this
+  return this;
 }
 
 /**
@@ -13,10 +13,10 @@ export function autobindMethods(
   methods: PropertyKey[],
 ): object {
   methods.forEach((method) => {
-    source[method] = source[method].bind(source)
-  })
+    source[method] = source[method].bind(source);
+  });
 
-  return source
+  return source;
 }
 
 /**
@@ -27,5 +27,5 @@ export function callOrAssign(source: any): any {
     ? source.prototype?.constructor
       ? new (source as any)()
       : source()
-    : source
+    : source;
 }

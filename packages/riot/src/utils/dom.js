@@ -1,5 +1,5 @@
-import { IS_DIRECTIVE } from '@your-riot/utils'
-import { get as getAttr } from 'bianco.attr'
+import { IS_DIRECTIVE } from "@your-riot/utils";
+import { get as getAttr } from "bianco.attr";
 
 /**
  * Get the tag name of any DOM node
@@ -7,5 +7,5 @@ import { get as getAttr } from 'bianco.attr'
  * @returns {string} name to identify this dom node in riot
  */
 export function getName(element) {
-  return getAttr(element, IS_DIRECTIVE) || element.tagName.toLowerCase()
+  return getAttr(element, IS_DIRECTIVE) || element.tagName.toLowerCase();
 }

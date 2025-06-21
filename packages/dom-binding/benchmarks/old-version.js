@@ -5,18 +5,18 @@ import {
   cleanNode,
   moveChildren,
   clearChildren,
-} from '@your-riot/utils/dom'
-import { PARENT_KEY_SYMBOL, IS_PURE_SYMBOL } from '@your-riot/utils/constants'
-import { IF, SIMPLE, EACH, TAG, SLOT } from '@your-riot/utils/binding-types'
-export { default as bindingTypes } from '@your-riot/utils/binding-types'
+} from "@your-riot/utils/dom";
+import { PARENT_KEY_SYMBOL, IS_PURE_SYMBOL } from "@your-riot/utils/constants";
+import { IF, SIMPLE, EACH, TAG, SLOT } from "@your-riot/utils/binding-types";
+export { default as bindingTypes } from "@your-riot/utils/binding-types";
 import {
   ATTRIBUTE,
   EVENT,
   TEXT,
   VALUE,
-} from '@your-riot/utils/expression-types'
-export { default as expressionTypes } from '@your-riot/utils/expression-types'
-import { defineProperty } from '@your-riot/utils/objects'
+} from "@your-riot/utils/expression-types";
+export { default as expressionTypes } from "@your-riot/utils/expression-types";
+import { defineProperty } from "@your-riot/utils/objects";
 import {
   isTemplate,
   isBoolean,
@@ -24,28 +24,28 @@ import {
   isFunction,
   isNil,
   isSvg,
-} from '@your-riot/utils/checks'
+} from "@your-riot/utils/checks";
 import {
   memoize,
   evaluateAttributeExpressions,
   panic,
-} from '@your-riot/utils/misc'
+} from "@your-riot/utils/misc";
 
-const HEAD_SYMBOL = Symbol()
-const TAIL_SYMBOL = Symbol()
+const HEAD_SYMBOL = Symbol();
+const TAIL_SYMBOL = Symbol();
 
 /**
  * Create the <template> fragments text nodes
  * @return {Object} {{head: Text, tail: Text}}
  */
 function createHeadTailPlaceholders() {
-  const head = document.createTextNode('')
-  const tail = document.createTextNode('')
+  const head = document.createTextNode("");
+  const tail = document.createTextNode("");
 
-  head[HEAD_SYMBOL] = true
-  tail[TAIL_SYMBOL] = true
+  head[HEAD_SYMBOL] = true;
+  tail[TAIL_SYMBOL] = true;
 
-  return { head, tail }
+  return { head, tail };
 }
 
 /**
@@ -54,8 +54,8 @@ function createHeadTailPlaceholders() {
  * @returns {Object} the meta property that will be passed to the mount function of the TemplateChunk
  */
 function createTemplateMeta(componentTemplate) {
-  const fragment = componentTemplate.dom.cloneNode(true)
-  const { head, tail } = createHeadTailPlaceholders()
+  const fragment = componentTemplate.dom.cloneNode(true);
+  const { head, tail } = createHeadTailPlaceholders();
 
   return {
     avoidDOMInjection: true,
@@ -63,7 +63,7 @@ function createTemplateMeta(componentTemplate) {
     head,
     tail,
     children: [head, ...Array.from(fragment.childNodes), tail],
-  }
+  };
 }
 
 /* c8 ignore start */
@@ -98,12 +98,12 @@ function createTemplateMeta(componentTemplate) {
  * @returns {Node[]} The same list of future children.
  */
 const udomdiff = (a, b, get, before) => {
-  const bLength = b.length
-  let aEnd = a.length
-  let bEnd = bLength
-  let aStart = 0
-  let bStart = 0
-  let map = null
+  const bLength = b.length;
+  let aEnd = a.length;
+  let bEnd = bLength;
+  let aStart = 0;
+  let bStart = 0;
+  let map = null;
   while (aStart < aEnd || bStart < bEnd) {
     // append head, tail, or nodes in between: fast path
     if (aEnd === aStart) {
@@ -116,9 +116,9 @@ const udomdiff = (a, b, get, before) => {
           ? bStart
             ? get(b[bStart - 1], -0).nextSibling
             : get(b[bEnd - bStart], 0)
-          : before
+          : before;
       while (bStart < bEnd) {
-        insertBefore(get(b[bStart++], 1), node)
+        insertBefore(get(b[bStart++], 1), node);
       }
     }
     // remove head or tail: fast path
@@ -126,20 +126,20 @@ const udomdiff = (a, b, get, before) => {
       while (aStart < aEnd) {
         // remove the node only if it's unknown or not live
         if (!map || !map.has(a[aStart])) {
-          removeChild(get(a[aStart], -1))
+          removeChild(get(a[aStart], -1));
         }
-        aStart++
+        aStart++;
       }
     }
     // same node: fast path
     else if (a[aStart] === b[bStart]) {
-      aStart++
-      bStart++
+      aStart++;
+      bStart++;
     }
     // same tail: fast path
     else if (a[aEnd - 1] === b[bEnd - 1]) {
-      aEnd--
-      bEnd--
+      aEnd--;
+      bEnd--;
     }
     // The once here single last swap "fast path" has been removed in v1.1.0
     // https://github.com/WebReflection/udomdiff/blob/single-final-swap/esm/index.js#L69-L85
@@ -151,16 +151,16 @@ const udomdiff = (a, b, get, before) => {
       // or asymmetric too
       // [1, 2, 3, 4, 5]
       // [1, 2, 3, 5, 6, 4]
-      const node = get(a[--aEnd], -1).nextSibling
-      insertBefore(get(b[bStart++], 1), get(a[aStart++], -1).nextSibling)
-      insertBefore(get(b[--bEnd], 1), node)
+      const node = get(a[--aEnd], -1).nextSibling;
+      insertBefore(get(b[bStart++], 1), get(a[aStart++], -1).nextSibling);
+      insertBefore(get(b[--bEnd], 1), node);
       // mark the future index as identical (yeah, it's dirty, but cheap 👍)
       // The main reason to do this, is that when a[aEnd] will be reached,
       // the loop will likely be on the fast path, as identical to b[bEnd].
       // In the best case scenario, the next loop will skip the tail,
       // but in the worst one, this node will be considered as already
       // processed, bailing out pretty quickly from the map index check
-      a[aEnd] = b[bEnd]
+      a[aEnd] = b[bEnd];
     }
     // map based fallback, "slow" path
     else {
@@ -170,23 +170,23 @@ const udomdiff = (a, b, get, before) => {
       // and such scenario happens at least when all nodes are different,
       // but also if both first and last items of the lists are different
       if (!map) {
-        map = new Map()
-        let i = bStart
+        map = new Map();
+        let i = bStart;
         while (i < bEnd) {
-          map.set(b[i], i++)
+          map.set(b[i], i++);
         }
       }
       // if it's a future node, hence it needs some handling
       if (map.has(a[aStart])) {
         // grab the index of such node, 'cause it might have been processed
-        const index = map.get(a[aStart])
+        const index = map.get(a[aStart]);
         // if it's not already processed, look on demand for the next LCS
         if (bStart < index && index < bEnd) {
-          let i = aStart
+          let i = aStart;
           // counts the amount of nodes that are the same in the future
-          let sequence = 1
+          let sequence = 1;
           while (++i < aEnd && i < bEnd && map.get(a[i]) === index + sequence) {
-            sequence++
+            sequence++;
           }
           // effort decision here: if the sequence is longer than replaces
           // needed to reach such sequence, which would brings again this loop
@@ -199,35 +199,35 @@ const udomdiff = (a, b, get, before) => {
           // this would place 7 before 1 and, from that time on, 1, 2, and 3
           // will be processed at zero cost
           if (sequence > index - bStart) {
-            const node = get(a[aStart], 0)
+            const node = get(a[aStart], 0);
             while (bStart < index) {
-              insertBefore(get(b[bStart++], 1), node)
+              insertBefore(get(b[bStart++], 1), node);
             }
           }
           // if the effort wasn't good enough, fallback to a replace,
           // moving both source and target indexes forward, hoping that some
           // similar node will be found later on, to go back to the fast path
           else {
-            replaceChild(get(b[bStart++], 1), get(a[aStart++], -1))
+            replaceChild(get(b[bStart++], 1), get(a[aStart++], -1));
           }
         }
         // otherwise move the source forward, 'cause there's nothing to do
         else {
-          aStart++
+          aStart++;
         }
       }
       // this node has no meaning in the future list, so it's more than safe
       // to remove it, and check the next live node out instead, meaning
       // that only the live list index should be forwarded
       else {
-        removeChild(get(a[aStart++], -1))
+        removeChild(get(a[aStart++], -1));
       }
     }
   }
-  return b
-}
+  return b;
+};
 
-const UNMOUNT_SCOPE = Symbol('unmount')
+const UNMOUNT_SCOPE = Symbol("unmount");
 
 const EachBinding = {
   // dynamic binding properties
@@ -247,12 +247,12 @@ const EachBinding = {
 
   // API methods
   mount(scope, parentScope) {
-    return this.update(scope, parentScope)
+    return this.update(scope, parentScope);
   },
   update(scope, parentScope) {
-    const { placeholder, nodes, childrenMap } = this
-    const collection = scope === UNMOUNT_SCOPE ? null : this.evaluate(scope)
-    const items = collection ? Array.from(collection) : []
+    const { placeholder, nodes, childrenMap } = this;
+    const collection = scope === UNMOUNT_SCOPE ? null : this.evaluate(scope);
+    const items = collection ? Array.from(collection) : [];
 
     // prepare the diffing
     const { newChildrenMap, batches, futureNodes } = createPatch(
@@ -260,7 +260,7 @@ const EachBinding = {
       scope,
       parentScope,
       this,
-    )
+    );
 
     // patch the DOM only if there are new nodes
     udomdiff(
@@ -268,23 +268,23 @@ const EachBinding = {
       futureNodes,
       patch(Array.from(childrenMap.values()), parentScope),
       placeholder,
-    )
+    );
 
     // trigger the mounts and the updates
-    batches.forEach((fn) => fn())
+    batches.forEach((fn) => fn());
 
     // update the children map
-    this.childrenMap = newChildrenMap
-    this.nodes = futureNodes
+    this.childrenMap = newChildrenMap;
+    this.nodes = futureNodes;
 
-    return this
+    return this;
   },
   unmount(scope, parentScope) {
-    this.update(UNMOUNT_SCOPE, parentScope)
+    this.update(UNMOUNT_SCOPE, parentScope);
 
-    return this
+    return this;
   },
-}
+};
 
 /**
  * Patch the DOM while diffing
@@ -296,26 +296,26 @@ function patch(redundant, parentScope) {
   return (item, info) => {
     if (info < 0) {
       // get the last element added to the childrenMap saved previously
-      const element = redundant[redundant.length - 1]
+      const element = redundant[redundant.length - 1];
 
       if (element) {
         // get the nodes and the template in stored in the last child of the childrenMap
-        const { template, nodes, context } = element
+        const { template, nodes, context } = element;
         // remove the last node (notice <template> tags might have more children nodes)
-        nodes.pop()
+        nodes.pop();
 
         // notice that we pass null as last argument because
         // the root node and its children will be removed by domdiff
         if (!nodes.length) {
           // we have cleared all the children nodes and we can unmount this template
-          redundant.pop()
-          template.unmount(context, parentScope, null)
+          redundant.pop();
+          template.unmount(context, parentScope, null);
         }
       }
     }
 
-    return item
-  }
+    return item;
+  };
 }
 
 /**
@@ -325,7 +325,7 @@ function patch(redundant, parentScope) {
  * @returns {boolean} true if this item should be skipped
  */
 function mustFilterItem(condition, context) {
-  return condition ? !condition(context) : false
+  return condition ? !condition(context) : false;
 }
 
 /**
@@ -339,12 +339,12 @@ function mustFilterItem(condition, context) {
  * @returns {Object} enhanced scope object
  */
 function extendScope(scope, { itemName, indexName, index, item }) {
-  defineProperty(scope, itemName, item)
+  defineProperty(scope, itemName, item);
   if (indexName) {
-    defineProperty(scope, indexName, index)
+    defineProperty(scope, indexName, index);
   }
 
-  return scope
+  return scope;
 }
 
 /**
@@ -368,10 +368,10 @@ function createPatch(items, scope, parentScope, binding) {
     indexName,
     root,
     isTemplateTag,
-  } = binding
-  const newChildrenMap = new Map()
-  const batches = []
-  const futureNodes = []
+  } = binding;
+  const newChildrenMap = new Map();
+  const batches = [];
+  const futureNodes = [];
 
   items.forEach((item, index) => {
     const context = extendScope(Object.create(scope), {
@@ -379,42 +379,42 @@ function createPatch(items, scope, parentScope, binding) {
       indexName,
       index,
       item,
-    })
-    const key = getKey ? getKey(context) : index
-    const oldItem = childrenMap.get(key)
-    const nodes = []
+    });
+    const key = getKey ? getKey(context) : index;
+    const oldItem = childrenMap.get(key);
+    const nodes = [];
 
     if (mustFilterItem(condition, context)) {
-      return
+      return;
     }
 
-    const mustMount = !oldItem
-    const componentTemplate = oldItem ? oldItem.template : template.clone()
-    const el = componentTemplate.el || root.cloneNode()
+    const mustMount = !oldItem;
+    const componentTemplate = oldItem ? oldItem.template : template.clone();
+    const el = componentTemplate.el || root.cloneNode();
     const meta =
       isTemplateTag && mustMount
         ? createTemplateMeta(componentTemplate)
-        : componentTemplate.meta
+        : componentTemplate.meta;
 
     if (mustMount) {
       batches.push(() =>
         componentTemplate.mount(el, context, parentScope, meta),
-      )
+      );
     } else {
-      batches.push(() => componentTemplate.update(context, parentScope))
+      batches.push(() => componentTemplate.update(context, parentScope));
     }
 
     // create the collection of nodes to update or to add
     // in case of template tags we need to add all its children nodes
     if (isTemplateTag) {
-      nodes.push(...meta.children)
+      nodes.push(...meta.children);
     } else {
-      nodes.push(el)
+      nodes.push(el);
     }
 
     // delete the old item from the children map
-    childrenMap.delete(key)
-    futureNodes.push(...nodes)
+    childrenMap.delete(key);
+    futureNodes.push(...nodes);
 
     // update the children map
     newChildrenMap.set(key, {
@@ -422,25 +422,25 @@ function createPatch(items, scope, parentScope, binding) {
       template: componentTemplate,
       context,
       index,
-    })
-  })
+    });
+  });
 
   return {
     newChildrenMap,
     batches,
     futureNodes,
-  }
+  };
 }
 
 function create$6(
   node,
   { evaluate, condition, itemName, indexName, getKey, template },
 ) {
-  const placeholder = document.createTextNode('')
-  const root = node.cloneNode()
+  const placeholder = document.createTextNode("");
+  const root = node.cloneNode();
 
-  insertBefore(placeholder, node)
-  removeChild(node)
+  insertBefore(placeholder, node);
+  removeChild(node);
 
   return {
     ...EachBinding,
@@ -455,7 +455,7 @@ function create$6(
     indexName,
     itemName,
     placeholder,
-  }
+  };
 }
 
 /**
@@ -471,49 +471,49 @@ const IfBinding = {
 
   // API methods
   mount(scope, parentScope) {
-    return this.update(scope, parentScope)
+    return this.update(scope, parentScope);
   },
   update(scope, parentScope) {
-    const value = !!this.evaluate(scope)
-    const mustMount = !this.value && value
-    const mustUnmount = this.value && !value
+    const value = !!this.evaluate(scope);
+    const mustMount = !this.value && value;
+    const mustUnmount = this.value && !value;
     const mount = () => {
-      const pristine = this.node.cloneNode()
+      const pristine = this.node.cloneNode();
 
-      insertBefore(pristine, this.placeholder)
-      this.template = this.template.clone()
-      this.template.mount(pristine, scope, parentScope)
-    }
+      insertBefore(pristine, this.placeholder);
+      this.template = this.template.clone();
+      this.template.mount(pristine, scope, parentScope);
+    };
 
     switch (true) {
       case mustMount:
-        mount()
-        break
+        mount();
+        break;
       case mustUnmount:
-        this.unmount(scope)
-        break
+        this.unmount(scope);
+        break;
       default:
         if (value) {
-          this.template.update(scope, parentScope)
+          this.template.update(scope, parentScope);
         }
     }
 
-    this.value = value
+    this.value = value;
 
-    return this
+    return this;
   },
   unmount(scope, parentScope) {
-    this.template.unmount(scope, parentScope, true)
+    this.template.unmount(scope, parentScope, true);
 
-    return this
+    return this;
   },
-}
+};
 
 function create$5(node, { evaluate, template }) {
-  const placeholder = document.createTextNode('')
+  const placeholder = document.createTextNode("");
 
-  insertBefore(placeholder, node)
-  removeChild(node)
+  insertBefore(placeholder, node);
+  removeChild(node);
 
   return {
     ...IfBinding,
@@ -521,14 +521,14 @@ function create$5(node, { evaluate, template }) {
     evaluate,
     placeholder,
     template: template.createDOM(node),
-  }
+  };
 }
 
 /* c8 ignore next */
-const ElementProto = typeof Element === 'undefined' ? {} : Element.prototype
+const ElementProto = typeof Element === "undefined" ? {} : Element.prototype;
 const isNativeHtmlProperty = memoize(
   (name) => Object.hasOwn(ElementProto, name), // eslint-disable-line
-)
+);
 
 /**
  * Add all the attributes provided
@@ -539,7 +539,7 @@ const isNativeHtmlProperty = memoize(
 function setAllAttributes(node, attributes) {
   Object.keys(attributes).forEach((name) =>
     attributeExpression(node, { name }, attributes[name]),
-  )
+  );
 }
 
 /**
@@ -550,11 +550,11 @@ function setAllAttributes(node, attributes) {
  * @returns {undefined} sorry it's a void function :(
  */
 function removeAllAttributes(node, newAttributes, oldAttributes) {
-  const newKeys = newAttributes ? Object.keys(newAttributes) : []
+  const newKeys = newAttributes ? Object.keys(newAttributes) : [];
 
   Object.keys(oldAttributes)
     .filter((name) => !newKeys.includes(name))
-    .forEach((attribute) => node.removeAttribute(attribute))
+    .forEach((attribute) => node.removeAttribute(attribute));
 }
 
 /**
@@ -563,7 +563,7 @@ function removeAllAttributes(node, newAttributes, oldAttributes) {
  * @returns {boolean} true if we can render this attribute value
  */
 function canRenderAttribute(value) {
-  return ['string', 'number', 'boolean'].includes(typeof value)
+  return ["string", "number", "boolean"].includes(typeof value);
 }
 
 /**
@@ -575,10 +575,10 @@ function canRenderAttribute(value) {
 function shouldRemoveAttribute(value, isBoolean) {
   // boolean attributes should be removed if the value is falsy
   if (isBoolean) {
-    return !value && value !== 0
+    return !value && value !== 0;
   }
   // otherwise we can try to render it
-  return typeof value === 'undefined' || value === null
+  return typeof value === "undefined" || value === null;
 }
 
 /**
@@ -601,15 +601,15 @@ function attributeExpression(
   if (!name) {
     if (oldValue) {
       // remove all the old attributes
-      removeAllAttributes(node, value, oldValue)
+      removeAllAttributes(node, value, oldValue);
     }
 
     // is the value still truthy?
     if (value) {
-      setAllAttributes(node, value)
+      setAllAttributes(node, value);
     }
 
-    return
+    return;
   }
 
   // store the attribute on the node to make it compatible with native custom elements
@@ -617,13 +617,13 @@ function attributeExpression(
     !isNativeHtmlProperty(name) &&
     (isBoolean(value) || isObject(value) || isFunction(value))
   ) {
-    node[name] = value
+    node[name] = value;
   }
 
   if (shouldRemoveAttribute(value, isBoolean$1)) {
-    node.removeAttribute(name)
+    node.removeAttribute(name);
   } else if (canRenderAttribute(value)) {
-    node.setAttribute(name, normalizeValue(name, value, isBoolean$1))
+    node.setAttribute(name, normalizeValue(name, value, isBoolean$1));
   }
 }
 
@@ -637,27 +637,27 @@ function attributeExpression(
 function normalizeValue(name, value, isBoolean) {
   // be sure that expressions like selected={ true } will always be rendered as selected='selected'
   // fix https://github.com/riot/riot/issues/2975
-  return value === true && isBoolean ? name : value
+  return value === true && isBoolean ? name : value;
 }
 
-const RE_EVENTS_PREFIX = /^on/
+const RE_EVENTS_PREFIX = /^on/;
 
 const getCallbackAndOptions = (value) =>
-  Array.isArray(value) ? value : [value, false]
+  Array.isArray(value) ? value : [value, false];
 
 // see also https://medium.com/@WebReflection/dom-handleevent-a-cross-platform-standard-since-year-2000-5bf17287fd38
 const EventListener = {
   handleEvent(event) {
-    this[event.type](event)
+    this[event.type](event);
   },
-}
-const ListenersWeakMap = new WeakMap()
+};
+const ListenersWeakMap = new WeakMap();
 
 const createListener = (node) => {
-  const listener = Object.create(EventListener)
-  ListenersWeakMap.set(node, listener)
-  return listener
-}
+  const listener = Object.create(EventListener);
+  ListenersWeakMap.set(node, listener);
+  return listener;
+};
 
 /**
  * Set a new event listener
@@ -668,22 +668,22 @@ const createListener = (node) => {
  * @returns {value} the callback just received
  */
 function eventExpression(node, { name }, value) {
-  const normalizedEventName = name.replace(RE_EVENTS_PREFIX, '')
-  const eventListener = ListenersWeakMap.get(node) || createListener(node)
-  const [callback, options] = getCallbackAndOptions(value)
-  const handler = eventListener[normalizedEventName]
-  const mustRemoveEvent = handler && !callback
-  const mustAddEvent = callback && !handler
+  const normalizedEventName = name.replace(RE_EVENTS_PREFIX, "");
+  const eventListener = ListenersWeakMap.get(node) || createListener(node);
+  const [callback, options] = getCallbackAndOptions(value);
+  const handler = eventListener[normalizedEventName];
+  const mustRemoveEvent = handler && !callback;
+  const mustAddEvent = callback && !handler;
 
   if (mustRemoveEvent) {
-    node.removeEventListener(normalizedEventName, eventListener)
+    node.removeEventListener(normalizedEventName, eventListener);
   }
 
   if (mustAddEvent) {
-    node.addEventListener(normalizedEventName, eventListener, options)
+    node.addEventListener(normalizedEventName, eventListener, options);
   }
 
-  eventListener[normalizedEventName] = callback
+  eventListener[normalizedEventName] = callback;
 }
 
 /**
@@ -692,7 +692,7 @@ function eventExpression(node, { name }, value) {
  * @returns {string} hopefully a string
  */
 function normalizeStringValue(value) {
-  return isNil(value) ? '' : value
+  return isNil(value) ? "" : value;
 }
 
 /**
@@ -702,8 +702,8 @@ function normalizeStringValue(value) {
  * @returns {Text} the text node to update
  */
 const getTextNode = (node, childNodeIndex) => {
-  return node.childNodes[childNodeIndex]
-}
+  return node.childNodes[childNodeIndex];
+};
 
 /**
  * This methods handles a simple text expression update
@@ -713,7 +713,7 @@ const getTextNode = (node, childNodeIndex) => {
  * @returns {undefined}
  */
 function textExpression(node, data, value) {
-  node.data = normalizeStringValue(value)
+  node.data = normalizeStringValue(value);
 }
 
 /**
@@ -724,7 +724,7 @@ function textExpression(node, data, value) {
  * @returns {undefined}
  */
 function valueExpression(node, expression, value) {
-  node.value = normalizeStringValue(value)
+  node.value = normalizeStringValue(value);
 }
 
 const expressions = {
@@ -732,7 +732,7 @@ const expressions = {
   [EVENT]: eventExpression,
   [TEXT]: textExpression,
   [VALUE]: valueExpression,
-}
+};
 
 const Expression = {
   // Static props
@@ -747,12 +747,12 @@ const Expression = {
    */
   mount(scope) {
     // hopefully a pure function
-    this.value = this.evaluate(scope)
+    this.value = this.evaluate(scope);
 
     // IO() DOM updates
-    apply(this, this.value)
+    apply(this, this.value);
 
-    return this
+    return this;
   },
   /**
    * Update the expression if its value changed
@@ -761,15 +761,15 @@ const Expression = {
    */
   update(scope) {
     // pure function
-    const value = this.evaluate(scope)
+    const value = this.evaluate(scope);
 
     if (this.value !== value) {
       // IO() DOM updates
-      apply(this, value)
-      this.value = value
+      apply(this, value);
+      this.value = value;
     }
 
-    return this
+    return this;
   },
   /**
    * Expression teardown method
@@ -778,12 +778,12 @@ const Expression = {
   unmount() {
     // unmount only the event handling expressions
     if (this.type === EVENT) {
-      apply(this, null)
+      apply(this, null);
     }
 
-    return this
+    return this;
   },
-}
+};
 
 /**
  * IO() function to handle the DOM updates
@@ -797,7 +797,7 @@ function apply(expression, value) {
     expression,
     value,
     expression.value,
-  )
+  );
 }
 
 function create$4(node, data) {
@@ -805,7 +805,7 @@ function create$4(node, data) {
     ...Expression,
     ...data,
     node: data.type === TEXT ? getTextNode(node, data.childNodeIndex) : node,
-  }
+  };
 }
 
 /**
@@ -821,39 +821,39 @@ function flattenCollectionMethods(collection, methods, context) {
     return {
       ...acc,
       [method]: (scope) => {
-        return collection.map((item) => item[method](scope)) && context
+        return collection.map((item) => item[method](scope)) && context;
       },
-    }
-  }, {})
+    };
+  }, {});
 }
 
 function create$3(node, { expressions }) {
   return flattenCollectionMethods(
     expressions.map((expression) => create$4(node, expression)),
-    ['mount', 'update', 'unmount'],
-  )
+    ["mount", "update", "unmount"],
+  );
 }
 
 function extendParentScope(attributes, scope, parentScope) {
   if (!attributes || !attributes.length) {
-    return parentScope
+    return parentScope;
   }
 
   const expressions = attributes.map((attr) => ({
     ...attr,
     value: attr.evaluate(scope),
-  }))
+  }));
 
   return Object.assign(
     Object.create(parentScope || null),
     evaluateAttributeExpressions(expressions),
-  )
+  );
 }
 
 // this function is only meant to fix an edge case
 // https://github.com/riot/riot/issues/2842
 const getRealParent = (scope, parentScope) =>
-  scope[PARENT_KEY_SYMBOL] || parentScope
+  scope[PARENT_KEY_SYMBOL] || parentScope;
 
 const SlotBinding = {
   // dynamic binding properties
@@ -863,43 +863,46 @@ const SlotBinding = {
   // template: null,
 
   getTemplateScope(scope, parentScope) {
-    return extendParentScope(this.attributes, scope, parentScope)
+    return extendParentScope(this.attributes, scope, parentScope);
   },
 
   // API methods
   mount(scope, parentScope) {
     const templateData = scope.slots
       ? scope.slots.find(({ id }) => id === this.name)
-      : false
-    const { parentNode } = this.node
-    const realParent = getRealParent(scope, parentScope)
+      : false;
+    const { parentNode } = this.node;
+    const realParent = getRealParent(scope, parentScope);
 
     this.template =
       templateData &&
-      create(templateData.html, templateData.bindings).createDOM(parentNode)
+      create(templateData.html, templateData.bindings).createDOM(parentNode);
 
     if (this.template) {
-      cleanNode(this.node)
+      cleanNode(this.node);
       this.template.mount(
         this.node,
         this.getTemplateScope(scope, realParent),
         realParent,
-      )
-      this.template.children = Array.from(this.node.childNodes)
+      );
+      this.template.children = Array.from(this.node.childNodes);
     }
 
-    moveSlotInnerContent(this.node)
-    removeChild(this.node)
+    moveSlotInnerContent(this.node);
+    removeChild(this.node);
 
-    return this
+    return this;
   },
   update(scope, parentScope) {
     if (this.template) {
-      const realParent = getRealParent(scope, parentScope)
-      this.template.update(this.getTemplateScope(scope, realParent), realParent)
+      const realParent = getRealParent(scope, parentScope);
+      this.template.update(
+        this.getTemplateScope(scope, realParent),
+        realParent,
+      );
     }
 
-    return this
+    return this;
   },
   unmount(scope, parentScope, mustRemoveRoot) {
     if (this.template) {
@@ -907,12 +910,12 @@ const SlotBinding = {
         this.getTemplateScope(scope, parentScope),
         null,
         mustRemoveRoot,
-      )
+      );
     }
 
-    return this
+    return this;
   },
-}
+};
 
 /**
  * Move the inner content of the slots outside of them
@@ -920,14 +923,14 @@ const SlotBinding = {
  * @returns {undefined} it's a void method ¯\_(ツ)_/¯
  */
 function moveSlotInnerContent(slot) {
-  const child = slot?.firstChild
+  const child = slot?.firstChild;
 
   if (!child) {
-    return
+    return;
   }
 
-  insertBefore(child, slot)
-  moveSlotInnerContent(slot)
+  insertBefore(child, slot);
+  moveSlotInnerContent(slot);
 }
 
 /**
@@ -943,7 +946,7 @@ function createSlot(node, { name, attributes }) {
     attributes,
     node,
     name,
-  }
+  };
 }
 
 /**
@@ -957,7 +960,7 @@ function createSlot(node, { name, attributes }) {
 function getTag(component, slots = [], attributes = []) {
   // if this tag was registered before we will return its implementation
   if (component) {
-    return component({ slots, attributes })
+    return component({ slots, attributes });
   }
 
   // otherwise we return a template chunk
@@ -970,10 +973,10 @@ function getTag(component, slots = [], attributes = []) {
         return {
           type: ATTRIBUTE,
           ...attr,
-        }
+        };
       }),
     },
-  ])
+  ]);
 }
 
 /**
@@ -982,7 +985,7 @@ function getTag(component, slots = [], attributes = []) {
  * @returns {Array<Bindings>} flatten bindings array
  */
 function slotBindings(slots) {
-  return slots.reduce((acc, { bindings }) => acc.concat(bindings), [])
+  return slots.reduce((acc, { bindings }) => acc.concat(bindings), []);
 }
 
 /**
@@ -992,8 +995,8 @@ function slotBindings(slots) {
  */
 function slotsToMarkup(slots) {
   return slots.reduce((acc, slot) => {
-    return acc + slot.html
-  }, '')
+    return acc + slot.html;
+  }, "");
 }
 
 const TagBinding = {
@@ -1007,35 +1010,35 @@ const TagBinding = {
   // getComponent: null,
 
   mount(scope) {
-    return this.update(scope)
+    return this.update(scope);
   },
   update(scope, parentScope) {
-    const name = this.evaluate(scope)
+    const name = this.evaluate(scope);
 
     // simple update
     if (name && name === this.name) {
-      this.tag.update(scope)
+      this.tag.update(scope);
     } else {
       // unmount the old tag if it exists
-      this.unmount(scope, parentScope, true)
+      this.unmount(scope, parentScope, true);
 
       // mount the new tag
-      this.name = name
-      this.tag = getTag(this.getComponent(name), this.slots, this.attributes)
-      this.tag.mount(this.node, scope)
+      this.name = name;
+      this.tag = getTag(this.getComponent(name), this.slots, this.attributes);
+      this.tag.mount(this.node, scope);
     }
 
-    return this
+    return this;
   },
   unmount(scope, parentScope, keepRootTag) {
     if (this.tag) {
       // keep the root tag
-      this.tag.unmount(keepRootTag)
+      this.tag.unmount(keepRootTag);
     }
 
-    return this
+    return this;
   },
-}
+};
 
 function create$2(node, { evaluate, getComponent, slots, attributes }) {
   return {
@@ -1045,7 +1048,7 @@ function create$2(node, { evaluate, getComponent, slots, attributes }) {
     slots,
     attributes,
     getComponent,
-  }
+  };
 }
 
 const bindings = {
@@ -1054,7 +1057,7 @@ const bindings = {
   [EACH]: create$6,
   [TAG]: create$2,
   [SLOT]: createSlot,
-}
+};
 
 /**
  * Text expressions in a template tag will get childNodeIndex value normalized
@@ -1071,7 +1074,7 @@ function fixTextExpressionsOffset(expressions, textExpressionsOffset) {
           childNodeIndex: e.childNodeIndex + textExpressionsOffset,
         }
       : e,
-  )
+  );
 }
 
 /**
@@ -1082,15 +1085,15 @@ function fixTextExpressionsOffset(expressions, textExpressionsOffset) {
  * @returns {Binding} Binding object
  */
 function create$1(root, binding, templateTagOffset) {
-  const { selector, type, redundantAttribute, expressions } = binding
+  const { selector, type, redundantAttribute, expressions } = binding;
   // find the node to apply the bindings
-  const node = selector ? root.querySelector(selector) : root
+  const node = selector ? root.querySelector(selector) : root;
 
   // remove eventually additional attributes created only to select this node
   if (redundantAttribute) {
-    node.removeAttribute(redundantAttribute)
+    node.removeAttribute(redundantAttribute);
   }
-  const bindingExpressions = expressions || []
+  const bindingExpressions = expressions || [];
 
   // init the binding
   return (bindings[type] || bindings[SIMPLE])(node, {
@@ -1099,14 +1102,14 @@ function create$1(root, binding, templateTagOffset) {
       templateTagOffset && !selector
         ? fixTextExpressionsOffset(bindingExpressions, templateTagOffset)
         : bindingExpressions,
-  })
+  });
 }
 
 // in this case a simple innerHTML is enough
 function createHTMLTree(html, root) {
-  const template = isTemplate(root) ? root : document.createElement('template')
-  template.innerHTML = html
-  return template.content
+  const template = isTemplate(root) ? root : document.createElement("template");
+  template.innerHTML = html;
+  return template.content;
 }
 
 // for svg nodes we need a bit more work
@@ -1116,12 +1119,12 @@ function createSVGTree(html, container) {
   const svgNode = container.ownerDocument.importNode(
     new window.DOMParser().parseFromString(
       `<svg xmlns="http://www.w3.org/2000/svg">${html}</svg>`,
-      'application/xml',
+      "application/xml",
     ).documentElement,
     true,
-  )
+  );
 
-  return svgNode
+  return svgNode;
 }
 /* c8 ignore end */
 
@@ -1134,10 +1137,10 @@ function createSVGTree(html, container) {
 function createDOMTree(root, html) {
   /* c8 ignore next */
   if (isSvg(root)) {
-    return createSVGTree(html, root)
+    return createSVGTree(html, root);
   }
 
-  return createHTMLTree(html, root)
+  return createHTMLTree(html, root);
 }
 
 /**
@@ -1149,13 +1152,13 @@ function createDOMTree(root, html) {
 function injectDOM(el, dom) {
   switch (true) {
     case isSvg(el):
-      moveChildren(dom, el)
-      break
+      moveChildren(dom, el);
+      break;
     case isTemplate(el):
-      el.parentNode.replaceChild(dom, el)
-      break
+      el.parentNode.replaceChild(dom, el);
+      break;
     default:
-      el.appendChild(dom)
+      el.appendChild(dom);
   }
 }
 
@@ -1166,7 +1169,7 @@ function injectDOM(el, dom) {
  * @returns {?DocumentFragment} fragment that will be injected into the root node
  */
 function createTemplateDOM(el, html) {
-  return html && (typeof html === 'string' ? createDOMTree(el, html) : html)
+  return html && (typeof html === "string" ? createDOMTree(el, html) : html);
 }
 
 /**
@@ -1177,9 +1180,9 @@ function createTemplateDOM(el, html) {
  * @returns {number} offset of the <template> tag calculated from its siblings DOM nodes
  */
 function getTemplateTagOffset(parentNode, el, meta) {
-  const siblings = Array.from(parentNode.childNodes)
+  const siblings = Array.from(parentNode.childNodes);
 
-  return Math.max(siblings.indexOf(el), siblings.indexOf(meta.head) + 1, 0)
+  return Math.max(siblings.indexOf(el), siblings.indexOf(meta.head) + 1, 0);
 }
 
 /**
@@ -1207,9 +1210,9 @@ const TemplateChunk = {
     this.dom =
       this.dom ||
       createTemplateDOM(el, this.html) ||
-      document.createDocumentFragment()
+      document.createDocumentFragment();
 
-    return this
+    return this;
   },
 
   // API methods
@@ -1223,55 +1226,55 @@ const TemplateChunk = {
    */
   mount(el, scope, parentScope, meta = {}) {
     if (!el) {
-      panic('Please provide DOM node to mount properly your template')
+      panic("Please provide DOM node to mount properly your template");
     }
 
     if (this.el) {
-      this.unmount(scope)
+      this.unmount(scope);
     }
 
     // <template> tags require a bit more work
     // the template fragment might be already created via meta outside of this call
-    const { fragment, children, avoidDOMInjection } = meta
+    const { fragment, children, avoidDOMInjection } = meta;
     // <template> bindings of course can not have a root element
     // so we check the parent node to set the query selector bindings
-    const { parentNode } = children ? children[0] : el
-    const isTemplateTag = isTemplate(el)
+    const { parentNode } = children ? children[0] : el;
+    const isTemplateTag = isTemplate(el);
     const templateTagOffset = isTemplateTag
       ? getTemplateTagOffset(parentNode, el, meta)
-      : null
+      : null;
 
     // create the DOM if it wasn't created before
-    this.createDOM(el)
+    this.createDOM(el);
 
     // create the DOM of this template cloning the original DOM structure stored in this instance
     // notice that if a documentFragment was passed (via meta) we will use it instead
-    const cloneNode = fragment || this.dom.cloneNode(true)
+    const cloneNode = fragment || this.dom.cloneNode(true);
 
     // store root node
     // notice that for template tags the root note will be the parent tag
-    this.el = isTemplateTag ? parentNode : el
+    this.el = isTemplateTag ? parentNode : el;
 
     // create the children array only for the <template> fragments
     this.children = isTemplateTag
       ? children || Array.from(cloneNode.childNodes)
-      : null
+      : null;
 
     // inject the DOM into the el only if a fragment is available
     if (!avoidDOMInjection && cloneNode) {
-      injectDOM(el, cloneNode)
+      injectDOM(el, cloneNode);
     }
 
     // create the bindings
     this.bindings = this.bindingsData.map((binding) =>
       create$1(this.el, binding, templateTagOffset),
-    )
-    this.bindings.forEach((b) => b.mount(scope, parentScope))
+    );
+    this.bindings.forEach((b) => b.mount(scope, parentScope));
 
     // store the template meta properties
-    this.meta = meta
+    this.meta = meta;
 
-    return this
+    return this;
   },
 
   /**
@@ -1281,9 +1284,9 @@ const TemplateChunk = {
    * @returns {TemplateChunk} self
    */
   update(scope, parentScope) {
-    this.bindings.forEach((b) => b.update(scope, parentScope))
+    this.bindings.forEach((b) => b.update(scope, parentScope));
 
-    return this
+    return this;
   },
 
   /**
@@ -1295,40 +1298,40 @@ const TemplateChunk = {
    * @returns {TemplateChunk} self
    */
   unmount(scope, parentScope, mustRemoveRoot = false) {
-    const el = this.el
+    const el = this.el;
 
     if (!el) {
-      return this
+      return this;
     }
 
-    this.bindings.forEach((b) => b.unmount(scope, parentScope, mustRemoveRoot))
+    this.bindings.forEach((b) => b.unmount(scope, parentScope, mustRemoveRoot));
 
     switch (true) {
       // pure components should handle the DOM unmount updates by themselves
       // for mustRemoveRoot === null don't touch the DOM
       case el[IS_PURE_SYMBOL] || mustRemoveRoot === null:
-        break
+        break;
 
       // if children are declared, clear them
       // applicable for <template> and <slot/> bindings
       case Array.isArray(this.children):
-        clearChildren(this.children)
-        break
+        clearChildren(this.children);
+        break;
 
       // clean the node children only
       case !mustRemoveRoot:
-        cleanNode(el)
-        break
+        cleanNode(el);
+        break;
 
       // remove the root node only if the mustRemoveRoot is truly
       case !!mustRemoveRoot:
-        removeChild(el)
-        break
+        removeChild(el);
+        break;
     }
 
-    this.el = null
+    this.el = null;
 
-    return this
+    return this;
   },
 
   /**
@@ -1340,9 +1343,9 @@ const TemplateChunk = {
       ...this,
       meta: {},
       el: null,
-    }
+    };
   },
-}
+};
 
 /**
  * Create a template chunk wiring also the bindings
@@ -1355,11 +1358,11 @@ function create(html, bindings = []) {
     ...TemplateChunk,
     html,
     bindingsData: bindings,
-  }
+  };
 }
 
 export {
   create$1 as createBinding,
   create$4 as createExpression,
   create as template,
-}
+};

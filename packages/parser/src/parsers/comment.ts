@@ -1,8 +1,8 @@
-import { COMMENT, TEXT } from '../node-types.js'
-import flush from '../utils/flush-parser-state.js'
-import panic from '../utils/panic.js'
-import { unclosedComment } from '../messages.js'
-import type { ParserState } from '../types.js'
+import { COMMENT, TEXT } from "../node-types.js";
+import flush from "../utils/flush-parser-state.js";
+import panic from "../utils/panic.js";
+import { unclosedComment } from "../messages.js";
+import type { ParserState } from "../types.js";
 
 /**
  * Parses comments in long or short form
@@ -13,13 +13,13 @@ export default function comment(
   data: string,
   start: number,
 ): number {
-  const pos = start + 2 // skip '<!'
-  const isLongComment = data.substr(pos, 2) === '--'
-  const str = isLongComment ? '-->' : '>'
-  const end = data.indexOf(str, pos)
+  const pos = start + 2; // skip '<!'
+  const isLongComment = data.substr(pos, 2) === "--";
+  const str = isLongComment ? "-->" : ">";
+  const end = data.indexOf(str, pos);
 
   if (end < 0) {
-    panic(data, unclosedComment, start)
+    panic(data, unclosedComment, start);
   }
 
   pushComment(
@@ -27,9 +27,9 @@ export default function comment(
     start,
     end + str.length,
     data.substring(start, end + str.length),
-  )
+  );
 
-  return TEXT
+  return TEXT;
 }
 
 /**
@@ -42,14 +42,14 @@ export function pushComment(
   end: number,
   text: string,
 ): void {
-  state.pos = end
+  state.pos = end;
   if (state.options.comments === true) {
-    flush(state)
+    flush(state);
     state.last = {
       type: COMMENT,
       start,
       end,
       text,
-    }
+    };
   }
 }

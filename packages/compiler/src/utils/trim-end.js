@@ -5,5 +5,5 @@
  * @returns {string} trimmed output
  */
 export default function trimEnd(string) {
-  return (string.trimEnd || string.trimRight).apply(string)
+  return (string.trimEnd || string.trimRight).apply(string);
 }

@@ -196,9 +196,11 @@ export class TemplateChunk<Scope = any, ParentScope = any> {
 /**
  * Create a template chunk wiring also the bindings.
  */
-export default function create<S = any>(
+export function template<S = any>(
   html: string,
   bindings: BindingData[] = [],
 ): TemplateChunk<S> {
   return new TemplateChunk(html, bindings)
 }
+
+export default template

@@ -25,7 +25,7 @@ function fixTextExpressionsOffset(
 /**
  * Bind a new expression object to a DOM node.
  */
-export default function create<Scope = any>(
+export function createBinding<Scope = any>(
   root: HTMLElement,
   binding: BindingData<Scope>,
   templateTagOffset?: number | null,
@@ -49,3 +49,4 @@ export default function create<Scope = any>(
         : bindingExpressions,
   })
 }
+export default createBinding

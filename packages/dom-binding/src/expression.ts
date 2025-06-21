@@ -53,7 +53,7 @@ export const Expression = {
   },
 } as any as ExpressionType
 
-export default function create<Scope = any>(
+export function createExpression<Scope = any>(
   node: HTMLElement,
   data: ExpressionData<Scope>,
 ): ExpressionType<Scope> {
@@ -67,3 +67,5 @@ export default function create<Scope = any>(
         : node,
   }
 }
+
+export default createExpression

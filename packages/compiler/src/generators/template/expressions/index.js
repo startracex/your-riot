@@ -8,7 +8,7 @@ import {
 import attributeExpression from './attribute.js'
 import eventExpression from './event.js'
 import { findDynamicAttributes } from '../find.js'
-import { hasValueAttribute } from 'dom-nodes'
+import { hasValueAttribute } from 'dom-nodes/index.next.js'
 import textExpression from './text.js'
 import valueExpression from './value.js'
 import refExpression from './ref.js'

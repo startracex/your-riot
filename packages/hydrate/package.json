@@ -7,7 +7,7 @@
     "test": "cross-env NODE_OPTIONS=\"--loader @your-riot/register\" mocha test/*.spec.js"
   },
   "dependencies": {
-    "morphdom": "^2.7.1"
+    "morphdom": "^2.7.5"
   },
   "devDependencies": {
     "@your-riot/compiler": "workspace:^",

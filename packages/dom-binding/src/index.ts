@@ -51,17 +51,17 @@
  *   ]
  * )
  */
-export { default as template } from './template.js'
+export { template } from './template.js'
 
 /**
  * Bind a new expression object to a single DOM node.
  */
-export { default as createBinding } from './binding.js'
+export { createBinding } from './binding.js'
 
 /**
  * Create a single template expression.
  */
-export { default as createExpression } from './expression.js'
+export { createExpression } from './expression.js'
 
 /**
  * Object containing all the binding types.

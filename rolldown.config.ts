@@ -28,7 +28,7 @@ export const packageDependencies = (pkg: any): RegExp[] => {
 const commonOutput: OutputOptions = {
   preserveModules: true,
   sourcemap: true,
-  // minify: true,
+  minify: true,
 };
 
 export const outputs: OutputOptions[] = [

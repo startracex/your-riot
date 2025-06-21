@@ -101,6 +101,9 @@ importers:
       nanoclone:
         specifier: ^1.0.2
         version: 1.0.2
+      oxc-transform:
+        specifier: ^0.73.2
+        version: 0.73.2
       recast:
         specifier: ^0.23.11
         version: 0.23.11
@@ -344,9 +347,6 @@ importers:
       '@your-riot/parser':
         specifier: workspace:^
         version: link:../parser
-      oxc-transform:
-        specifier: ^0.73.2
-        version: 0.73.2
       postcss:
         specifier: ^8.5.6
         version: 8.5.6

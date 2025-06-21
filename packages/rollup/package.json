@@ -11,7 +11,6 @@
     "@rollup/pluginutils": "^5.2.0",
     "@your-riot/compiler": "workspace:^",
     "@your-riot/parser": "workspace:^",
-    "oxc-transform": "^0.73.2",
     "postcss": "^8.5.6",
     "postcss-cssnext": "^3.1.1"
   },

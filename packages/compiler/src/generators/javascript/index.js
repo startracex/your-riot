@@ -11,12 +11,9 @@ import {
 } from "./utils.js";
 import addLinesOffset from "../../utils/add-lines-offset.js";
 import generateAST from "../../utils/generate-ast.js";
-import getPreprocessorTypeByAttribute from "../../utils/get-preprocessor-type-by-attribute.js";
-import isEmptySourcemap from "../../utils/is-empty-sourcemap.js";
 import { isNil } from "@your-riot/utils/checks";
 import { isThisExpressionStatement } from "../../utils/ast-nodes-checks.js";
-import preprocess from "../../utils/preprocess-node.js";
-import sourcemapToJSON from "../../utils/sourcemap-as-json.js";
+import { transform } from "oxc-transform";
 
 /**
  * Generate the component javascript logic
@@ -27,21 +24,24 @@ import sourcemapToJSON from "../../utils/sourcemap-as-json.js";
  * @returns { AST } the AST generated
  */
 export default function javascript(sourceNode, source, meta, ast) {
-  const preprocessorName = getPreprocessorTypeByAttribute(sourceNode);
   const javascriptNode = addLinesOffset(
     sourceNode.text.text,
     source,
     sourceNode,
   );
   const { options } = meta;
-  const preprocessorOutput = preprocess("javascript", preprocessorName, meta, {
-    ...sourceNode,
-    text: javascriptNode,
+  const lang =
+    sourceNode.attributes?.find((a) => a.name === "lang")?.value ?? "ts";
+
+  const jsOutput = transform(options.file ?? "", javascriptNode, {
+    sourcemap: true,
+    sourceType: "module",
+    lang,
   });
-  const inputSourceMap = sourcemapToJSON(preprocessorOutput.map);
-  const generatedAst = generateAST(preprocessorOutput.code, {
+
+  const generatedAst = generateAST(jsOutput.code, {
     sourceFileName: options.file,
-    inputSourceMap: isEmptySourcemap(inputSourceMap) ? null : inputSourceMap,
+    inputSourceMap: jsOutput.map,
   });
   const generatedAstBody = getProgramBody(generatedAst);
   const exportDefaultNode = findExportDefaultStatement(generatedAstBody);

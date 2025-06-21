@@ -3,11 +3,9 @@
   "version": "0.0.0",
   "description": "Riot compiler",
   "scripts": {
-    "cov": "c8 report --reporter=lcov",
-    "cov-html": "c8 report --reporter=html",
     "build": "rolldown -c rolldown.config.ts",
     "test-types": "tsc -p test",
-    "test": "c8 mocha test/**/*.spec.js && npm run test-types",
+    "test": "mocha test/**/*.spec.js",
     "debug": "mocha --inspect --inspect-brk test/**/*.spec.js"
   },
   "dependencies": {

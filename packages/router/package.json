@@ -4,9 +4,7 @@
   "description": "Riot router",
   "scripts": {
     "build": "tsc && rolldown -c rolldown.config.ts",
-    "cov": "c8 report --reporter=lcov",
-    "cov-html": "c8 report --reporter=html",
-    "test": "c8 mocha -r test/setup.js test/*.spec.js"
+    "test": "mocha -r test/setup.js test/*.spec.js"
   },
   "dependencies": {
     "@your-riot/register": "workspace:^",

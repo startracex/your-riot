@@ -4,10 +4,8 @@
   "description": "Riot parser",
   "scripts": {
     "test-types": "tsc -p test",
-    "test": "c8 mocha ./test/index",
+    "test": "mocha ./test/index",
     "test-debug": "mocha --inspect-brk ./test",
-    "cov": "c8 report --reporter=lcov",
-    "cov-html": "c8 report --reporter=html",
     "build": "tsc && rolldown -c rolldown.config.ts"
   },
   "dependencies": {

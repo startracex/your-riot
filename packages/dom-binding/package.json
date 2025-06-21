@@ -3,12 +3,10 @@
   "version": "0.0.0",
   "description": "Riot dom bindings",
   "scripts": {
-    "cov": "c8 report --reporter=lcov",
-    "cov-html": "c8 report --reporter=html",
     "build": "tsc && rolldown -c rolldown.config.ts",
     "build-bench": "rollup -c benchmarks/rollup.config.js",
     "bench": "node --expose-gc benchmarks/index.js",
-    "test": "c8 mocha -r test/index.js test/**/*.spec.js",
+    "test": "mocha -r test/index.js test/**/*.spec.js",
     "test-typing": "tsc -p test",
     "test-debug": "mocha --inspect --inspect-brk -r test/index.js test/**/*.spec.js"
   },

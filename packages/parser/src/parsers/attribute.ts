@@ -5,7 +5,7 @@ import addToCollection from '../utils/add-to-collection.js'
 import execFromPos from '../utils/exec-from-pos.js'
 import expr from './expression.js'
 import getChunk from '../utils/get-chunk.js'
-import { isBoolAttribute } from 'dom-nodes'
+import { isBoolAttribute } from 'dom-nodes/index.next.js'
 import memoize from '../utils/memoize.js'
 import type { Attribute, ParserState } from '../types.js'
 

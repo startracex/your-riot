@@ -20,7 +20,7 @@ import {
   isTextNode,
   isVoidNode,
 } from './checks.js'
-import cloneDeep from '../../utils/clone-deep.js'
+import cloneDeep from 'nanoclone'
 import eachBinding from './bindings/each.js'
 import ifBinding from './bindings/if.js'
 import { panic } from '@your-riot/utils/misc'

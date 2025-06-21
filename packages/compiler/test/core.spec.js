@@ -4,13 +4,13 @@ import {
   generateSlotsFromString,
   generateTemplateFunctionFromString,
   registerPreprocessor,
-} from '../src/index.js'
+} from '../dist/module/index.js'
 import { evaluateScript, getFixture, sassPreprocessor } from './helpers.js'
 import { SourceMapConsumer } from 'source-map'
 import { expect } from 'chai'
 import pug from 'pug'
 import riotParser from '@your-riot/parser'
-import { unregister } from '../src/preprocessors.js'
+import { unregister } from '../dist/module/preprocessors.js'
 
 describe('Core specs', () => {
   describe('Simple tags', () => {

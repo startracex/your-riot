@@ -3,7 +3,7 @@ import {
   preprocessors,
   register,
   unregister,
-} from '../src/preprocessors.js'
+} from '../dist/module/preprocessors.js'
 import { babelPreprocessor } from './helpers.js'
 import { expect } from 'chai'
 

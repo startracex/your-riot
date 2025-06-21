@@ -1,4 +1,4 @@
-import { createOutput, transform } from '../src/transformer.js'
+import { createOutput, transform } from '../dist/module/transformer.js'
 import { expect } from 'chai'
 
 describe('Transformer', () => {

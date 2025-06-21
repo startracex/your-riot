@@ -5,7 +5,7 @@ import sh from 'shelljs'
 import { createRequire } from 'node:module'
 import { fileURLToPath } from 'node:url'
 import { transformSync } from '@babel/core'
-import generateJavascript from '../src/utils/generate-javascript.js'
+import generateJavascript from '../dist/module/utils/generate-javascript.js'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const require = createRequire(import.meta.url)

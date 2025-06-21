@@ -1,9 +1,9 @@
 import { babelPreprocessor, getFixture } from './helpers.js'
-import { register, unregister } from '../src/preprocessors.js'
+import { register, unregister } from '../dist/module/preprocessors.js'
 import { SourceMapConsumer } from 'source-map'
-import { compile } from '../src/index.js'
+import { compile } from '../dist/module/index.js'
 import { expect } from 'chai'
-import getLineAndColumnByPosition from '../src/utils/get-line-and-column-by-position.js'
+import getLineAndColumnByPosition from '../dist/module/utils/get-line-and-column-by-position.js'
 
 const getLines = (source) => source.split('\n')
 

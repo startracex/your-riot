@@ -14,26 +14,26 @@ import {
   BINDING_TEMPLATE_KEY,
   BINDING_TYPE_KEY,
   NAME_ATTRIBUTE,
-} from '../../src/generators/template/constants.js'
+} from '../../dist/module/generators/template/constants.js'
 import { bindingTypes, expressionTypes } from '@your-riot/dom-binding'
 import {
   createRootNode,
   toScopedFunction,
-} from '../../src/generators/template/utils.js'
+} from '../../dist/module/generators/template/utils.js'
 import { evaluateScript, renderExpression } from '../helpers.js'
-import builder from '../../src/generators/template/builder.js'
-import { builders } from '../../src/utils/build-types.js'
+import builder from '../../dist/module/generators/template/builder.js'
+import { builders } from '../../dist/module/utils/build-types.js'
 import compose from 'cumpa'
 import curry from 'curri'
-import eachBinding from '../../src/generators/template/bindings/each.js'
+import eachBinding from '../../dist/module/generators/template/bindings/each.js'
 import { expect } from 'chai'
-import generateJavascript from '../../src/utils/generate-javascript.js'
-import ifBinding from '../../src/generators/template/bindings/if.js'
-import { mergeNodeExpressions } from '../../src/generators/template/expressions/text.js'
+import generateJavascript from '../../dist/module/utils/generate-javascript.js'
+import ifBinding from '../../dist/module/generators/template/bindings/if.js'
+import { mergeNodeExpressions } from '../../dist/module/generators/template/expressions/text.js'
 import riotParser from '@your-riot/parser'
-import simpleBinding from '../../src/generators/template/bindings/simple.js'
-import slotBinding from '../../src/generators/template/bindings/slot.js'
-import tagBinding from '../../src/generators/template/bindings/tag.js'
+import simpleBinding from '../../dist/module/generators/template/bindings/simple.js'
+import slotBinding from '../../dist/module/generators/template/bindings/slot.js'
+import tagBinding from '../../dist/module/generators/template/bindings/tag.js'
 
 const FAKE_SRC_FILE = 'fake-file.js'
 const renderExpr = compose(renderExpression, toScopedFunction, (expr) => ({

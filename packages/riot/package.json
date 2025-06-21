@@ -42,6 +42,21 @@
       "require": "./dist/node/riot.cjs",
       "types": "./riot.d.ts"
     },
+    "./*.js": {
+      "import": "./dist/module/*.js",
+      "require": "./dist/node/*.cjs",
+      "types": "./riot.d.ts"
+    },
+    "./*": {
+      "import": "./dist/module/*.js",
+      "require": "./dist/node/*.cjs",
+      "types": "./riot.d.ts"
+    },
+    "./riot+compiler.js": {
+      "import": "./dist/module/riot_compiler.js",
+      "require": "./dist/node/riot_compiler.cjs",
+      "types": "./riot.d.ts"
+    },
     "./riot+compiler": {
       "import": "./dist/module/riot_compiler.js",
       "require": "./dist/node/riot_compiler.cjs",

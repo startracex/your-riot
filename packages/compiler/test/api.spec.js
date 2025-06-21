@@ -1,4 +1,7 @@
-import { registerPostprocessor, registerPreprocessor } from '../dist/module/index.js'
+import {
+  registerPostprocessor,
+  registerPreprocessor,
+} from '../dist/module/index.js'
 import { expect } from 'chai'
 
 describe('API specs', () => {

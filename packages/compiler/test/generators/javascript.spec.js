@@ -8,7 +8,7 @@ import { print } from "recast";
 const simpleJS = `
 <script>
 import assert from 'node:assert'
-
+assert.equal(1, 1)
 export function noop () {}
 
 const person = 'person'

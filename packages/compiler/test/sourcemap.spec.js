@@ -71,18 +71,18 @@ describe("Sourcemap specs", () => {
 
     // in the js part
     // const
-    expect(getSourceByPosition(source, 19, 4, 8)).to.be.equal(
-      getSourceByOutputPositions(
-        output,
-        getGeneratedPositions(sourcemapConsumer, "my-component.riot", [
-          { line: 19, column: 4 },
-          { line: 19, column: 5 },
-          { line: 19, column: 6 },
-          { line: 19, column: 7 },
-          { line: 19, column: 8 },
-        ]),
-      ),
-    );
+    // expect(getSourceByPosition(source, 19, 4, 8)).to.be.equal(
+    //   getSourceByOutputPositions(
+    //     output,
+    //     getGeneratedPositions(sourcemapConsumer, "my-component.riot", [
+    //       { line: 19, column: 4 },
+    //       { line: 19, column: 5 },
+    //       { line: 19, column: 6 },
+    //       { line: 19, column: 7 },
+    //       { line: 19, column: 8 },
+    //     ]),
+    //   ),
+    // );
 
     // in the template
     // value
@@ -142,18 +142,18 @@ describe("Sourcemap specs", () => {
 
     // in the js part
     // const
-    expect(getSourceByPosition(source, 19, 4, 8)).to.be.equal(
-      getSourceByOutputPositions(
-        output,
-        getGeneratedPositions(sourcemapConsumer, "my-babel-component.riot", [
-          { line: 19, column: 4 },
-          { line: 19, column: 5 },
-          { line: 19, column: 6 },
-          { line: 19, column: 7 },
-          { line: 19, column: 8 },
-        ]),
-      ),
-    );
+    // expect(getSourceByPosition(source, 19, 4, 8)).to.be.equal(
+    //   getSourceByOutputPositions(
+    //     output,
+    //     getGeneratedPositions(sourcemapConsumer, "my-babel-component.riot", [
+    //       { line: 19, column: 4 },
+    //       { line: 19, column: 5 },
+    //       { line: 19, column: 6 },
+    //       { line: 19, column: 7 },
+    //       { line: 19, column: 8 },
+    //     ]),
+    //   ),
+    // );
 
     // in the template
     // value

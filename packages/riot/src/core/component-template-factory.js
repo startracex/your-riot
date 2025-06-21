@@ -2,7 +2,7 @@ import {
   bindingTypes,
   template as createTemplate,
   expressionTypes,
-} from '@your-riot/dom-binding'
+} from "@your-riot/dom-binding";
 
 /**
  * Factory function to create the component templates only once
@@ -21,5 +21,5 @@ export function componentTemplateFactory(
     expressionTypes,
     bindingTypes,
     getChildComponent,
-  )
+  );
 }

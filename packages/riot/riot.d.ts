@@ -11,11 +11,11 @@ import {
   expressionTypes,
   TagSlotData,
   TagBindingData,
-} from '@your-riot/dom-binding'
+} from "@your-riot/dom-binding";
 
 // Internal Types and shortcuts
-export type DefaultProps = Record<PropertyKey, any>
-export type DefaultState = Record<PropertyKey, any>
+export type DefaultProps = Record<PropertyKey, any>;
+export type DefaultState = Record<PropertyKey, any>;
 
 export type RegisteredComponentsMap = Map<
   string,
@@ -24,68 +24,68 @@ export type RegisteredComponentsMap = Map<
     attributes,
     props,
   }: {
-    slots?: TagSlotData[]
-    attributes?: AttributeExpressionData[]
-    props?: DefaultProps
+    slots?: TagSlotData[];
+    attributes?: AttributeExpressionData[];
+    props?: DefaultProps;
   }) => RiotComponent
->
+>;
 export type ComponentEnhancer = <
   Props extends DefaultProps = DefaultProps,
   State extends DefaultState = DefaultState,
 >(
   component: RiotComponent<Props, State>,
-) => RiotComponent<Props, State>
-export type InstalledPluginsSet = Set<ComponentEnhancer>
+) => RiotComponent<Props, State>;
+export type InstalledPluginsSet = Set<ComponentEnhancer>;
 export type RiotComponentsMap = {
-  [key: string]: RiotComponentWrapper<RiotComponent>
-}
+  [key: string]: RiotComponentWrapper<RiotComponent>;
+};
 
 export type AutobindObjectMethods<Object, Component extends RiotComponent> = {
   [K in keyof Object]: Object[K] extends (...args: infer Args) => infer Return
     ? (this: Component & Object, ...args: Args) => Return
-    : Object[K]
-}
+    : Object[K];
+};
 
 export interface RiotComponent<
   Props extends DefaultProps = DefaultProps,
   State extends DefaultState = DefaultState,
 > {
   // automatically generated on any component instance
-  readonly props: Props
-  readonly root: HTMLElement
-  readonly name?: string
-  readonly slots: TagSlotData[]
+  readonly props: Props;
+  readonly root: HTMLElement;
+  readonly name?: string;
+  readonly slots: TagSlotData[];
 
   // mutable state property
-  state: State
+  state: State;
   // optional alias to map the children component names
-  components?: RiotComponentsMap
+  components?: RiotComponentsMap;
 
   mount(
     element: HTMLElement,
     initialState?: State,
     parentScope?: object,
-  ): RiotComponent<Props, State>
+  ): RiotComponent<Props, State>;
   update(
     newState?: Partial<State>,
     parentScope?: object,
-  ): RiotComponent<Props, State>
-  unmount(keepRootElement?: boolean): RiotComponent<Props, State>
+  ): RiotComponent<Props, State>;
+  unmount(keepRootElement?: boolean): RiotComponent<Props, State>;
 
   // Helpers
-  $(selector: string): Element | null
-  $$(selector: string): Element[]
+  $(selector: string): Element | null;
+  $$(selector: string): Element[];
 
   // state handling methods
-  shouldUpdate?(newProps: Props, oldProps: Props): boolean
+  shouldUpdate?(newProps: Props, oldProps: Props): boolean;
 
   // lifecycle methods
-  onBeforeMount?(props: Props, state: State): void
-  onMounted?(props: Props, state: State): void
-  onBeforeUpdate?(props: Props, state: State): void
-  onUpdated?(props: Props, state: State): void
-  onBeforeUnmount?(props: Props, state: State): void
-  onUnmounted?(props: Props, state: State): void
+  onBeforeMount?(props: Props, state: State): void;
+  onMounted?(props: Props, state: State): void;
+  onBeforeUpdate?(props: Props, state: State): void;
+  onUpdated?(props: Props, state: State): void;
+  onBeforeUnmount?(props: Props, state: State): void;
+  onUnmounted?(props: Props, state: State): void;
 }
 
 // The Riot component object without the internals
@@ -93,22 +93,22 @@ export interface RiotComponent<
 export type RiotComponentWithoutInternals<Component extends RiotComponent> =
   Omit<
     Component,
-    | 'props'
-    | 'root'
-    | 'name'
-    | 'slots'
-    | 'mount'
-    | 'update'
-    | 'unmount'
-    | '$'
-    | '$$'
-  >
+    | "props"
+    | "root"
+    | "name"
+    | "slots"
+    | "mount"
+    | "update"
+    | "unmount"
+    | "$"
+    | "$$"
+  >;
 
 //  Riot Pure Component interface that should be used together with riot.pure
 export interface RiotPureComponent<Context = object> {
-  mount(element: HTMLElement, context?: Context): void
-  update(context?: Context): void
-  unmount(keepRootElement: boolean): void
+  mount(element: HTMLElement, context?: Context): void;
+  update(context?: Context): void;
+  unmount(keepRootElement: boolean): void;
 }
 
 export interface PureComponentFactoryFunction<
@@ -120,17 +120,17 @@ export interface PureComponentFactoryFunction<
     attributes,
     props,
   }: {
-    slots?: TagSlotData<Context>[]
-    attributes?: AttributeExpressionData<Context>[]
-    props?: InitialProps
-  }): RiotPureComponent<Context>
+    slots?: TagSlotData<Context>[];
+    attributes?: AttributeExpressionData<Context>[];
+    props?: InitialProps;
+  }): RiotPureComponent<Context>;
 }
 
 // This object represents the Output of the Riot compiler
 export interface RiotComponentWrapper<Component> {
-  readonly css?: string | null
-  readonly exports?: RiotComponentFactoryFunction<Component> | Component | null
-  readonly name?: string | null
+  readonly css?: string | null;
+  readonly exports?: RiotComponentFactoryFunction<Component> | Component | null;
+  readonly name?: string | null;
 
   template?(
     template: (
@@ -139,14 +139,14 @@ export interface RiotComponentWrapper<Component> {
     ) => TemplateChunk<Component>,
     expressionTypes: Record<keyof typeof ExpressionType, number>,
     bindingTypes: Record<keyof typeof BindingType, number>,
-    getComponent: TagBindingData['getComponent'],
-  ): TemplateChunk<Component> | null
+    getComponent: TagBindingData["getComponent"],
+  ): TemplateChunk<Component> | null;
 }
 
 // Interface for components factory functions
 export interface RiotComponentFactoryFunction<Component> {
-  (...args: any[]): Component
-  components?: RiotComponentsMap
+  (...args: any[]): Component;
+  components?: RiotComponentsMap;
 }
 
 // Riot public API
@@ -156,10 +156,10 @@ export declare function register<
 >(
   componentName: string,
   wrapper: RiotComponentWrapper<RiotComponent<Props, State>>,
-): RegisteredComponentsMap
+): RegisteredComponentsMap;
 export declare function unregister(
   componentName: string,
-): RegisteredComponentsMap
+): RegisteredComponentsMap;
 export declare function mount<
   Props extends DefaultProps,
   State extends DefaultState,
@@ -167,15 +167,15 @@ export declare function mount<
   selector: string | HTMLElement,
   initialProps?: Props,
   componentName?: string,
-): RiotComponent<Props, State>[]
+): RiotComponent<Props, State>[];
 export declare function unmount(
   selector: string | HTMLElement,
   keepRootElement?: boolean,
-): HTMLElement[]
-export declare function install(plugin: ComponentEnhancer): InstalledPluginsSet
+): HTMLElement[];
+export declare function install(plugin: ComponentEnhancer): InstalledPluginsSet;
 export declare function uninstall(
   plugin: ComponentEnhancer,
-): InstalledPluginsSet
+): InstalledPluginsSet;
 export declare function component<
   Props extends DefaultProps,
   State extends DefaultState,
@@ -186,24 +186,24 @@ export declare function component<
   el: HTMLElement,
   initialProps?: Props,
   meta?: {
-    slots: TagSlotData[]
-    attributes: AttributeExpressionData[]
-    parentScope: any
+    slots: TagSlotData[];
+    attributes: AttributeExpressionData[];
+    parentScope: any;
   },
-) => Component
+) => Component;
 
 export declare function pure<
   InitialProps extends DefaultProps = DefaultProps,
   Context = any,
   FactoryFunction = PureComponentFactoryFunction<InitialProps, Context>,
->(func: FactoryFunction): FactoryFunction
+>(func: FactoryFunction): FactoryFunction;
 
-export declare const version: string
+export declare const version: string;
 
 // typescript specific methods
 
 // Helper to infer the component object
-type InferComponent<T> = T extends (...args: any[]) => infer C ? C : never
+type InferComponent<T> = T extends (...args: any[]) => infer C ? C : never;
 
 // Functional component instantiation
 export declare function withTypes<
@@ -214,7 +214,7 @@ export declare function withTypes<
   factory: RiotComponentFactoryFunction<
     AutobindObjectMethods<ComponentWithoutInternals, RiotComponent>
   >,
-): ReturnType<typeof factory>
+): ReturnType<typeof factory>;
 
 //Static component objects
 export declare function withTypes<
@@ -223,9 +223,9 @@ export declare function withTypes<
 >(
   component: AutobindObjectMethods<ComponentWithoutInternals, RiotComponent> & {
     // Prevent functions from matching,
-    prototype?: never
+    prototype?: never;
   },
-): typeof component
+): typeof component;
 
 /**
 
@@ -236,29 +236,29 @@ export declare function withTypes<
  */
 
 export interface CSSManager {
-  CSS_BY_NAME: Map<string, string>
-  add: (name: string, css: string) => CSSManager
-  inject: () => CSSManager
-  remove: (name: string) => CSSManager
+  CSS_BY_NAME: Map<string, string>;
+  add: (name: string, css: string) => CSSManager;
+  inject: () => CSSManager;
+  remove: (name: string) => CSSManager;
 }
 
 export declare const __: {
-  cssManager: CSSManager
+  cssManager: CSSManager;
   DOMBindings: {
-    template: typeof template
-    createBinding: typeof createBinding
-    createExpression: typeof createExpression
-    bindingTypes: typeof bindingTypes
-    expressionTypes: typeof expressionTypes
-  }
+    template: typeof template;
+    createBinding: typeof createBinding;
+    createExpression: typeof createExpression;
+    bindingTypes: typeof bindingTypes;
+    expressionTypes: typeof expressionTypes;
+  };
   globals: {
-    PROPS_KEY: string
-    STATE_KEY: string
-    IS_COMPONENT_UPDATING: Symbol
-    ATTRIBUTES_KEY_SYMBOL: Symbol
-    PARENT_KEY_SYMBOL: Symbol
-    DOM_COMPONENT_INSTANCE_PROPERTY: Symbol
-    COMPONENTS_IMPLEMENTATION_MAP: RegisteredComponentsMap
-    PLUGINS_SET: InstalledPluginsSet
-  }
-}
+    PROPS_KEY: string;
+    STATE_KEY: string;
+    IS_COMPONENT_UPDATING: Symbol;
+    ATTRIBUTES_KEY_SYMBOL: Symbol;
+    PARENT_KEY_SYMBOL: Symbol;
+    DOM_COMPONENT_INSTANCE_PROPERTY: Symbol;
+    COMPONENTS_IMPLEMENTATION_MAP: RegisteredComponentsMap;
+    PLUGINS_SET: InstalledPluginsSet;
+  };
+};

@@ -6,75 +6,75 @@ import {
   moveChildren,
   removeChild,
   replaceChild,
-} from '../dist/module/dom.js'
-import { expect } from 'chai'
+} from "../dist/module/dom.js";
+import { expect } from "chai";
 
-describe('DOM', () => {
-  it('DOMattributesToObject', () => {
-    const div = document.createElement('div')
-    div.setAttribute('hello-world', 'hello')
+describe("DOM", () => {
+  it("DOMattributesToObject", () => {
+    const div = document.createElement("div");
+    div.setAttribute("hello-world", "hello");
     expect(DOMattributesToObject(div)).to.be.deep.equal({
-      helloWorld: 'hello',
-    })
-  })
+      helloWorld: "hello",
+    });
+  });
 
-  it('moveChildren', () => {
-    const source = document.createElement('div')
-    source.innerHTML = '<p>hello</p><p>goodbye</p>'
-    const target = document.createElement('div')
+  it("moveChildren", () => {
+    const source = document.createElement("div");
+    source.innerHTML = "<p>hello</p><p>goodbye</p>";
+    const target = document.createElement("div");
 
-    moveChildren(source, target)
+    moveChildren(source, target);
 
-    expect(target.innerHTML).to.be.equal('<p>hello</p><p>goodbye</p>')
-  })
+    expect(target.innerHTML).to.be.equal("<p>hello</p><p>goodbye</p>");
+  });
 
-  it('cleanNode', () => {
-    const source = document.createElement('div')
-    source.innerHTML = '<p>hello</p><p>goodbye</p>'
+  it("cleanNode", () => {
+    const source = document.createElement("div");
+    source.innerHTML = "<p>hello</p><p>goodbye</p>";
 
-    cleanNode(source)
+    cleanNode(source);
 
-    expect(source.innerHTML).to.be.equal('')
-  })
+    expect(source.innerHTML).to.be.equal("");
+  });
 
-  it('clearChildren', () => {
-    const source = document.createElement('div')
-    source.innerHTML = '<p>hello</p><p>goodbye</p>'
+  it("clearChildren", () => {
+    const source = document.createElement("div");
+    source.innerHTML = "<p>hello</p><p>goodbye</p>";
 
-    clearChildren(Array.from(source.children))
+    clearChildren(Array.from(source.children));
 
-    expect(source.innerHTML).to.be.equal('')
-  })
+    expect(source.innerHTML).to.be.equal("");
+  });
 
-  it('removeChild', () => {
-    const source = document.createElement('div')
-    source.innerHTML = '<p>hello</p>'
-    const p = source.querySelector('p')
+  it("removeChild", () => {
+    const source = document.createElement("div");
+    source.innerHTML = "<p>hello</p>";
+    const p = source.querySelector("p");
 
-    removeChild(p)
+    removeChild(p);
 
-    expect(source.innerHTML).to.be.equal('')
-  })
+    expect(source.innerHTML).to.be.equal("");
+  });
 
-  it('insertBefore', () => {
-    const source = document.createElement('div')
-    source.innerHTML = '<p>hello</p>'
-    const div = document.createElement('div')
-    const p = source.querySelector('p')
+  it("insertBefore", () => {
+    const source = document.createElement("div");
+    source.innerHTML = "<p>hello</p>";
+    const div = document.createElement("div");
+    const p = source.querySelector("p");
 
-    insertBefore(div, p)
+    insertBefore(div, p);
 
-    expect(source.innerHTML).to.be.equal('<div></div><p>hello</p>')
-  })
+    expect(source.innerHTML).to.be.equal("<div></div><p>hello</p>");
+  });
 
-  it('replaceChild', () => {
-    const source = document.createElement('div')
-    source.innerHTML = '<p>hello</p>'
-    const div = document.createElement('div')
-    const p = source.querySelector('p')
+  it("replaceChild", () => {
+    const source = document.createElement("div");
+    source.innerHTML = "<p>hello</p>";
+    const div = document.createElement("div");
+    const p = source.querySelector("p");
 
-    replaceChild(div, p)
+    replaceChild(div, p);
 
-    expect(source.innerHTML).to.be.equal('<div></div>')
-  })
-})
+    expect(source.innerHTML).to.be.equal("<div></div>");
+  });
+});

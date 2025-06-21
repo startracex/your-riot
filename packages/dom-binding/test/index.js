@@ -1,6 +1,6 @@
-import globalJsDom from 'jsdom-global'
-import { use } from 'chai'
-import sinonChai from 'sinon-chai'
+import globalJsDom from "jsdom-global";
+import { use } from "chai";
+import sinonChai from "sinon-chai";
 
-use(sinonChai)
-globalJsDom()
+use(sinonChai);
+globalJsDom();

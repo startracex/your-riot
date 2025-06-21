@@ -7,7 +7,7 @@ import {
   BINDING_TYPES,
   BINDING_TYPE_KEY,
   EACH_BINDING_TYPE,
-} from '../constants.js'
+} from "../constants.js";
 import {
   createASTFromExpression,
   createSelectorProperties,
@@ -15,46 +15,46 @@ import {
   getAttributeExpression,
   getName,
   toScopedFunction,
-} from '../utils.js'
+} from "../utils.js";
 import {
   findEachAttribute,
   findIfAttribute,
   findKeyAttribute,
-} from '../find.js'
+} from "../find.js";
 import {
   isExpressionStatement,
   isSequenceExpression,
-} from '../../../utils/ast-nodes-checks.js'
+} from "../../../utils/ast-nodes-checks.js";
 import {
   nullNode,
   simplePropertyNode,
-} from '../../../utils/custom-ast-nodes.js'
-import { builders } from '../../../utils/build-types.js'
-import compose from 'cumpa'
-import { createNestedBindings } from '../builder.js'
-import generateJavascript from '../../../utils/generate-javascript.js'
-import { panic } from '@your-riot/utils/misc'
+} from "../../../utils/custom-ast-nodes.js";
+import { builders } from "../../../utils/build-types.js";
+import compose from "cumpa";
+import { createNestedBindings } from "../builder.js";
+import generateJavascript from "../../../utils/generate-javascript.js";
+import { panic } from "@your-riot/utils/misc";
 
 const getEachItemName = (expression) =>
   isSequenceExpression(expression.left)
     ? expression.left.expressions[0]
-    : expression.left
+    : expression.left;
 const getEachIndexName = (expression) =>
-  isSequenceExpression(expression.left) ? expression.left.expressions[1] : null
-const getEachValue = (expression) => expression.right
-const nameToliteral = compose(builders.literal, getName)
+  isSequenceExpression(expression.left) ? expression.left.expressions[1] : null;
+const getEachValue = (expression) => expression.right;
+const nameToliteral = compose(builders.literal, getName);
 
 const generateEachItemNameKey = (expression) =>
   simplePropertyNode(
     BINDING_ITEM_NAME_KEY,
     compose(nameToliteral, getEachItemName)(expression),
-  )
+  );
 
 const generateEachIndexNameKey = (expression) =>
   simplePropertyNode(
     BINDING_INDEX_NAME_KEY,
     compose(nameToliteral, getEachIndexName)(expression),
-  )
+  );
 
 const generateEachEvaluateKey = (
   expression,
@@ -72,7 +72,7 @@ const generateEachEvaluateKey = (
       }),
       getEachValue,
     )(expression),
-  )
+  );
 
 /**
  * Get the each expression properties to create properly the template binding
@@ -86,23 +86,23 @@ export function generateEachExpressionProperties(
   sourceFile,
   sourceCode,
 ) {
-  const ast = createASTFromExpression(eachExpression, sourceFile, sourceCode)
-  const body = ast.program.body
-  const firstNode = body[0]
+  const ast = createASTFromExpression(eachExpression, sourceFile, sourceCode);
+  const body = ast.program.body;
+  const firstNode = body[0];
 
   if (!isExpressionStatement(firstNode)) {
     panic(
       `The each directives supported should be of type "ExpressionStatement",you have provided a "${firstNode.type}"`,
-    )
+    );
   }
 
-  const { expression } = firstNode
+  const { expression } = firstNode;
 
   return [
     generateEachItemNameKey(expression),
     generateEachIndexNameKey(expression),
     generateEachEvaluateKey(expression, eachExpression, sourceFile, sourceCode),
-  ]
+  ];
 }
 
 /**
@@ -123,7 +123,7 @@ export default function createEachBinding(
     findIfAttribute,
     findEachAttribute,
     findKeyAttribute,
-  ].map((f) => f(sourceNode))
+  ].map((f) => f(sourceNode));
   const attributeOrNull = (attribute) =>
     attribute
       ? toScopedFunction(
@@ -131,7 +131,7 @@ export default function createEachBinding(
           sourceFile,
           sourceCode,
         )
-      : nullNode()
+      : nullNode();
 
   return builders.objectExpression([
     simplePropertyNode(
@@ -157,5 +157,5 @@ export default function createEachBinding(
       generateEachExpressionProperties,
       getAttributeExpression,
     )(eachAttribute),
-  ])
+  ]);
 }

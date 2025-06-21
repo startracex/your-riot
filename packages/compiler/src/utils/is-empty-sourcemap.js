@@ -1,4 +1,4 @@
-import isEmptyArray from './is-empty-array.js'
+import isEmptyArray from "./is-empty-array.js";
 
 /**
  * True if the sourcemap has no mappings, it is empty
@@ -6,5 +6,5 @@ import isEmptyArray from './is-empty-array.js'
  * @returns {boolean} true if empty
  */
 export default function isEmptySourcemap(map) {
-  return !map || isEmptyArray(map.mappings)
+  return !map || isEmptyArray(map.mappings);
 }

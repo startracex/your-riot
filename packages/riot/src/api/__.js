@@ -7,15 +7,15 @@ import {
   PLUGINS_SET,
   PROPS_KEY,
   STATE_KEY,
-} from '@your-riot/utils'
+} from "@your-riot/utils";
 import {
   bindingTypes,
   createBinding,
   createExpression,
   expressionTypes,
   template,
-} from '@your-riot/dom-binding'
-import cssManager from '../core/css-manager.js'
+} from "@your-riot/dom-binding";
+import cssManager from "../core/css-manager.js";
 
 // expose some internal stuff that might be used from external tools
 export const __ = {
@@ -37,4 +37,4 @@ export const __ = {
     DOM_COMPONENT_INSTANCE_PROPERTY,
     PARENT_KEY_SYMBOL,
   },
-}
+};

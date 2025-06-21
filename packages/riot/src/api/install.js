@@ -1,4 +1,4 @@
-import { PLUGINS_SET, isFunction, panic } from '@your-riot/utils'
+import { PLUGINS_SET, isFunction, panic } from "@your-riot/utils";
 
 /**
  * Define a riot plugin
@@ -7,13 +7,13 @@ import { PLUGINS_SET, isFunction, panic } from '@your-riot/utils'
  */
 export function install(plugin) {
   if (!isFunction(plugin)) {
-    panic('Plugins must be of type function')
+    panic("Plugins must be of type function");
   }
   if (PLUGINS_SET.has(plugin)) {
-    panic('This plugin was already installed')
+    panic("This plugin was already installed");
   }
 
-  PLUGINS_SET.add(plugin)
+  PLUGINS_SET.add(plugin);
 
-  return PLUGINS_SET
+  return PLUGINS_SET;
 }

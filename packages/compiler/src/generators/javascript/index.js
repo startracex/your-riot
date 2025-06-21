@@ -8,15 +8,15 @@ import {
   findComponentInterface,
   findExportDefaultStatement,
   getProgramBody,
-} from './utils.js'
-import addLinesOffset from '../../utils/add-lines-offset.js'
-import generateAST from '../../utils/generate-ast.js'
-import getPreprocessorTypeByAttribute from '../../utils/get-preprocessor-type-by-attribute.js'
-import isEmptySourcemap from '../../utils/is-empty-sourcemap.js'
-import { isNil } from '@your-riot/utils/checks'
-import { isThisExpressionStatement } from '../../utils/ast-nodes-checks.js'
-import preprocess from '../../utils/preprocess-node.js'
-import sourcemapToJSON from '../../utils/sourcemap-as-json.js'
+} from "./utils.js";
+import addLinesOffset from "../../utils/add-lines-offset.js";
+import generateAST from "../../utils/generate-ast.js";
+import getPreprocessorTypeByAttribute from "../../utils/get-preprocessor-type-by-attribute.js";
+import isEmptySourcemap from "../../utils/is-empty-sourcemap.js";
+import { isNil } from "@your-riot/utils/checks";
+import { isThisExpressionStatement } from "../../utils/ast-nodes-checks.js";
+import preprocess from "../../utils/preprocess-node.js";
+import sourcemapToJSON from "../../utils/sourcemap-as-json.js";
 
 /**
  * Generate the component javascript logic
@@ -27,33 +27,33 @@ import sourcemapToJSON from '../../utils/sourcemap-as-json.js'
  * @returns { AST } the AST generated
  */
 export default function javascript(sourceNode, source, meta, ast) {
-  const preprocessorName = getPreprocessorTypeByAttribute(sourceNode)
+  const preprocessorName = getPreprocessorTypeByAttribute(sourceNode);
   const javascriptNode = addLinesOffset(
     sourceNode.text.text,
     source,
     sourceNode,
-  )
-  const { options } = meta
-  const preprocessorOutput = preprocess('javascript', preprocessorName, meta, {
+  );
+  const { options } = meta;
+  const preprocessorOutput = preprocess("javascript", preprocessorName, meta, {
     ...sourceNode,
     text: javascriptNode,
-  })
-  const inputSourceMap = sourcemapToJSON(preprocessorOutput.map)
+  });
+  const inputSourceMap = sourcemapToJSON(preprocessorOutput.map);
   const generatedAst = generateAST(preprocessorOutput.code, {
     sourceFileName: options.file,
     inputSourceMap: isEmptySourcemap(inputSourceMap) ? null : inputSourceMap,
-  })
-  const generatedAstBody = getProgramBody(generatedAst)
-  const exportDefaultNode = findExportDefaultStatement(generatedAstBody)
-  const isLegacyRiotSyntax = isNil(exportDefaultNode)
-  const outputBody = getProgramBody(ast)
-  const componentInterface = findComponentInterface(generatedAstBody)
+  });
+  const generatedAstBody = getProgramBody(generatedAst);
+  const exportDefaultNode = findExportDefaultStatement(generatedAstBody);
+  const isLegacyRiotSyntax = isNil(exportDefaultNode);
+  const outputBody = getProgramBody(ast);
+  const componentInterface = findComponentInterface(generatedAstBody);
 
   // throw in case of mixed component exports
   if (exportDefaultNode && generatedAstBody.some(isThisExpressionStatement)) {
     throw new Error(
       'You can\t use "export default {}" and root this statements in the same component',
-    )
+    );
   }
 
   // add to the ast the "private" javascript content of our tag script node
@@ -66,23 +66,23 @@ export default function javascript(sourceNode, source, meta, ast) {
         ]
       : // modern riot syntax will hoist all the private stuff outside of the export default statement
         filterNonExportDefaultStatements(generatedAstBody)),
-  )
+  );
 
   // create the public component export properties from the root this statements
   if (isLegacyRiotSyntax) {
     extendTagProperty(
       ast,
       createDefaultExportFromLegacySyntax(generatedAstBody),
-    )
+    );
   }
 
   // convert the export default adding its content to the component property exported
   if (exportDefaultNode) {
-    extendTagProperty(ast, exportDefaultNode)
+    extendTagProperty(ast, exportDefaultNode);
   }
 
   return componentInterface
     ? // add the component interface to the component object exported
       addComponentInterfaceToExportedObject(ast, componentInterface)
-    : ast
+    : ast;
 }

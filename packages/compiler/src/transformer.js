@@ -1,11 +1,11 @@
-import createSourcemap from './utils/create-sourcemap.js'
+import createSourcemap from "./utils/create-sourcemap.js";
 
 export const Output = Object.freeze({
-  code: '',
+  code: "",
   ast: [],
   meta: {},
   map: null,
-})
+});
 
 /**
  * Create the right output data result of a parsing
@@ -21,16 +21,16 @@ export function createOutput(data, meta) {
     ...Output,
     ...data,
     meta,
-  }
+  };
 
   if (!output.map && meta && meta.options && meta.options.file) {
     return {
       ...output,
       map: createSourcemap({ file: meta.options.file }),
-    }
+    };
   }
 
-  return output
+  return output;
 }
 
 /**
@@ -41,6 +41,6 @@ export function createOutput(data, meta) {
  * @returns { Output } output - the result of the compiler
  */
 export function transform(compiler, meta, source) {
-  const result = compiler ? compiler(source, meta) : { code: source }
-  return createOutput(result, meta)
+  const result = compiler ? compiler(source, meta) : { code: source };
+  return createOutput(result, meta);
 }

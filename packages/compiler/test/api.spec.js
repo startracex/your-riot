@@ -1,19 +1,19 @@
 import {
   registerPostprocessor,
   registerPreprocessor,
-} from '../dist/module/index.js'
-import { expect } from 'chai'
+} from "../dist/module/index.js";
+import { expect } from "chai";
 
-describe('API specs', () => {
-  describe('compiler.registerPreprocessor', () => {
-    it('The method registerPreprocessor is a function', () => {
-      expect(registerPreprocessor).to.be.a('function')
-    })
-  })
+describe("API specs", () => {
+  describe("compiler.registerPreprocessor", () => {
+    it("The method registerPreprocessor is a function", () => {
+      expect(registerPreprocessor).to.be.a("function");
+    });
+  });
 
-  describe('compiler.registerPostprocessor', () => {
-    it('The method registerPostprocessor is a function', () => {
-      expect(registerPostprocessor).to.be.a('function')
-    })
-  })
-})
+  describe("compiler.registerPostprocessor", () => {
+    it("The method registerPostprocessor is a function", () => {
+      expect(registerPostprocessor).to.be.a("function");
+    });
+  });
+});

@@ -1,7 +1,7 @@
-import expressionTypes from '@your-riot/utils/expression-types'
-import expressions from './expressions/index.js'
-import { getTextNode } from './expressions/text.js'
-import type { ExpressionData, Expression as ExpressionType } from './types.js'
+import expressionTypes from "@your-riot/utils/expression-types";
+import expressions from "./expressions/index.js";
+import { getTextNode } from "./expressions/text.js";
+import type { ExpressionData, Expression as ExpressionType } from "./types.js";
 
 export const Expression = {
   // Static props
@@ -16,12 +16,12 @@ export const Expression = {
    */
   mount(scope) {
     // hopefully a pure function
-    this.value = this.evaluate(scope)
+    this.value = this.evaluate(scope);
 
     // IO() DOM updates
-    expressions[this.type](this, this.value)
+    expressions[this.type](this, this.value);
 
-    return this
+    return this;
   },
   /**
    * Update the expression if its value changed
@@ -30,15 +30,15 @@ export const Expression = {
    */
   update(scope) {
     // pure function
-    const value = this.evaluate(scope)
+    const value = this.evaluate(scope);
 
     if (this.value !== value) {
       // IO() DOM updates
-      expressions[this.type](this, value)
-      this.value = value
+      expressions[this.type](this, value);
+      this.value = value;
     }
 
-    return this
+    return this;
   },
   /**
    * Expression teardown method
@@ -47,12 +47,12 @@ export const Expression = {
   unmount() {
     // unmount event and ref expressions
     if ([expressionTypes.EVENT, expressionTypes.REF].includes(this.type)) {
-      expressions[this.type](this, null)
+      expressions[this.type](this, null);
     }
 
-    return this
+    return this;
   },
-} as any as ExpressionType
+} as any as ExpressionType;
 
 export function createExpression<Scope = any>(
   node: HTMLElement,
@@ -66,7 +66,7 @@ export function createExpression<Scope = any>(
         ? // @ts-ignore
           getTextNode(node, data.childNodeIndex)
         : node,
-  }
+  };
 }
 
-export default createExpression
+export default createExpression;

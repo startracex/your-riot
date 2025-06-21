@@ -1,6 +1,6 @@
-import asJSON from './sourcemap-as-json.js'
-import { composeSourceMaps } from 'recast/lib/util.js'
-import { isNode } from '@your-riot/utils/checks'
+import asJSON from "./sourcemap-as-json.js";
+import { composeSourceMaps } from "recast/lib/util.js";
+import { isNode } from "@your-riot/utils/checks";
 
 /**
  * Compose two sourcemaps
@@ -10,10 +10,10 @@ import { isNode } from '@your-riot/utils/checks'
  */
 export default function composeSourcemaps(formerMap, latterMap) {
   if (isNode() && formerMap && latterMap && latterMap.mappings) {
-    return composeSourceMaps(asJSON(formerMap), asJSON(latterMap))
+    return composeSourceMaps(asJSON(formerMap), asJSON(latterMap));
   } else if (isNode() && formerMap) {
-    return asJSON(formerMap)
+    return asJSON(formerMap);
   }
 
-  return {}
+  return {};
 }

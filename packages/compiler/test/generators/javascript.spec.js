@@ -1,9 +1,9 @@
-import compileJavascript from '../../dist/module/generators/javascript/index.js'
-import { createInitialInput } from '../../dist/module/index.js'
-import { evaluateScript } from '../helpers.js'
-import { expect } from 'chai'
-import parser from '@your-riot/parser'
-import { print } from 'recast'
+import compileJavascript from "../../dist/module/generators/javascript/index.js";
+import { createInitialInput } from "../../dist/module/index.js";
+import { evaluateScript } from "../helpers.js";
+import { expect } from "chai";
+import parser from "@your-riot/parser";
+import { print } from "recast";
 
 const simpleJS = `
 <script>
@@ -24,7 +24,7 @@ function foo() {
   return 'foo'
 }
 </script>
-`
+`;
 
 const rootThisExpressions = `
 <script>
@@ -46,7 +46,7 @@ this.returnNameToUppercase = () => nameToUppercase()
 
 internalVar = 'internalVar'
 </script>
-`
+`;
 
 const mixedExport = `
 <script>
@@ -63,13 +63,13 @@ export default {
 }
 
 </script>
-`
+`;
 
 const onlyNamedExport = `
 <script>
 export const hello = 'hello'
 </script>
-`
+`;
 
 const simpleContextMapping = `
 <script>
@@ -78,7 +78,7 @@ const ctx = this
 ctx.name = 'hello'
 
 </script>
-`
+`;
 
 const interfacesExport = `
 <script lang='ts'>
@@ -112,7 +112,7 @@ export default withTypes<ComponentInterface>({
     }
 })
 </script>
-`
+`;
 
 const interfacesExportWithoutRiotImport = `
 <script lang='ts'>
@@ -144,7 +144,7 @@ export default withTypes<ComponentInterface>({
     }
 })
 </script>
-`
+`;
 
 const typesExport = `
 <script lang="ts">
@@ -173,7 +173,7 @@ const typesExport = `
     }
   })
 </script>
-`
+`;
 
 const typesExportWithoutRiotImport = `
 <script lang="ts">
@@ -200,7 +200,7 @@ const typesExportWithoutRiotImport = `
     }
   })
 </script>
-`
+`;
 
 const typesAliasExportWithoutRiotImport = `
 <script lang="ts">
@@ -225,17 +225,17 @@ const typesAliasExportWithoutRiotImport = `
     }
   })
 </script>
-`
+`;
 
-const FAKE_FILE = 'fake-file.js'
+const FAKE_FILE = "fake-file.js";
 
 function createInput() {
-  return createInitialInput({ tagName: 'my-tag' })
+  return createInitialInput({ tagName: "my-tag" });
 }
 
-describe('Generators - javascript', () => {
-  it('compile a simple javascript code', () => {
-    const { javascript } = parser().parse(simpleJS).output
+describe("Generators - javascript", () => {
+  it("compile a simple javascript code", () => {
+    const { javascript } = parser().parse(simpleJS).output;
 
     const ast = compileJavascript(
       javascript,
@@ -246,20 +246,20 @@ describe('Generators - javascript', () => {
         },
       },
       createInput(),
-    )
-    const { code } = print(ast)
-    const output = evaluateScript(code)
+    );
+    const { code } = print(ast);
+    const output = evaluateScript(code);
 
-    expect(code).to.be.a('string')
-    expect(code).to.have.string('import assert')
-    expect(code).to.have.string('return')
-    expect(output.default.exports).to.be.ok
-    expect(output.default.css).to.be.not.ok
-    expect(output.default.template).to.be.not.ok
-  })
+    expect(code).to.be.a("string");
+    expect(code).to.have.string("import assert");
+    expect(code).to.have.string("return");
+    expect(output.default.exports).to.be.ok;
+    expect(output.default.css).to.be.not.ok;
+    expect(output.default.template).to.be.not.ok;
+  });
 
-  it('Convert this root statements into export default declaration', () => {
-    const { javascript } = parser().parse(rootThisExpressions).output
+  it("Convert this root statements into export default declaration", () => {
+    const { javascript } = parser().parse(rootThisExpressions).output;
     const ast = compileJavascript(
       javascript,
       rootThisExpressions,
@@ -269,23 +269,23 @@ describe('Generators - javascript', () => {
         },
       },
       createInput(),
-    )
-    const { code } = print(ast)
-    const output = evaluateScript(code)
+    );
+    const { code } = print(ast);
+    const output = evaluateScript(code);
 
-    expect(code).to.be.a('string')
-    expect(output.default.exports).to.be.ok
-    expect(output.default.exports().name).to.be.equal('hello')
+    expect(code).to.be.a("string");
+    expect(output.default.exports).to.be.ok;
+    expect(output.default.exports().name).to.be.equal("hello");
     expect(output.default.exports().returnNameToUppercase()).to.be.equal(
-      'HELLO',
-    )
-    expect(output.default.exports().method).to.be.a('function')
-    expect(output.default.css).to.be.not.ok
-    expect(output.default.template).to.be.not.ok
-  })
+      "HELLO",
+    );
+    expect(output.default.exports().method).to.be.a("function");
+    expect(output.default.css).to.be.not.ok;
+    expect(output.default.template).to.be.not.ok;
+  });
 
-  it('Mixed Exports are not allowed', () => {
-    const { javascript } = parser().parse(mixedExport).output
+  it("Mixed Exports are not allowed", () => {
+    const { javascript } = parser().parse(mixedExport).output;
     expect(() =>
       compileJavascript(
         javascript,
@@ -299,11 +299,11 @@ describe('Generators - javascript', () => {
       ),
     ).to.throw(
       'You can\t use "export default {}" and root this statements in the same component',
-    )
-  })
+    );
+  });
 
-  it('Named export without export default {} should be supported', () => {
-    const { javascript } = parser().parse(onlyNamedExport).output
+  it("Named export without export default {} should be supported", () => {
+    const { javascript } = parser().parse(onlyNamedExport).output;
     const ast = compileJavascript(
       javascript,
       onlyNamedExport,
@@ -313,16 +313,16 @@ describe('Generators - javascript', () => {
         },
       },
       createInput(),
-    )
-    const { code } = print(ast)
-    const output = evaluateScript(code)
+    );
+    const { code } = print(ast);
+    const output = evaluateScript(code);
 
-    expect(code).to.be.a('string')
-    expect(output.hello).to.be.equal('hello')
-  })
+    expect(code).to.be.a("string");
+    expect(output.hello).to.be.equal("hello");
+  });
 
-  it('The this context can be remapped', () => {
-    const { javascript } = parser().parse(simpleContextMapping).output
+  it("The this context can be remapped", () => {
+    const { javascript } = parser().parse(simpleContextMapping).output;
     const ast = compileJavascript(
       javascript,
       simpleContextMapping,
@@ -332,19 +332,19 @@ describe('Generators - javascript', () => {
         },
       },
       createInput(),
-    )
-    const { code } = print(ast)
-    const output = evaluateScript(code)
+    );
+    const { code } = print(ast);
+    const output = evaluateScript(code);
 
-    expect(code).to.be.a('string')
-    expect(output.default.exports).to.be.ok
-    expect(output.default.exports().name).to.be.equal('hello')
-    expect(output.default.css).to.be.not.ok
-    expect(output.default.template).to.be.not.ok
-  })
+    expect(code).to.be.a("string");
+    expect(output.default.exports).to.be.ok;
+    expect(output.default.exports().name).to.be.equal("hello");
+    expect(output.default.css).to.be.not.ok;
+    expect(output.default.template).to.be.not.ok;
+  });
 
-  it('Component interface export can be detected and transformed', () => {
-    const { javascript } = parser().parse(interfacesExport).output
+  it("Component interface export can be detected and transformed", () => {
+    const { javascript } = parser().parse(interfacesExport).output;
     const ast = compileJavascript(
       javascript,
       interfacesExport,
@@ -354,19 +354,19 @@ describe('Generators - javascript', () => {
         },
       },
       createInput(),
-    )
-    const { code } = print(ast)
+    );
+    const { code } = print(ast);
 
-    expect(code).to.be.a('string')
+    expect(code).to.be.a("string");
 
     expect(code).to.contain(
       "import { withTypes, RiotComponent, RiotComponentWrapper } from 'riot'",
-    )
-    expect(code).to.contain('} as RiotComponentWrapper<ComponentInterface>;')
-  })
+    );
+    expect(code).to.contain("} as RiotComponentWrapper<ComponentInterface>;");
+  });
 
-  it('Component type export can be detected and transformed', () => {
-    const { javascript } = parser().parse(typesExport).output
+  it("Component type export can be detected and transformed", () => {
+    const { javascript } = parser().parse(typesExport).output;
     const ast = compileJavascript(
       javascript,
       typesExport,
@@ -376,21 +376,21 @@ describe('Generators - javascript', () => {
         },
       },
       createInput(),
-    )
-    const { code } = print(ast)
+    );
+    const { code } = print(ast);
 
-    expect(code).to.be.a('string')
+    expect(code).to.be.a("string");
 
     expect(code).to.contain(
       "import { withTypes, RiotComponent, RiotComponentWrapper } from 'riot'",
-    )
-    expect(code).to.contain('} as RiotComponentWrapper<ComponentInterface>;')
-  })
+    );
+    expect(code).to.contain("} as RiotComponentWrapper<ComponentInterface>;");
+  });
 
-  it('Component interface export can be detected and transformed', () => {
+  it("Component interface export can be detected and transformed", () => {
     const { javascript } = parser().parse(
       interfacesExportWithoutRiotImport,
-    ).output
+    ).output;
     const ast = compileJavascript(
       javascript,
       interfacesExportWithoutRiotImport,
@@ -400,17 +400,17 @@ describe('Generators - javascript', () => {
         },
       },
       createInput(),
-    )
-    const { code } = print(ast)
+    );
+    const { code } = print(ast);
 
-    expect(code).to.be.a('string')
+    expect(code).to.be.a("string");
 
-    expect(code).to.contain('import { RiotComponentWrapper } from "riot"')
-    expect(code).to.contain('} as RiotComponentWrapper<ComponentInterface>;')
-  })
+    expect(code).to.contain('import { RiotComponentWrapper } from "riot"');
+    expect(code).to.contain("} as RiotComponentWrapper<ComponentInterface>;");
+  });
 
-  it('Component type export can be detected and transformed', () => {
-    const { javascript } = parser().parse(typesExportWithoutRiotImport).output
+  it("Component type export can be detected and transformed", () => {
+    const { javascript } = parser().parse(typesExportWithoutRiotImport).output;
     const ast = compileJavascript(
       javascript,
       typesExportWithoutRiotImport,
@@ -420,19 +420,19 @@ describe('Generators - javascript', () => {
         },
       },
       createInput(),
-    )
-    const { code } = print(ast)
+    );
+    const { code } = print(ast);
 
-    expect(code).to.be.a('string')
+    expect(code).to.be.a("string");
 
-    expect(code).to.contain('import { RiotComponentWrapper } from "riot"')
-    expect(code).to.contain('} as RiotComponentWrapper<ComponentInterface>;')
-  })
+    expect(code).to.contain('import { RiotComponentWrapper } from "riot"');
+    expect(code).to.contain("} as RiotComponentWrapper<ComponentInterface>;");
+  });
 
-  it('Component alias type export can be detected and transformed', () => {
+  it("Component alias type export can be detected and transformed", () => {
     const { javascript } = parser().parse(
       typesAliasExportWithoutRiotImport,
-    ).output
+    ).output;
     const ast = compileJavascript(
       javascript,
       typesAliasExportWithoutRiotImport,
@@ -442,12 +442,12 @@ describe('Generators - javascript', () => {
         },
       },
       createInput(),
-    )
-    const { code } = print(ast)
+    );
+    const { code } = print(ast);
 
-    expect(code).to.be.a('string')
+    expect(code).to.be.a("string");
 
-    expect(code).to.contain('import { RiotComponentWrapper } from "riot"')
-    expect(code).to.contain('} as RiotComponentWrapper<ComponentInterface>;')
-  })
-})
+    expect(code).to.contain('import { RiotComponentWrapper } from "riot"');
+    expect(code).to.contain("} as RiotComponentWrapper<ComponentInterface>;");
+  });
+});

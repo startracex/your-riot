@@ -7,7 +7,7 @@ import {
   ON_UPDATED_KEY,
   SHOULD_UPDATE_KEY,
   noop,
-} from '@your-riot/utils'
+} from "@your-riot/utils";
 
 export const COMPONENT_LIFECYCLE_METHODS = Object.freeze({
   [SHOULD_UPDATE_KEY]: noop,
@@ -17,4 +17,4 @@ export const COMPONENT_LIFECYCLE_METHODS = Object.freeze({
   [ON_UPDATED_KEY]: noop,
   [ON_BEFORE_UNMOUNT_KEY]: noop,
   [ON_UNMOUNTED_KEY]: noop,
-})
+});

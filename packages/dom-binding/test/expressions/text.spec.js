@@ -1,12 +1,12 @@
-import { expressionTypes, template } from '../../dist/module/index.js'
-import { expect } from 'chai'
+import { expressionTypes, template } from "../../dist/module/index.js";
+import { expect } from "chai";
 
-describe('text specs', () => {
-  it('set the content of a text node (comment placeholder)', () => {
-    const target = document.createElement('div')
-    template('<p expr0><----></p>', [
+describe("text specs", () => {
+  it("set the content of a text node (comment placeholder)", () => {
+    const target = document.createElement("div");
+    template("<p expr0><----></p>", [
       {
-        selector: '[expr0]',
+        selector: "[expr0]",
         expressions: [
           {
             type: expressionTypes.TEXT,
@@ -15,18 +15,18 @@ describe('text specs', () => {
           },
         ],
       },
-    ]).mount(target, { val: 'hello' })
+    ]).mount(target, { val: "hello" });
 
-    const p = target.querySelector('p')
+    const p = target.querySelector("p");
 
-    expect(p.textContent).to.be.equal('hello')
-  })
+    expect(p.textContent).to.be.equal("hello");
+  });
 
-  it('set the content of a text node (space placeholder)', () => {
-    const target = document.createElement('div')
-    template('<p expr0><span>hello</span> </p>', [
+  it("set the content of a text node (space placeholder)", () => {
+    const target = document.createElement("div");
+    template("<p expr0><span>hello</span> </p>", [
       {
-        selector: '[expr0]',
+        selector: "[expr0]",
         expressions: [
           {
             type: expressionTypes.TEXT,
@@ -35,18 +35,18 @@ describe('text specs', () => {
           },
         ],
       },
-    ]).mount(target, { val: 'world' })
+    ]).mount(target, { val: "world" });
 
-    const p = target.querySelector('p')
+    const p = target.querySelector("p");
 
-    expect(p.innerHTML).to.be.equal('<span>hello</span>world')
-  })
+    expect(p.innerHTML).to.be.equal("<span>hello</span>world");
+  });
 
-  it('clear the content of a text node with falsy values', () => {
-    const target = document.createElement('div')
-    template('<p expr0><span>hello</span> </p>', [
+  it("clear the content of a text node with falsy values", () => {
+    const target = document.createElement("div");
+    template("<p expr0><span>hello</span> </p>", [
       {
-        selector: '[expr0]',
+        selector: "[expr0]",
         expressions: [
           {
             type: expressionTypes.TEXT,
@@ -55,18 +55,18 @@ describe('text specs', () => {
           },
         ],
       },
-    ]).mount(target, { val: null })
+    ]).mount(target, { val: null });
 
-    const p = target.querySelector('p')
+    const p = target.querySelector("p");
 
-    expect(p.innerHTML).to.be.equal('<span>hello</span>')
-  })
+    expect(p.innerHTML).to.be.equal("<span>hello</span>");
+  });
 
-  it('render non null values', () => {
-    const target = document.createElement('div')
-    template('<p expr0> </p>', [
+  it("render non null values", () => {
+    const target = document.createElement("div");
+    template("<p expr0> </p>", [
       {
-        selector: '[expr0]',
+        selector: "[expr0]",
         expressions: [
           {
             type: expressionTypes.TEXT,
@@ -75,10 +75,10 @@ describe('text specs', () => {
           },
         ],
       },
-    ]).mount(target, { val: 0 })
+    ]).mount(target, { val: 0 });
 
-    const p = target.querySelector('p')
+    const p = target.querySelector("p");
 
-    expect(p.textContent).to.be.equal('0')
-  })
-})
+    expect(p.textContent).to.be.equal("0");
+  });
+});

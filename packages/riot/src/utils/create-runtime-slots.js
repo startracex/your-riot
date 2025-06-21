@@ -1,6 +1,10 @@
-import { bindingTypes, expressionTypes, template } from '@your-riot/dom-binding'
-import { COMPONENTS_IMPLEMENTATION_MAP } from '@your-riot/utils'
-import { generateSlotsFromString } from '@your-riot/compiler/essential'
+import {
+  bindingTypes,
+  expressionTypes,
+  template,
+} from "@your-riot/dom-binding";
+import { COMPONENTS_IMPLEMENTATION_MAP } from "@your-riot/utils";
+import { generateSlotsFromString } from "@your-riot/compiler/essential";
 
 /**
  * Create slots reading the inner HTML of the node
@@ -9,12 +13,12 @@ import { generateSlotsFromString } from '@your-riot/compiler/essential'
  */
 export default function createRuntimeSlots(el) {
   if (!el.innerHTML.trim()) {
-    return null
+    return null;
   }
-  const slotsCode = generateSlotsFromString(el.outerHTML)
+  const slotsCode = generateSlotsFromString(el.outerHTML);
 
   // clear the DOM node once read
-  el.innerHTML = ''
+  el.innerHTML = "";
 
   // parse the element html to create the runtime bindings
   return Function(`return ${slotsCode}`)()(
@@ -22,5 +26,5 @@ export default function createRuntimeSlots(el) {
     expressionTypes,
     bindingTypes,
     (name) => COMPONENTS_IMPLEMENTATION_MAP.get(name),
-  )
+  );
 }

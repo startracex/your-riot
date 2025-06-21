@@ -1,12 +1,12 @@
-import { router } from 'rawth'
+import { router } from "rawth";
 
 const getCurrentRoute: () => string = ((currentRoute) => {
   // listen the route changes events to store the current route
-  router.on.value((r) => (currentRoute = r))
+  router.on.value((r) => (currentRoute = r));
 
   return () => {
-    return currentRoute
-  }
-})(null)
+    return currentRoute;
+  };
+})(null);
 
-export { getCurrentRoute }
+export { getCurrentRoute };

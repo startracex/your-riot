@@ -1,18 +1,18 @@
-import { ATTR, TAG } from './node-types.js'
-import { rootTagNotFound, unexpectedEndOfFile } from './messages.js'
-import attr from './parsers/attribute.js'
-import curry from 'curri'
-import flush from './utils/flush-parser-state.js'
-import panic from './utils/panic.js'
-import tag from './parsers/tag.js'
-import text from './parsers/text.js'
-import treeBuilder from './tree-builder.js'
+import { ATTR, TAG } from "./node-types.js";
+import { rootTagNotFound, unexpectedEndOfFile } from "./messages.js";
+import attr from "./parsers/attribute.js";
+import curry from "curri";
+import flush from "./utils/flush-parser-state.js";
+import panic from "./utils/panic.js";
+import tag from "./parsers/tag.js";
+import text from "./parsers/text.js";
+import treeBuilder from "./tree-builder.js";
 import type {
   Parser,
   ParserOptions,
   ParserOutput,
   ParserState,
-} from './types.js'
+} from "./types.js";
 
 /**
  * Factory for the Parser class, exposing only the `parse` method.
@@ -20,16 +20,16 @@ import type {
  */
 export default function parser(
   options: {
-    brackets: [string, string]
-    compact: boolean
-    comments: boolean
+    brackets: [string, string];
+    compact: boolean;
+    comments: boolean;
   },
   customBuilder: (data: string, options: ParserOptions) => any,
 ): Parser {
-  const state = curry(createParserState)(options, customBuilder || treeBuilder)
+  const state = curry(createParserState)(options, customBuilder || treeBuilder);
   return {
     parse: (data) => parse(state(data)),
-  } as unknown as Parser
+  } as unknown as Parser;
 }
 
 /**
@@ -42,12 +42,12 @@ function createParserState(
 ): ParserState {
   const options = Object.assign(
     {
-      brackets: ['{', '}'],
+      brackets: ["{", "}"],
       compact: true,
       comments: false,
     },
     userOptions,
-  )
+  );
 
   return {
     options,
@@ -59,7 +59,7 @@ function createParserState(
     scryle: null,
     builder: builder(data, options),
     data,
-  }
+  };
 }
 
 /**
@@ -71,41 +71,41 @@ function createParserState(
  * - COMMENT -- Comments
  */
 function parse(state: ParserState): {
-  data: string
-  output: ParserOutput
+  data: string;
+  output: ParserOutput;
 } {
-  const { data } = state
+  const { data } = state;
 
-  walk(state)
-  flush(state)
+  walk(state);
+  flush(state);
 
   if (state.count) {
     panic(
       data,
       state.count > 0 ? unexpectedEndOfFile : rootTagNotFound,
       state.pos,
-    )
+    );
   }
 
   return {
     data,
     output: state.builder.get(),
-  }
+  };
 }
 
 /**
  * Parser walking recursive function.
  */
 function walk(state: ParserState, type?: number): void {
-  const { data } = state
+  const { data } = state;
   // extend the state adding the tree builder instance and the initial data
-  const length = data.length
+  const length = data.length;
 
   // The "count" property is set to 1 when the first tag is found.
   // This becomes the root and precedent text or comments are discarded.
   // So, at the end of the parsing count must be zero.
   if (state.pos < length && state.count) {
-    walk(state, eat(state, type))
+    walk(state, eat(state, type));
   }
 }
 
@@ -117,10 +117,10 @@ function walk(state: ParserState, type?: number): void {
 function eat(state: ParserState, type: number): number {
   switch (type) {
     case TAG:
-      return tag(state)
+      return tag(state);
     case ATTR:
-      return attr(state)
+      return attr(state);
     default:
-      return text(state)
+      return text(state);
   }
 }

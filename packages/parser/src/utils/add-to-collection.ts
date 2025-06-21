@@ -6,6 +6,6 @@ export default function addToCollection<T = any>(
   collection: T[] = [],
   item: T,
 ): T[] {
-  collection.push(item)
-  return collection
+  collection.push(item);
+  return collection;
 }

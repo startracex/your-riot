@@ -1,17 +1,17 @@
-import type bindingTypes from '@your-riot/utils/binding-types.js'
-import type { Expression } from '../types.js'
+import type bindingTypes from "@your-riot/utils/binding-types.js";
+import type { Expression } from "../types.js";
 
 export class BaseBinding<Scope = any> {
-  selector?: string
-  redundantAttribute?: string
-  type?: (typeof bindingTypes)[keyof typeof bindingTypes]
-  node: Node
-  evaluate?(scope: Scope): any
+  selector?: string;
+  redundantAttribute?: string;
+  type?: (typeof bindingTypes)[keyof typeof bindingTypes];
+  node: Node;
+  evaluate?(scope: Scope): any;
   constructor(node: Node) {
-    this.node = node
+    this.node = node;
   }
-  declare mount?: (scope: Scope) => Expression<Scope>
-  declare update?: (scope: Scope) => Expression<Scope>
-  declare unmount?: (scope: Scope) => Expression<Scope>
-  isBoolean?: boolean
+  declare mount?: (scope: Scope) => Expression<Scope>;
+  declare update?: (scope: Scope) => Expression<Scope>;
+  declare unmount?: (scope: Scope) => Expression<Scope>;
+  isBoolean?: boolean;
 }

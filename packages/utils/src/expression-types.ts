@@ -4,4 +4,4 @@ export default {
   TEXT: 2,
   VALUE: 3,
   REF: 4,
-} as const
+} as const;

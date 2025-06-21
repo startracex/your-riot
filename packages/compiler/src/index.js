@@ -3,37 +3,37 @@ import {
   TAG_LOGIC_PROPERTY,
   TAG_NAME_PROPERTY,
   TAG_TEMPLATE_PROPERTY,
-} from './constants.js'
+} from "./constants.js";
 import {
   callTemplateFunction,
   createTemplateDependenciesInjectionWrapper,
-} from './generators/template/utils.js'
-import { nullNode, simplePropertyNode } from './utils/custom-ast-nodes.js'
+} from "./generators/template/utils.js";
+import { nullNode, simplePropertyNode } from "./utils/custom-ast-nodes.js";
 import {
   register as registerPostproc,
   execute as runPostprocessors,
-} from './postprocessors.js'
-import { register as registerPreproc } from './preprocessors.js'
-import build from './generators/template/builder.js'
-import { builders } from './utils/build-types.js'
-import compose from 'cumpa'
-import { createSlotsArray } from './generators/template/bindings/tag.js'
-import cssGenerator from './generators/css/index.js'
-import curry from 'curri'
-import generateJavascript from './utils/generate-javascript.js'
-import isEmptyArray from './utils/is-empty-array.js'
-import isEmptySourcemap from './utils/is-empty-sourcemap.js'
-import javascriptGenerator from './generators/javascript/index.js'
-import riotParser from '@your-riot/parser'
-import sourcemapAsJSON from './utils/sourcemap-as-json.js'
-import templateGenerator from './generators/template/index.js'
-import preProcessSource from './utils/pre-process-source.js'
+} from "./postprocessors.js";
+import { register as registerPreproc } from "./preprocessors.js";
+import build from "./generators/template/builder.js";
+import { builders } from "./utils/build-types.js";
+import compose from "cumpa";
+import { createSlotsArray } from "./generators/template/bindings/tag.js";
+import cssGenerator from "./generators/css/index.js";
+import curry from "curri";
+import generateJavascript from "./utils/generate-javascript.js";
+import isEmptyArray from "./utils/is-empty-array.js";
+import isEmptySourcemap from "./utils/is-empty-sourcemap.js";
+import javascriptGenerator from "./generators/javascript/index.js";
+import riotParser from "@your-riot/parser";
+import sourcemapAsJSON from "./utils/sourcemap-as-json.js";
+import templateGenerator from "./generators/template/index.js";
+import preProcessSource from "./utils/pre-process-source.js";
 
 const DEFAULT_OPTIONS = {
-  template: 'default',
-  file: '[unknown-source-file]',
+  template: "default",
+  file: "[unknown-source-file]",
   scopedCss: true,
-}
+};
 
 /**
  * Create the initial AST
@@ -61,7 +61,7 @@ export function createInitialInput({ tagName }) {
         simplePropertyNode(TAG_NAME_PROPERTY, builders.literal(tagName)),
       ]),
     ),
-  ])
+  ]);
 }
 
 /**
@@ -70,8 +70,8 @@ export function createInitialInput({ tagName }) {
  * @returns {Object} sourcemap as json or nothing
  */
 function normaliseInputSourceMap(map) {
-  const inputSourceMap = sourcemapAsJSON(map)
-  return isEmptySourcemap(inputSourceMap) ? null : inputSourceMap
+  const inputSourceMap = sourcemapAsJSON(map);
+  return isEmptySourcemap(inputSourceMap) ? null : inputSourceMap;
 }
 
 /**
@@ -84,7 +84,7 @@ function overrideSourcemapContent(map, source) {
   return {
     ...map,
     sourcesContent: [source],
-  }
+  };
 }
 
 /**
@@ -102,7 +102,7 @@ function createMeta(source, options) {
       ...options,
     },
     source,
-  }
+  };
 }
 
 /**
@@ -112,9 +112,9 @@ function createMeta(source, options) {
  * @returns {Object} riot parser template output
  */
 const parseSimpleString = (source, options) => {
-  const { parse } = riotParser(options)
-  return parse(source).output.template
-}
+  const { parse } = riotParser(options);
+  return parse(source).output.template;
+};
 
 /**
  * Generate the component slots creation function from the root node
@@ -128,7 +128,7 @@ export function generateSlotsFromString(source, parserOptions) {
     generateJavascript,
     createTemplateDependenciesInjectionWrapper,
     createSlotsArray,
-  )(parseSimpleString(source, parserOptions), DEFAULT_OPTIONS.file, source)
+  )(parseSimpleString(source, parserOptions), DEFAULT_OPTIONS.file, source);
 }
 
 /**
@@ -148,7 +148,7 @@ export function generateTemplateFunctionFromString(source, parserOptions) {
       DEFAULT_OPTIONS.file,
       source,
     ),
-  )
+  );
 }
 
 /**
@@ -158,18 +158,18 @@ export function generateTemplateFunctionFromString(source, parserOptions) {
  * @returns { Output } object containing output code and source map
  */
 export function compile(source, opts = {}) {
-  const meta = createMeta(source, opts)
-  const { options } = meta
+  const meta = createMeta(source, opts);
+  const { options } = meta;
   const { template, css, javascript, map, code } = preProcessSource(
     source,
     meta,
-  )
+  );
 
   // extend the meta object with the result of the parsing
   Object.assign(meta, {
     tagName: template.name,
     fragments: { template, css, javascript },
-  })
+  });
 
   return compose(
     (result) => ({ ...result, meta }),
@@ -188,7 +188,7 @@ export function compile(source, opts = {}) {
     hookGenerator(templateGenerator, template, code, meta),
     hookGenerator(javascriptGenerator, javascript, code, meta),
     hookGenerator(cssGenerator, css, code, meta),
-  )(createInitialInput(meta))
+  )(createInitialInput(meta));
 }
 
 /**
@@ -204,18 +204,18 @@ function hookGenerator(transformer, sourceNode, source, meta) {
     sourceNode &&
     (sourceNode.text ||
       !isEmptyArray(sourceNode.nodes) ||
-      !isEmptyArray(sourceNode.attributes))
+      !isEmptyArray(sourceNode.attributes));
 
   return hasContent
     ? curry(transformer)(sourceNode, source, meta)
-    : (result) => result
+    : (result) => result;
 }
 
 // This function can be used to register new preprocessors
 // a preprocessor can target either only the css or javascript nodes
 // or the complete tag source file ('template')
-export const registerPreprocessor = registerPreproc
+export const registerPreprocessor = registerPreproc;
 
 // This function can allow you to register postprocessors that will parse the output code
 // here we can run prettifiers, eslint fixes...
-export const registerPostprocessor = registerPostproc
+export const registerPostprocessor = registerPostproc;

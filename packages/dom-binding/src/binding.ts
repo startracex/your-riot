@@ -1,7 +1,7 @@
-import bindingTypes from '@your-riot/utils/binding-types'
-import expressionTypes from '@your-riot/utils/expression-types'
-import bindings from './binding/index.js'
-import type { Binding, BindingData, Expression } from './types.js'
+import bindingTypes from "@your-riot/utils/binding-types";
+import expressionTypes from "@your-riot/utils/expression-types";
+import bindings from "./binding/index.js";
+import type { Binding, BindingData, Expression } from "./types.js";
 
 /**
  * Text expressions in a template tag will get childNodeIndex value normalized
@@ -19,7 +19,7 @@ function fixTextExpressionsOffset(
           childNodeIndex: e.childNodeIndex + textExpressionsOffset,
         }
       : e,
-  )
+  );
 }
 
 /**
@@ -31,16 +31,16 @@ export function createBinding<Scope = any>(
   templateTagOffset?: number | null,
 ): Binding<Scope> {
   // @ts-ignore
-  const { selector, type, redundantAttribute, expressions } = binding
+  const { selector, type, redundantAttribute, expressions } = binding;
   // find the node to apply the bindings
-  const node = selector ? root.querySelector(selector) : root
+  const node = selector ? root.querySelector(selector) : root;
 
   // remove eventually additional attributes created only to select this node
   // @ts-ignore
   if (redundantAttribute) {
-    node.removeAttribute(redundantAttribute)
+    node.removeAttribute(redundantAttribute);
   }
-  const bindingExpressions = expressions || []
+  const bindingExpressions = expressions || [];
 
   // init the binding
   return (bindings[type] || bindings[bindingTypes.SIMPLE])(node, {
@@ -49,6 +49,6 @@ export function createBinding<Scope = any>(
       templateTagOffset && !selector
         ? fixTextExpressionsOffset(bindingExpressions, templateTagOffset)
         : bindingExpressions,
-  })
+  });
 }
-export default createBinding
+export default createBinding;

@@ -1,1 +1,1 @@
-export const EOL = '\n'
+export const EOL = "\n";

@@ -1,4 +1,4 @@
-import type { Expression } from '../types.js'
+import type { Expression } from "../types.js";
 
 /**
   This method handles the REF attribute expressions 
@@ -9,10 +9,10 @@ export default function refExpression(
 ): void {
   // called on mount and update
   if (value) {
-    value(node)
+    value(node);
   } // called on unmount
   // in this case the node value is null
   else {
-    oldValue(null)
+    oldValue(null);
   }
 }

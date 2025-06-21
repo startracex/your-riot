@@ -1,1 +1,1 @@
-export const GLOBAL_REGISTRY = '__riot_registry__'
+export const GLOBAL_REGISTRY = "__riot_registry__";

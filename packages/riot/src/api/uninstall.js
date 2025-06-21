@@ -1,4 +1,4 @@
-import { PLUGINS_SET, panic } from '@your-riot/utils'
+import { PLUGINS_SET, panic } from "@your-riot/utils";
 
 /**
  * Uninstall a riot plugin
@@ -7,10 +7,10 @@ import { PLUGINS_SET, panic } from '@your-riot/utils'
  */
 export function uninstall(plugin) {
   if (!PLUGINS_SET.has(plugin)) {
-    panic('This plugin was never installed')
+    panic("This plugin was never installed");
   }
 
-  PLUGINS_SET.delete(plugin)
+  PLUGINS_SET.delete(plugin);
 
-  return PLUGINS_SET
+  return PLUGINS_SET;
 }

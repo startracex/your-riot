@@ -1,3 +1,3 @@
-import First from './first.riot'
+import First from "./first.riot";
 
-export default First
+export default First;

@@ -51,27 +51,27 @@
  *   ]
  * )
  */
-export { template } from './template.js'
+export { template } from "./template.js";
 
 /**
  * Bind a new expression object to a single DOM node.
  */
-export { createBinding } from './binding.js'
+export { createBinding } from "./binding.js";
 
 /**
  * Create a single template expression.
  */
-export { createExpression } from './expression.js'
+export { createExpression } from "./expression.js";
 
 /**
  * Object containing all the binding types.
  */
-export { default as bindingTypes } from '@your-riot/utils/binding-types'
+export { default as bindingTypes } from "@your-riot/utils/binding-types";
 
 /**
  * Object containing all the expression types.
  */
-export { default as expressionTypes } from '@your-riot/utils/expression-types'
+export { default as expressionTypes } from "@your-riot/utils/expression-types";
 
-export type * from './types.js'
-export type { TemplateChunk } from './template.js'
+export type * from "./types.js";
+export type { TemplateChunk } from "./template.js";

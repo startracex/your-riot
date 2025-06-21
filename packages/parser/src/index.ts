@@ -1,6 +1,6 @@
-import * as constants from './constants.js'
-import * as nodeTypes from './node-types.js'
-import parser from './parser.js'
+import * as constants from "./constants.js";
+import * as nodeTypes from "./node-types.js";
+import parser from "./parser.js";
 
 export {
   /*
@@ -15,7 +15,7 @@ export {
    * Expose the internal constants
    */
   constants,
-}
+};
 
-export default parser
-export type * from './types.js'
+export default parser;
+export type * from "./types.js";

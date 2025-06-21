@@ -9,12 +9,11 @@
     "turbo.json"
   ],
   "prettier": {
-    "semi": false,
+    "semi": true,
     "tabWidth": 2,
     "useTabs": false,
-    "singleQuote": true,
+    "singleQuote": false,
     "printWidth": 80,
-    "bracketSpacing": true,
     "trailingComma": "all"
   },
   "plugins": [

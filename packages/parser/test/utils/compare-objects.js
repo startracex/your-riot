@@ -4,55 +4,55 @@
 */
 function isEmpty(v) {
   if (!v) {
-    return true
+    return true;
   }
-  return typeof v === 'object'
+  return typeof v === "object"
     ? Array.isArray(v)
       ? !v.length
       : !Object.keys(v).length
-    : false
+    : false;
 }
 
 export default function compareObjects(a, b) {
   if (a === b) {
-    return true
+    return true;
   }
-  let p
+  let p;
 
   for (p in a) {
-    if (typeof b[p] === 'undefined') {
+    if (typeof b[p] === "undefined") {
       if (/^(?:start|end)$/.test(p) && isEmpty(a[p])) {
-        continue
+        continue;
       }
-      return false
+      return false;
     }
     if (a[p]) {
       switch (typeof a[p]) {
-        case 'object':
+        case "object":
           if (!compareObjects(a[p], b[p])) {
-            return false
+            return false;
           }
-          break
-        case 'function':
-          if (typeof b[p] !== 'function') {
-            return false
+          break;
+        case "function":
+          if (typeof b[p] !== "function") {
+            return false;
           }
-          break
+          break;
         default:
           if (a[p] !== b[p]) {
-            return false
+            return false;
           }
       }
     } else if (a[p] !== b[p]) {
-      return false
+      return false;
     }
   }
 
   for (p in b) {
-    if (typeof a[p] === 'undefined') {
-      return false
+    if (typeof a[p] === "undefined") {
+      return false;
     }
   }
 
-  return true
+  return true;
 }

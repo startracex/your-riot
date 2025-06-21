@@ -7,14 +7,14 @@ import {
   EXPRESSION_TYPES,
   IS_BOOLEAN_ATTRIBUTE,
   IS_CUSTOM_NODE,
-} from '../constants.js'
+} from "../constants.js";
 import {
   nullNode,
   simplePropertyNode,
-} from '../../../utils/custom-ast-nodes.js'
-import { builders } from '../../../utils/build-types.js'
-import { isAbsoluteRootNode, isSpreadAttribute } from '../checks.js'
-import { createAttributeEvaluationFunction } from '../utils.js'
+} from "../../../utils/custom-ast-nodes.js";
+import { builders } from "../../../utils/build-types.js";
+import { isAbsoluteRootNode, isSpreadAttribute } from "../checks.js";
+import { createAttributeEvaluationFunction } from "../utils.js";
 /**
  * Create a simple attribute expression
  * @param   {RiotParser.Node.Attr} sourceNode - the custom tag
@@ -29,7 +29,7 @@ export default function createAttributeExpression(
   sourceFile,
   sourceCode,
 ) {
-  const isSpread = isSpreadAttribute(sourceNode)
+  const isSpread = isSpreadAttribute(sourceNode);
 
   return builders.objectExpression([
     simplePropertyNode(
@@ -44,7 +44,7 @@ export default function createAttributeExpression(
       BINDING_IS_BOOLEAN_ATTRIBUTE,
       builders.literal(
         // the hidden attribute is always a boolean and can be applied to any DOM node
-        sourceNode.name === 'hidden' ||
+        sourceNode.name === "hidden" ||
           // Custom nodes can't handle boolean attrs
           // Riot.js will handle the bool attrs logic only on native html tags
           (!parentNode[IS_CUSTOM_NODE] &&
@@ -61,5 +61,5 @@ export default function createAttributeExpression(
       BINDING_EVALUATE_KEY,
       createAttributeEvaluationFunction(sourceNode, sourceFile, sourceCode),
     ),
-  ])
+  ]);
 }

@@ -2,10 +2,10 @@ import {
   callTemplateFunction,
   createRootNode,
   createTemplateDependenciesInjectionWrapper,
-} from './utils.js'
-import { TAG_TEMPLATE_PROPERTY } from '../../constants.js'
-import build from './builder.js'
-import { types } from '../../utils/build-types.js'
+} from "./utils.js";
+import { TAG_TEMPLATE_PROPERTY } from "../../constants.js";
+import build from "./builder.js";
+import { types } from "../../utils/build-types.js";
 
 /**
  * Create the content of the template function
@@ -17,7 +17,7 @@ import { types } from '../../utils/build-types.js'
 function createTemplateFunctionContent(sourceNode, sourceFile, sourceCode) {
   return callTemplateFunction(
     ...build(createRootNode(sourceNode), sourceFile, sourceCode),
-  )
+  );
 }
 
 /**
@@ -34,16 +34,16 @@ function extendTemplateProperty(ast, sourceFile, sourceCode, sourceNode) {
       if (path.value.key.name === TAG_TEMPLATE_PROPERTY) {
         path.value.value = createTemplateDependenciesInjectionWrapper(
           createTemplateFunctionContent(sourceNode, sourceFile, sourceCode),
-        )
+        );
 
-        return false
+        return false;
       }
 
-      this.traverse(path)
+      this.traverse(path);
     },
-  })
+  });
 
-  return ast
+  return ast;
 }
 
 /**
@@ -55,6 +55,6 @@ function extendTemplateProperty(ast, sourceFile, sourceCode, sourceNode) {
  * @returns { AST } the AST generated
  */
 export default function template(sourceNode, source, meta, ast) {
-  const { options } = meta
-  return extendTemplateProperty(ast, options.file, source, sourceNode)
+  const { options } = meta;
+  return extendTemplateProperty(ast, options.file, source, sourceNode);
 }

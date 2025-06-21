@@ -1,8 +1,8 @@
-import composeSourcemaps from './utils/compose-sourcemaps.js'
-import { createOutput } from './transformer.js'
-import { panic } from '@your-riot/utils/misc'
+import composeSourcemaps from "./utils/compose-sourcemaps.js";
+import { createOutput } from "./transformer.js";
+import { panic } from "@your-riot/utils/misc";
 
-export const postprocessors = new Set()
+export const postprocessors = new Set();
 
 /**
  * Register a postprocessor that will be used after the parsing and compilation of the riot tags
@@ -15,12 +15,12 @@ export function register(postprocessor) {
       `This postprocessor "${
         postprocessor.name || postprocessor.toString()
       }" was already registered`,
-    )
+    );
   }
 
-  postprocessors.add(postprocessor)
+  postprocessors.add(postprocessor);
 
-  return postprocessors
+  return postprocessors;
 }
 
 /**
@@ -34,12 +34,12 @@ export function unregister(postprocessor) {
       `This postprocessor "${
         postprocessor.name || postprocessor.toString()
       }" was never registered`,
-    )
+    );
   }
 
-  postprocessors.delete(postprocessor)
+  postprocessors.delete(postprocessor);
 
-  return postprocessors
+  return postprocessors;
 }
 
 /**
@@ -51,14 +51,14 @@ export function unregister(postprocessor) {
 export function execute(compilerOutput, meta) {
   return Array.from(postprocessors).reduce(
     (acc, postprocessor) => {
-      const { code, map } = acc
-      const output = postprocessor(code, meta)
+      const { code, map } = acc;
+      const output = postprocessor(code, meta);
 
       return {
         code: output.code,
         map: composeSourcemaps(map, output.map),
-      }
+      };
     },
     createOutput(compilerOutput, meta),
-  )
+  );
 }

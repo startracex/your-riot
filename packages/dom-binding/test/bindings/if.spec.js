@@ -2,18 +2,18 @@ import {
   bindingTypes,
   expressionTypes,
   template,
-} from '../../dist/module/index.js'
-import { expect } from 'chai'
+} from "../../dist/module/index.js";
+import { expect } from "chai";
 
 function createDummyIfTemplate(options = {}) {
-  return template('<div></div><p expr0></p>', [
+  return template("<div></div><p expr0></p>", [
     {
-      selector: '[expr0]',
+      selector: "[expr0]",
       type: bindingTypes.IF,
       evaluate: (scope) => scope.isVisible,
-      template: template('<b expr0> </b>', [
+      template: template("<b expr0> </b>", [
         {
-          selector: '[expr0]',
+          selector: "[expr0]",
           expressions: [
             {
               type: expressionTypes.TEXT,
@@ -25,120 +25,120 @@ function createDummyIfTemplate(options = {}) {
       ]),
       ...options,
     },
-  ])
+  ]);
 }
 
-describe('if bindings', () => {
-  it('Remove the DOM node from the template if the condition becomes false', () => {
-    const target = document.createElement('div')
+describe("if bindings", () => {
+  it("Remove the DOM node from the template if the condition becomes false", () => {
+    const target = document.createElement("div");
     const el = createDummyIfTemplate().mount(target, {
-      text: 'hello',
+      text: "hello",
       isVisible: true,
-    })
+    });
 
-    expect(target.querySelector('p')).to.be.ok
-    expect(target.querySelector('b').textContent).to.be.equal('hello')
-    el.update({ text: 'hello', isVisible: false })
+    expect(target.querySelector("p")).to.be.ok;
+    expect(target.querySelector("b").textContent).to.be.equal("hello");
+    el.update({ text: "hello", isVisible: false });
 
-    expect(target.querySelector('p')).to.be.not.ok
-    expect(target.querySelector('b')).to.be.not.ok
+    expect(target.querySelector("p")).to.be.not.ok;
+    expect(target.querySelector("b")).to.be.not.ok;
 
-    el.unmount()
-  })
+    el.unmount();
+  });
 
-  it('Append the DOM node to the template if the condition becomes true', () => {
-    const target = document.createElement('div')
+  it("Append the DOM node to the template if the condition becomes true", () => {
+    const target = document.createElement("div");
     const el = createDummyIfTemplate().mount(target, {
-      text: 'hello',
+      text: "hello",
       isVisible: false,
-    })
+    });
 
-    expect(target.querySelector('p')).to.be.not.ok
-    el.update({ text: 'hello', isVisible: true })
-    expect(target.querySelector('p')).to.be.ok
-    expect(target.querySelector('b').textContent).to.be.equal('hello')
+    expect(target.querySelector("p")).to.be.not.ok;
+    el.update({ text: "hello", isVisible: true });
+    expect(target.querySelector("p")).to.be.ok;
+    expect(target.querySelector("b").textContent).to.be.equal("hello");
 
-    el.unmount()
-  })
+    el.unmount();
+  });
 
-  it('Update nested expressions in an conditional statement', () => {
-    const target = document.createElement('div')
+  it("Update nested expressions in an conditional statement", () => {
+    const target = document.createElement("div");
     const el = createDummyIfTemplate().mount(target, {
-      text: 'hello',
+      text: "hello",
       isVisible: true,
-    })
+    });
 
-    const b = target.querySelector('b')
+    const b = target.querySelector("b");
 
-    expect(b.textContent).to.be.equal('hello')
-    el.update({ text: 'goodbye', isVisible: true })
-    expect(b.textContent).to.be.equal('goodbye')
+    expect(b.textContent).to.be.equal("hello");
+    el.update({ text: "goodbye", isVisible: true });
+    expect(b.textContent).to.be.equal("goodbye");
 
-    el.unmount()
-  })
+    el.unmount();
+  });
 
-  it('Update properly nested nodes', () => {
-    const target = document.createElement('div')
-    const el = template('<div></div><div expr0></div>', [
+  it("Update properly nested nodes", () => {
+    const target = document.createElement("div");
+    const el = template("<div></div><div expr0></div>", [
       {
-        selector: '[expr0]',
+        selector: "[expr0]",
         type: bindingTypes.IF,
         evaluate: (scope) => scope.isVisible,
-        template: template('<p>hello</p><strong>world</strong>', []),
+        template: template("<p>hello</p><strong>world</strong>", []),
       },
-    ]).mount(target, { isVisible: true })
+    ]).mount(target, { isVisible: true });
 
-    expect(target.querySelectorAll('strong')).to.have.length(1)
-    el.update({ isVisible: false })
-    expect(target.querySelectorAll('strong')).to.have.length(0)
-    el.update({ isVisible: true })
-    expect(target.querySelectorAll('strong')).to.have.length(1)
+    expect(target.querySelectorAll("strong")).to.have.length(1);
+    el.update({ isVisible: false });
+    expect(target.querySelectorAll("strong")).to.have.length(0);
+    el.update({ isVisible: true });
+    expect(target.querySelectorAll("strong")).to.have.length(1);
 
-    el.unmount()
-  })
+    el.unmount();
+  });
 
-  it('If bindings should support also truthy values', () => {
-    const target = document.createElement('div')
+  it("If bindings should support also truthy values", () => {
+    const target = document.createElement("div");
     const el = createDummyIfTemplate().mount(target, {
-      text: 'hello',
+      text: "hello",
       isVisible: null,
-    })
+    });
 
-    expect(target.querySelector('p')).to.be.not.ok
+    expect(target.querySelector("p")).to.be.not.ok;
 
-    el.update({ text: 'goodbye', isVisible: [] })
+    el.update({ text: "goodbye", isVisible: [] });
 
-    expect(target.querySelector('p')).to.be.ok
+    expect(target.querySelector("p")).to.be.ok;
 
-    el.unmount()
-  })
+    el.unmount();
+  });
 
-  it('Text above <template> tags should be properly rendered', () => {
-    const target = document.createElement('div')
+  it("Text above <template> tags should be properly rendered", () => {
+    const target = document.createElement("div");
     const el = template(
       '<div>hello <template expr1="expr1"></template></div>',
       [
         {
           type: bindingTypes.IF,
           evaluate: () => true,
-          redundantAttribute: 'expr1',
-          selector: '[expr1]',
-          template: template(' ', [
+          redundantAttribute: "expr1",
+          selector: "[expr1]",
+          template: template(" ", [
             {
               expressions: [
                 {
                   type: expressionTypes.TEXT,
                   childNodeIndex: 0,
-                  evaluate: () => 'world',
+                  evaluate: () => "world",
                 },
               ],
             },
           ]),
         },
       ],
-    ).mount(target, {})
+    ).mount(target, {});
 
-    expect(target.innerHTML).to.be.equal('<div>hello world</div>')
-    el.unmount()
-  })
-})
+    expect(target.innerHTML).to.be.equal("<div>hello world</div>");
+    el.unmount();
+  });
+});

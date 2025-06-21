@@ -1,22 +1,22 @@
 import type {
   RiotComponentFactoryFunction,
   RiotComponentWrapper,
-} from '../../riot'
-import { type RiotComponent, withTypes } from '../../riot'
-import ConditionalSlot from './conditional-slot.riot'
+} from "../../riot";
+import { type RiotComponent, withTypes } from "../../riot";
+import ConditionalSlot from "./conditional-slot.riot";
 
-export type ConditionalSlotProps = {}
+export type ConditionalSlotProps = {};
 
 export type ConditionalSlotState = {
-  mustShowSlot: boolean
-}
+  mustShowSlot: boolean;
+};
 
 export type ConditionalSlotComponent = RiotComponent<
   ConditionalSlotProps,
   ConditionalSlotState
 > & {
-  onClick: () => void
-}
+  onClick: () => void;
+};
 
 export default {
   css: null,
@@ -28,7 +28,7 @@ export default {
       },
 
       onClick() {
-        this.update({ mustShowSlot: !this.state.mustShowSlot })
+        this.update({ mustShowSlot: !this.state.mustShowSlot });
       },
 
       components: {
@@ -42,11 +42,11 @@ export default {
         type: bindingTypes.TAG,
         getComponent: getComponent,
 
-        evaluate: (_scope) => 'conditional-slot',
+        evaluate: (_scope) => "conditional-slot",
 
         slots: [
           {
-            id: 'default',
+            id: "default",
             html: '<p>Hello there</p><b expr2="expr2"></b>',
 
             bindings: [
@@ -55,10 +55,10 @@ export default {
 
                 evaluate: (_scope) => _scope.state.mustShowSlot,
 
-                redundantAttribute: 'expr2',
-                selector: '[expr2]',
+                redundantAttribute: "expr2",
+                selector: "[expr2]",
 
-                template: template('I am visible', []),
+                template: template("I am visible", []),
               },
             ],
           },
@@ -67,16 +67,16 @@ export default {
         attributes: [
           {
             type: expressionTypes.ATTRIBUTE,
-            name: 'is-visible',
+            name: "is-visible",
 
             evaluate: (_scope) => _scope.state.mustShowSlot,
           },
         ],
 
-        redundantAttribute: 'expr1',
-        selector: '[expr1]',
+        redundantAttribute: "expr1",
+        selector: "[expr1]",
       },
     ]),
 
-  name: 'conditional-slot-parent',
-} as RiotComponentWrapper<ConditionalSlotComponent>
+  name: "conditional-slot-parent",
+} as RiotComponentWrapper<ConditionalSlotComponent>;

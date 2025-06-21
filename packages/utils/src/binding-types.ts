@@ -4,4 +4,4 @@ export default {
   SIMPLE: 2,
   TAG: 3,
   SLOT: 4,
-} as const
+} as const;

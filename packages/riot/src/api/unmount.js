@@ -1,5 +1,5 @@
-import $ from 'bianco.query'
-import { DOM_COMPONENT_INSTANCE_PROPERTY } from '@your-riot/utils'
+import $ from "bianco.query";
+import { DOM_COMPONENT_INSTANCE_PROPERTY } from "@your-riot/utils";
 
 /**
  * Sweet unmounting helper function for the DOM node mounted manually by the user
@@ -10,8 +10,8 @@ import { DOM_COMPONENT_INSTANCE_PROPERTY } from '@your-riot/utils'
 export function unmount(selector, keepRootElement) {
   return $(selector).map((element) => {
     if (element[DOM_COMPONENT_INSTANCE_PROPERTY]) {
-      element[DOM_COMPONENT_INSTANCE_PROPERTY].unmount(keepRootElement)
+      element[DOM_COMPONENT_INSTANCE_PROPERTY].unmount(keepRootElement);
     }
-    return element
-  })
+    return element;
+  });
 }

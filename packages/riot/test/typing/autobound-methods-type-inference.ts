@@ -1,26 +1,26 @@
-import type { AutobindObjectMethods, RiotComponent } from '../../riot'
+import type { AutobindObjectMethods, RiotComponent } from "../../riot";
 
 type BaseObject = {
-  method(example: number): boolean
-}
+  method(example: number): boolean;
+};
 type ThisObject = RiotComponent<
   {
-    prop: string
+    prop: string;
   },
   {
-    stateProp: number
+    stateProp: number;
   }
->
-type BoundObject = AutobindObjectMethods<BaseObject, ThisObject>
+>;
+type BoundObject = AutobindObjectMethods<BaseObject, ThisObject>;
 
 export const object: BoundObject = {
   // this method is correctly implemented
   method(example) {
     // check also if this is correctly inferred
-    this.onBeforeMount != null
-    return example > 12
+    this.onBeforeMount != null;
+    return example > 12;
   },
-}
+};
 export const object2: BoundObject = {
   /**
    * The following implementation will throw
@@ -28,6 +28,6 @@ export const object2: BoundObject = {
    */
   //@ts-expect-error
   method(example: string) {
-    return example !== ''
+    return example !== "";
   },
-}
+};

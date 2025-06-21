@@ -1,37 +1,37 @@
 // forked from https://github.com/aMarCruz/skip-regex
 
 // safe characters to precced a regex (including `=>`, `**`, and `...`)
-const beforeReChars = '[{(,;:?=|&!^~>%*/'
-const beforeReSign = `${beforeReChars}+-`
+const beforeReChars = "[{(,;:?=|&!^~>%*/";
+const beforeReSign = `${beforeReChars}+-`;
 
 // keyword that can preceed a regex (`in` is handled as special case)
 const beforeReWords = [
-  'case',
-  'default',
-  'do',
-  'else',
-  'in',
-  'instanceof',
-  'prefix',
-  'return',
-  'typeof',
-  'void',
-  'yield',
-]
+  "case",
+  "default",
+  "do",
+  "else",
+  "in",
+  "instanceof",
+  "prefix",
+  "return",
+  "typeof",
+  "void",
+  "yield",
+];
 
 // Last chars of all the beforeReWords elements to speed up the process.
-const wordsEndChar = beforeReWords.reduce((s, w) => s + w.slice(-1), '')
+const wordsEndChar = beforeReWords.reduce((s, w) => s + w.slice(-1), "");
 
 // Matches literal regex from the start of the buffer.
 // The buffer to search must not include line-endings.
 const RE_LIT_REGEX =
-  /^\/(?=[^*>/])[^[/\\]*(?:(?:\\.|\[(?:\\.|[^\]\\]*)*\])[^[\\/]*)*?\/[gimuy]*/
+  /^\/(?=[^*>/])[^[/\\]*(?:(?:\\.|\[(?:\\.|[^\]\\]*)*\])[^[\\/]*)*?\/[gimuy]*/;
 
 // Valid characters for JavaScript variable names and literal numbers.
-const RE_JS_VCHAR = /[$\w]/
+const RE_JS_VCHAR = /[$\w]/;
 
 // Match dot characters that could be part of tricky regex
-const RE_DOT_CHAR = /.*/g
+const RE_DOT_CHAR = /.*/g;
 
 /**
  * Searches the position of the previous non-blank character inside `code`,
@@ -39,7 +39,7 @@ const RE_DOT_CHAR = /.*/g
  */
 function _prev(code: string, pos: number): number {
   while (--pos >= 0 && /\s/.test(code[pos])) {}
-  return pos
+  return pos;
 }
 
 /**
@@ -51,55 +51,55 @@ function _prev(code: string, pos: number): number {
  */
 /* c8 ignore next */
 export default function skipRegex(code: string, start: number): number {
-  let pos = (RE_DOT_CHAR.lastIndex = start++)
+  let pos = (RE_DOT_CHAR.lastIndex = start++);
 
   // `exec()` will extract from the slash to the end of the line
   //   and the chained `match()` will match the possible regex.
-  const match = (RE_DOT_CHAR.exec(code) || ' ')[0].match(RE_LIT_REGEX)
+  const match = (RE_DOT_CHAR.exec(code) || " ")[0].match(RE_LIT_REGEX);
 
   if (match) {
-    const next = pos + match[0].length // result comes from `re.match`
+    const next = pos + match[0].length; // result comes from `re.match`
 
-    pos = _prev(code, pos)
-    let c = code[pos]
+    pos = _prev(code, pos);
+    let c = code[pos];
 
     // start of buffer or safe prefix?
     if (pos < 0 || beforeReChars.includes(c)) {
-      return next
+      return next;
     }
 
     // from here, `pos` is >= 0 and `c` is code[pos]
-    if (c === '.') {
+    if (c === ".") {
       // can be `...` or something silly like 5./2
-      if (code[pos - 1] === '.') {
-        start = next
+      if (code[pos - 1] === ".") {
+        start = next;
       }
     } else {
-      if (c === '+' || c === '-') {
+      if (c === "+" || c === "-") {
         // tricky case
         if (
           code[--pos] !== c || // if have a single operator or
           (pos = _prev(code, pos)) < 0 || // ...have `++` and no previous token
           beforeReSign.includes((c = code[pos]))
         ) {
-          return next // ...this is a regex
+          return next; // ...this is a regex
         }
       }
 
       if (wordsEndChar.includes(c)) {
         // looks like a keyword?
-        const end = pos + 1
+        const end = pos + 1;
 
         // get the complete (previous) keyword
         while (--pos >= 0 && RE_JS_VCHAR.test(code[pos])) {}
 
         // it is in the allowed keywords list?
         if (beforeReWords.includes(code.slice(pos + 1, end))) {
-          start = next
+          start = next;
         }
       }
     }
   }
 
-  return start
+  return start;
 }

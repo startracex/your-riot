@@ -6,7 +6,7 @@
  */
 export default function sourcemapAsJSON(map) {
   if (map?.toJSON) {
-    return map.toJSON()
+    return map.toJSON();
   }
-  return map
+  return map;
 }

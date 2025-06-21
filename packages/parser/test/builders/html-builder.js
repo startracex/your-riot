@@ -3,25 +3,25 @@
  * Throws on unclosed tags or closing tags without start tag.
  */
 
-import { nodeTypes as T } from '../../dist/module/index.js'
-import domNodes from 'dom-nodes'
+import { nodeTypes as T } from "../../dist/module/index.js";
+import domNodes from "dom-nodes";
 // Do not touch text content inside this tags
-const R_PRE = /^\/?(?:pre|textarea|script|style)$/
+const R_PRE = /^\/?(?:pre|textarea|script|style)$/;
 
 // Class htmlBuilder ======================================
 
 function HtmlBuilder(options) {
-  this.options = options || {}
-  this.build = this._build.bind(this)
-  this.reset()
+  this.options = options || {};
+  this.build = this._build.bind(this);
+  this.reset();
 }
 
 Object.assign(HtmlBuilder.prototype, {
   reset() {
-    this.options.compact = this.options.compact !== false
-    this._output = []
-    this._stack = []
-    this._raw = 0
+    this.options.compact = this.options.compact !== false;
+    this._output = [];
+    this._stack = [];
+    this._raw = 0;
   },
 
   /**
@@ -31,105 +31,105 @@ Object.assign(HtmlBuilder.prototype, {
    * @returns {string} HTML output
    */
   _build(input) {
-    const flat = input.output
-    this.reset()
-    this._data = input.data
+    const flat = input.output;
+    this.reset();
+    this._data = input.data;
 
     for (let pos = 0; pos < flat.length; pos++) {
-      const node = flat[pos]
+      const node = flat[pos];
 
       if (node.type !== T.TAG) {
         // not a container element...
-        this.printOther(node)
+        this.printOther(node);
       } else {
-        const name = node.name
+        const name = node.name;
 
-        if (name[0] !== '/') {
+        if (name[0] !== "/") {
           // is not a closing tag
-          this.openTag(node)
+          this.openTag(node);
         } else {
           // closing tag, pop the stack
-          this.closeTag(name)
+          this.closeTag(name);
         }
       }
     }
 
     if (this._stack.length) {
-      throw new Error('unexpected end of file')
+      throw new Error("unexpected end of file");
     }
 
-    return this._output.join('')
+    return this._output.join("");
   },
 
   closeTag(name) {
-    const last = this._stack.pop()
+    const last = this._stack.pop();
 
     if (last !== name.slice(1)) {
       const err = last
         ? `expected "</${last}>" and instead saw "<${name}>"`
-        : `unexpected closing tag "<${name}>"`
+        : `unexpected closing tag "<${name}>"`;
 
-      throw new Error(err)
+      throw new Error(err);
     }
 
-    this._output.push(`<${name}>`)
+    this._output.push(`<${name}>`);
     if (R_PRE.test(name)) {
-      --this._raw
+      --this._raw;
     }
   },
 
   openTag(node) {
-    const name = node.name
-    const allTag = [name]
-    const isVoid = domNodes.isVoid(name)
-    const slash = isVoid && domNodes.isSvg(name) ? '/' : ''
+    const name = node.name;
+    const allTag = [name];
+    const isVoid = domNodes.isVoid(name);
+    const slash = isVoid && domNodes.isSvg(name) ? "/" : "";
 
     if (node.attributes) {
       node.attributes.forEach((a) => {
-        const s = a.name
-        allTag.push(a.value ? `${s}="${a.value.replace(/"/g, '&quot;')}"` : s)
-      })
+        const s = a.name;
+        allTag.push(a.value ? `${s}="${a.value.replace(/"/g, "&quot;")}"` : s);
+      });
     }
 
-    this._output.push(`<${allTag.join(' ')}${slash}>`)
+    this._output.push(`<${allTag.join(" ")}${slash}>`);
 
     if (isVoid) {
-      return
+      return;
     }
 
     if (node.isSelfClosing) {
-      this._output.push(`</${name}>`)
+      this._output.push(`</${name}>`);
     } else {
-      this._stack.push(name)
+      this._stack.push(name);
       if (R_PRE.test(name)) {
-        ++this._raw
+        ++this._raw;
       }
     }
   },
 
   printOther(node) {
-    let text = this._data.slice(node.start, node.end)
+    let text = this._data.slice(node.start, node.end);
 
     switch (node.type) {
       case T.COMMENT:
-        if (text.substr(2, 2) !== '--') {
-          text = `<!--${text.slice(2, -1)}-->`
+        if (text.substr(2, 2) !== "--") {
+          text = `<!--${text.slice(2, -1)}-->`;
         }
-        break
+        break;
 
       case T.TEXT:
         if (!this._raw && this.options.compact) {
           if (!/\S/.test(text)) {
-            return
+            return;
           }
-          text = text.replace(/\s+/g, ' ')
+          text = text.replace(/\s+/g, " ");
         }
-        break
+        break;
     }
-    this._output.push(text)
+    this._output.push(text);
   },
-})
+});
 
 export default function htmlBuilder(options) {
-  return new HtmlBuilder(options)
+  return new HtmlBuilder(options);
 }

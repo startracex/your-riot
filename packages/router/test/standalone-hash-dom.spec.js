@@ -1,37 +1,37 @@
-import { base, sleep } from './util.js'
-import { setBase } from '../dist/module/set-base.js'
-import route, { router } from 'rawth'
-import { expect } from 'chai'
-import { spy } from 'sinon'
+import { base, sleep } from "./util.js";
+import { setBase } from "../dist/module/set-base.js";
+import route, { router } from "rawth";
+import { expect } from "chai";
+import { spy } from "sinon";
 
-describe('standalone hash', () => {
+describe("standalone hash", () => {
   beforeEach(() => {
-    setBase('#')
-  })
+    setBase("#");
+  });
 
   afterEach(() => {
-    window.history.replaceState(null, '', '/')
-  })
+    window.history.replaceState(null, "", "/");
+  });
 
-  it('hash links dispatch events', async () => {
-    const onRoute = spy()
-    const hello = route('/hello').on.value(onRoute)
+  it("hash links dispatch events", async () => {
+    const onRoute = spy();
+    const hello = route("/hello").on.value(onRoute);
 
-    router.push(`${base}#/hello`)
+    router.push(`${base}#/hello`);
 
-    await sleep()
+    await sleep();
 
-    expect(onRoute).to.have.been.called
-    hello.end()
-  })
+    expect(onRoute).to.have.been.called;
+    hello.end();
+  });
 
-  it('hash links receive parameters', (done) => {
-    const user = route('/user/:username').on.value((url) => {
-      user.end()
-      expect(url.params).to.be.deep.equal({ username: 'gianluca' })
-      done()
-    })
+  it("hash links receive parameters", (done) => {
+    const user = route("/user/:username").on.value((url) => {
+      user.end();
+      expect(url.params).to.be.deep.equal({ username: "gianluca" });
+      done();
+    });
 
-    router.push(`${base}#/user/gianluca`)
-  })
-})
+    router.push(`${base}#/user/gianluca`);
+  });
+});

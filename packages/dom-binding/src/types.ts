@@ -1,4 +1,4 @@
-import type { TemplateChunk, TemplateChunkMeta } from './template.js'
+import type { TemplateChunk, TemplateChunkMeta } from "./template.js";
 
 export enum ExpressionType {
   ATTRIBUTE,
@@ -9,23 +9,23 @@ export enum ExpressionType {
 }
 
 export interface BaseExpressionData<Scope = any> {
-  type: ExpressionType
-  evaluate(scope: Scope): any
+  type: ExpressionType;
+  evaluate(scope: Scope): any;
 }
 
 export interface AttributeExpressionData<Scope = any>
   extends BaseExpressionData<Scope> {
-  name: string
+  name: string;
 }
 
 export interface EventExpressionData<Scope = any>
   extends BaseExpressionData<Scope> {
-  name: string
+  name: string;
 }
 
 export interface TextExpressionData<Scope = any>
   extends BaseExpressionData<Scope> {
-  childNodeIndex: number
+  childNodeIndex: number;
 }
 
 export interface ValueExpressionData<Scope = any>
@@ -39,17 +39,17 @@ export type ExpressionData<Scope = any> =
   | EventExpressionData<Scope>
   | TextExpressionData<Scope>
   | ValueExpressionData<Scope>
-  | RefExpressionData<Scope>
+  | RefExpressionData<Scope>;
 
 export interface Expression<Scope = any> {
-  type?: ExpressionType
-  node?: HTMLElement
-  value?: any
-  name: string
-  mount?: (scope: Scope) => Expression<Scope>
-  update?: (scope: Scope) => Expression<Scope>
-  unmount?: (scope: Scope) => Expression<Scope>
-  isBoolean?: boolean
+  type?: ExpressionType;
+  node?: HTMLElement;
+  value?: any;
+  name: string;
+  mount?: (scope: Scope) => Expression<Scope>;
+  update?: (scope: Scope) => Expression<Scope>;
+  unmount?: (scope: Scope) => Expression<Scope>;
+  isBoolean?: boolean;
 }
 
 // Bindings
@@ -62,10 +62,10 @@ export enum BindingType {
 }
 
 export interface BaseBindingData<Scope = any> {
-  selector?: string
-  redundantAttribute?: string
-  type?: BindingType
-  evaluate?(scope: Scope): any
+  selector?: string;
+  redundantAttribute?: string;
+  type?: BindingType;
+  evaluate?(scope: Scope): any;
 }
 
 export interface EachBindingData<
@@ -74,38 +74,38 @@ export interface EachBindingData<
   IndexName extends string = string,
   ItemValue = any,
   ExtendedScope = Scope & { [Property in ItemName]: ItemValue } & {
-    [Property in IndexName]: number
+    [Property in IndexName]: number;
   },
 > {
-  itemName: ItemName
-  indexName?: IndexName | null
-  template: TemplateChunk<ExtendedScope>
-  getKey?: ((scope: ExtendedScope) => any) | null
-  condition?: ((scope: ExtendedScope) => any) | null
-  evaluate(scope: Scope): ItemValue[]
-  selector?: string
-  redundantAttribute?: string
+  itemName: ItemName;
+  indexName?: IndexName | null;
+  template: TemplateChunk<ExtendedScope>;
+  getKey?: ((scope: ExtendedScope) => any) | null;
+  condition?: ((scope: ExtendedScope) => any) | null;
+  evaluate(scope: Scope): ItemValue[];
+  selector?: string;
+  redundantAttribute?: string;
 }
 
 export interface IfBindingData<Scope = any> extends BaseBindingData<Scope> {
-  template: TemplateChunk<Scope>
+  template: TemplateChunk<Scope>;
 }
 
 export interface SimpleBindingData<Scope = any> extends BaseBindingData<Scope> {
-  expressions: ExpressionData<Scope>[]
+  expressions: ExpressionData<Scope>[];
 }
 
 export interface SlotBindingData<Scope = any> extends BaseBindingData<Scope> {
-  template?: TemplateChunk<Scope>
-  attributes: AttributeExpressionData<Scope>[]
-  name: string
+  template?: TemplateChunk<Scope>;
+  attributes: AttributeExpressionData<Scope>[];
+  name: string;
 }
 
 export interface TagSlotData<Scope = any> {
-  id: string
+  id: string;
   // the following null attributes might be set if the slot is inherited from the parent https://github.com/riot/riot/issues/3055
-  html: string | null
-  bindings: BindingData<Scope>[] | null
+  html: string | null;
+  bindings: BindingData<Scope>[] | null;
 }
 
 export interface TagBindingData<Scope = any> extends BaseBindingData<Scope> {
@@ -115,11 +115,11 @@ export interface TagBindingData<Scope = any> extends BaseBindingData<Scope> {
     slots,
     attributes,
   }: {
-    slots: TagSlotData<Scope>[]
-    attributes: AttributeExpressionData<Scope>[]
-  }) => Pick<TemplateChunk<Scope>, 'mount' | 'update' | 'unmount'>
-  attributes: AttributeExpressionData<Scope>[]
-  slots: TagSlotData[]
+    slots: TagSlotData<Scope>[];
+    attributes: AttributeExpressionData<Scope>[];
+  }) => Pick<TemplateChunk<Scope>, "mount" | "update" | "unmount">;
+  attributes: AttributeExpressionData<Scope>[];
+  slots: TagSlotData[];
 }
 
 export type BindingData<Scope = any> =
@@ -127,7 +127,7 @@ export type BindingData<Scope = any> =
   | IfBindingData<Scope>
   | SimpleBindingData<Scope>
   | SlotBindingData<Scope>
-  | TagBindingData<Scope>
+  | TagBindingData<Scope>;
 
 export interface Binding<Scope = any, ParentScope = any> {
   mount(
@@ -135,11 +135,11 @@ export interface Binding<Scope = any, ParentScope = any> {
     scope: Scope,
     parentScope?: ParentScope,
     meta?: TemplateChunkMeta,
-  ): Binding<Scope, ParentScope>
-  update(scope: Scope, parentScope?: ParentScope): Binding<Scope, ParentScope>
+  ): Binding<Scope, ParentScope>;
+  update(scope: Scope, parentScope?: ParentScope): Binding<Scope, ParentScope>;
   unmount(
     scope: Scope,
     parentScope?: ParentScope,
     mustRemoveRoot?: boolean,
-  ): Binding<Scope, ParentScope>
+  ): Binding<Scope, ParentScope>;
 }

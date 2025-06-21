@@ -8,7 +8,7 @@ const FILE_EXTENSION_REGEX = new RegExp(
   `${process.env.RIOT_COMPONENTS_FILE_EXTENSION || '.riot'}$`,
 )
 
-import { LoadHook, LoadHookContext, LoadFnOutput } from 'node:module'
+import type { LoadHook, LoadHookContext, LoadFnOutput } from 'node:module'
 
 export const load: LoadHook = async (
   url: string,

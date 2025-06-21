@@ -30,4 +30,4 @@ export const isExportNamedDeclaration = (n) =>
 
 export const isBrowserAPI = ({ name }) => browserAPIs.includes(name)
 export const isBuiltinAPI = ({ name }) => builtinAPIs.includes(name)
-export const isRaw = (n) => n && n.raw
+export const isRaw = (n) => n?.raw

@@ -1,4 +1,4 @@
-import { Expression } from '../types.js'
+import type { Expression } from '../types.js'
 import normalizeStringValue from '../utils/normalize-string-value.js'
 
 /**

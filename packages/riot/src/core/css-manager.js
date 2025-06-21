@@ -10,7 +10,9 @@ const getStyleNode = ((style) => {
     // lazy evaluation:
     // if this function was already called before
     // we return its cached result
-    if (style) return style
+    if (style) {
+      return style
+    }
 
     // create a new style element or use an existing one
     // and cache it internally
@@ -18,7 +20,9 @@ const getStyleNode = ((style) => {
     setAttr(style, 'type', 'text/css')
 
     /* istanbul ignore next */
-    if (!style.parentNode) document.head.appendChild(style)
+    if (!style.parentNode) {
+      document.head.appendChild(style)
+    }
 
     return style
   }

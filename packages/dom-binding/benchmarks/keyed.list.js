@@ -75,11 +75,11 @@ export default function (suite, testName, domBindings, rootNode) {
       tag.update({ items: [] })
     },
     {
-      onStart: function () {
+      onStart: () => {
         document.body.appendChild(rootNode)
         tag.mount(rootNode, { items: [] })
       },
-      onComplete: function () {
+      onComplete: () => {
         tag.unmount({}, {}, true)
       },
     },

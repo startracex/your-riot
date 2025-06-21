@@ -30,7 +30,9 @@ lazy.export = function lazyExport(Loader, Component) {
       if (cachedComponent) {
         mount()
       } else {
-        if (hasLoader) this.createManagedComponent(Loader, parentScope)
+        if (hasLoader) {
+          this.createManagedComponent(Loader, parentScope)
+        }
 
         load().then((data) => {
           cache.set(LazyComponent, data.default || data)
@@ -47,27 +49,34 @@ lazy.export = function lazyExport(Loader, Component) {
     },
     mountLazyComponent(parentScope) {
       // if this component was unmounted just return here
-      if (!this.isMounted) return
+      if (!this.isMounted) {
+        return
+      }
 
       // unmount the loader if it was previously created
       if (this.component) {
         // unmount the bindings (keeping the root node)
         this.component.unmount(true)
         // clean the DOM
-        if (this.el.children.length) cleanNode(this.el)
+        if (this.el.children.length) {
+          cleanNode(this.el)
+        }
       }
 
       // replace the old component instance with the new lazy loaded component
       this.createManagedComponent(cache.get(LazyComponent), parentScope)
     },
     update(parentScope) {
-      if (this.isMounted && this.component)
+      if (this.isMounted && this.component) {
         this.component.update({}, parentScope)
+      }
     },
     unmount(...args) {
       this.isMounted = false
 
-      if (this.component) this.component.unmount(...args)
+      if (this.component) {
+        this.component.unmount(...args)
+      }
     },
   }))
 }

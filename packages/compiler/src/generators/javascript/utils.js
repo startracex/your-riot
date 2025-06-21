@@ -74,22 +74,16 @@ export function findComponentInterface(body) {
   const types = exportNamedDeclarations.filter(isTypeAliasDeclaration)
   const interfaces = exportNamedDeclarations.filter(isInterfaceDeclaration)
   const isRiotComponentTypeName = ({ typeName }) =>
-    typeName && typeName.name
-      ? typeName.name === RIOT_TAG_INTERFACE_NAME
-      : false
+    typeName?.name ? typeName.name === RIOT_TAG_INTERFACE_NAME : false
   const extendsRiotComponent = ({ expression }) =>
     expression.name === RIOT_TAG_INTERFACE_NAME
 
   return (
     types.find(
       (node) =>
-        (node.typeAnnotation.types &&
-          node.typeAnnotation.types.some(isRiotComponentTypeName)) ||
+        node.typeAnnotation.types?.some(isRiotComponentTypeName) ||
         isRiotComponentTypeName(node.typeAnnotation),
-    ) ||
-    interfaces.find(
-      (node) => node.extends && node.extends.some(extendsRiotComponent),
-    )
+    ) || interfaces.find((node) => node.extends?.some(extendsRiotComponent))
   )
 }
 

@@ -61,11 +61,15 @@ const isInBase = (path: string[]) =>
  * Callback called anytime something will be clicked on the page.
  */
 const onClick = (event) => {
-  if (isEventForbidden(event)) return
+  if (isEventForbidden(event)) {
+    return
+  }
 
   const el = getLinkElement(event.target)
 
-  if (isForbiddenLink(el) || !isInBase(el.href)) return
+  if (isForbiddenLink(el) || !isInBase(el.href)) {
+    return
+  }
 
   event.preventDefault()
 

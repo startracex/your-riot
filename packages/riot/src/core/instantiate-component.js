@@ -20,7 +20,9 @@ import { manageComponentLifecycle } from './manage-component-lifecycle.js'
  */
 export function instantiateComponent({ css, template, componentAPI, name }) {
   // add the component css into the DOM
-  if (css && name) cssManager.add(name, css)
+  if (css && name) {
+    cssManager.add(name, css)
+  }
 
   return curry(manageComponentLifecycle)(
     defineProperties(

@@ -11,7 +11,9 @@ export const getRootComputedAttributeNames = memoize((template) => {
   const firstBinding = template?.bindingsData?.[0]
 
   // if the first binding has the selector attribute it means that it doesn't belong to the root node
-  if (firstBinding?.selector) return []
+  if (firstBinding?.selector) {
+    return []
+  }
 
   return (
     firstBinding?.expressions?.reduce(

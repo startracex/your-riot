@@ -2,7 +2,7 @@ import { IS_CUSTOM, IS_VOID } from '../constants.js'
 import { isCustom, isVoid } from 'dom-nodes/index.next.js'
 import { TAG } from '../node-types.js'
 import flush from './flush-parser-state.js'
-import { ParserState } from '../types.js'
+import type { ParserState } from '../types.js'
 
 /**
  * Pushes a new *tag* and set `last` to this, so any attributes

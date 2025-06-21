@@ -1,6 +1,6 @@
 import { browser, expect } from '@wdio/globals'
 
-describe('Run the mocha tests', function () {
+describe('Run the mocha tests', () => {
   it('All the mocha tests passed', async () => {
     await browser.url('http://localhost:3000/test/e2e/')
     await browser.waitUntil(async () =>

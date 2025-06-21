@@ -73,7 +73,9 @@ Object.assign(HtmlBuilder.prototype, {
     }
 
     this._output.push(`<${name}>`)
-    if (R_PRE.test(name)) --this._raw
+    if (R_PRE.test(name)) {
+      --this._raw
+    }
   },
 
   openTag(node) {
@@ -99,7 +101,9 @@ Object.assign(HtmlBuilder.prototype, {
       this._output.push(`</${name}>`)
     } else {
       this._stack.push(name)
-      if (R_PRE.test(name)) ++this._raw
+      if (R_PRE.test(name)) {
+        ++this._raw
+      }
     }
   },
 
@@ -115,7 +119,9 @@ Object.assign(HtmlBuilder.prototype, {
 
       case T.TEXT:
         if (!this._raw && this.options.compact) {
-          if (!/\S/.test(text)) return
+          if (!/\S/.test(text)) {
+            return
+          }
           text = text.replace(/\s+/g, ' ')
         }
         break

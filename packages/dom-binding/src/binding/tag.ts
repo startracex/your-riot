@@ -1,6 +1,6 @@
 import expressionTypes from '@your-riot/utils/expression-types'
-import template, { TemplateChunk } from '../template.js'
-import { AttributeExpressionData, TagSlotData } from '../types.js'
+import template, { type TemplateChunk } from '../template.js'
+import type { AttributeExpressionData, TagSlotData } from '../types.js'
 
 /**
  * Create a new tag object if it was registered before, otherwise fallback to the simple

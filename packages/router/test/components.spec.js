@@ -10,12 +10,12 @@ import { component } from '@your-riot/riot'
 import { expect } from 'chai'
 import { router, defaults } from 'rawth'
 
-describe('components', function () {
-  beforeEach(async function () {
+describe('components', () => {
+  beforeEach(async () => {
     router.push('/')
   })
 
-  it('The router contents get properly rendered', async function () {
+  it('The router contents get properly rendered', async () => {
     const el = document.createElement('div')
 
     const comp = component(HistoryRouterApp)(el, {
@@ -38,7 +38,7 @@ describe('components', function () {
     comp.unmount()
   })
 
-  it('The Router component accepts spread props', async function () {
+  it('The Router component accepts spread props', async () => {
     const el = document.createElement('div')
 
     const comp = component(SpreadPropsRouter)(el, {
@@ -61,7 +61,7 @@ describe('components', function () {
     comp.unmount()
   })
 
-  it('The Route Context gets properly updated', async function () {
+  it('The Route Context gets properly updated', async () => {
     const el = document.createElement('div')
 
     const comp = component(NestedUpdates)(el, {
@@ -79,7 +79,7 @@ describe('components', function () {
     comp.unmount()
   })
 
-  it('Recursive onMounted callbacks (bug 148) ', async function () {
+  it('Recursive onMounted callbacks (bug 148) ', async () => {
     const el = document.createElement('div')
 
     const comp = component(RecursiveUpdatesBugRouter)(el, {
@@ -101,7 +101,7 @@ describe('components', function () {
     comp.unmount()
   })
 
-  it('Static base path attributes are supported (bug 172) ', async function () {
+  it('Static base path attributes are supported (bug 172) ', async () => {
     const el = document.createElement('div')
     const comp = component(StaticBasePath)(el)
 
@@ -110,7 +110,7 @@ describe('components', function () {
     comp.unmount()
   })
 
-  it('Routes matched multiple times do not render twice (bug 173) ', async function () {
+  it('Routes matched multiple times do not render twice (bug 173) ', async () => {
     const el = document.createElement('div')
     const comp = component(SameRouteMatches)(el)
 
@@ -131,7 +131,7 @@ describe('components', function () {
     comp.unmount()
   })
 
-  it('Computed routes get properly rendered', async function () {
+  it('Computed routes get properly rendered', async () => {
     const el = document.createElement('div')
     const comp = component(ComputedRoutes)(el)
 

@@ -4,7 +4,7 @@ import route, { router } from 'rawth'
 import { expect } from 'chai'
 import { spy } from 'sinon'
 
-describe('standalone hash', function () {
+describe('standalone hash', () => {
   beforeEach(() => {
     setBase('#')
   })
@@ -13,7 +13,7 @@ describe('standalone hash', function () {
     window.history.replaceState(null, '', '/')
   })
 
-  it('hash links dispatch events', async function () {
+  it('hash links dispatch events', async () => {
     const onRoute = spy()
     const hello = route('/hello').on.value(onRoute)
 

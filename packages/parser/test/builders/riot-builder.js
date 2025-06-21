@@ -95,9 +95,15 @@ Object.assign(RiotBuilder.prototype, {
     }
 
     const out = [this.tags.join('')]
-    if (this.styles) out.push(this.styles.join(''))
-    if (this.scripts) out.push(this.scripts.join(''))
-    if (this.expressions) out.push(JSON.stringify(this.expressions, null, '  '))
+    if (this.styles) {
+      out.push(this.styles.join(''))
+    }
+    if (this.scripts) {
+      out.push(this.scripts.join(''))
+    }
+    if (this.expressions) {
+      out.push(JSON.stringify(this.expressions, null, '  '))
+    }
 
     return out.join('\n')
   },
@@ -118,7 +124,9 @@ Object.assign(RiotBuilder.prototype, {
     }
 
     this._output.push(`<${name}>`)
-    if (RE_PRE.test(name)) --this._raw
+    if (RE_PRE.test(name)) {
+      --this._raw
+    }
   },
 
   openTag(node) {
@@ -135,13 +143,17 @@ Object.assign(RiotBuilder.prototype, {
 
     this._output.push(`<${allTag.join(' ')}>`)
 
-    if (domNodes.isVoid(name)) return
+    if (domNodes.isVoid(name)) {
+      return
+    }
 
     if (node.isSelfClosing) {
       this._output.push(`</${name}>`)
     } else {
       this._stack.push(name)
-      if (RE_PRE.test(name)) ++this._raw
+      if (RE_PRE.test(name)) {
+        ++this._raw
+      }
     }
   },
 

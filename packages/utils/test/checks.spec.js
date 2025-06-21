@@ -9,7 +9,7 @@ import {
 } from '../dist/module/checks.js'
 import { expect } from 'chai'
 
-describe('Checks', function () {
+describe('Checks', () => {
   it('isFunction', () => {
     expect(isFunction(() => {})).to.be.ok
     expect(isFunction(null)).to.be.not.ok

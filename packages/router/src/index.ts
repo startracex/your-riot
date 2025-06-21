@@ -1,9 +1,9 @@
-import { RiotComponent, RiotComponentWrapper } from '@your-riot/riot'
+import type { RiotComponent, RiotComponentWrapper } from '@your-riot/riot'
 // @ts-ignore
 import _Route from './components/route-hoc.riot'
 // @ts-ignore
 import _Routes from './components/routes-hoc.riot'
-import { URLWithParams } from 'rawth'
+import type { URLWithParams } from 'rawth'
 
 const Route: RiotComponentWrapper<
   RiotComponent<{

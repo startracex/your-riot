@@ -5,7 +5,9 @@ export default function memoize(fn: Function): any {
   const cache = new WeakMap()
 
   return (...args) => {
-    if (cache.has(args[0])) return cache.get(args[0])
+    if (cache.has(args[0])) {
+      return cache.get(args[0])
+    }
 
     const ret = fn(...args)
 

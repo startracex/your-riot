@@ -30,14 +30,14 @@ export default function (suite, testName, domBindings, rootNode) {
       tag.update({ isVisible: true, text: 'Hello' })
     },
     {
-      onStart: function () {
+      onStart: () => {
         document.body.appendChild(rootNode)
         tag.mount(rootNode, {
           isVisible: true,
           text: 'Hello',
         })
       },
-      onComplete: function () {
+      onComplete: () => {
         tag.unmount({}, {}, true)
       },
     },

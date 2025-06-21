@@ -13,8 +13,9 @@ import { execute as runPreprocessor } from '../preprocessors.js'
 export default function preProcessSource(source, meta) {
   // if the source is a parser output we can return it directly
   // @link https://github.com/riot/compiler/issues/178
-  if (isObject(source))
+  if (isObject(source)) {
     return { ...source.output, code: source.data, map: null }
+  }
 
   const { options } = meta
 

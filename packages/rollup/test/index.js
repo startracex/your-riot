@@ -6,7 +6,7 @@ import path from 'node:path'
 import riot from '../dist/module/index.js'
 import cssnext from './helper/cssnext.js'
 
-describe('rollup-plugin-riot', function () {
+describe('rollup-plugin-riot', () => {
   const fixturesDir = path.join(process.cwd(), 'test', 'fixtures'),
     expectDir = path.join(process.cwd(), 'test', 'expect')
 
@@ -37,7 +37,7 @@ describe('rollup-plugin-riot', function () {
     return sourcemap ? result : result.code.replaceAll('\r', '')
   }
 
-  it('single tag', async function () {
+  it('single tag', async () => {
     const filename = 'single.js'
 
     const [result, expected] = await Promise.all([
@@ -47,7 +47,7 @@ describe('rollup-plugin-riot', function () {
     expect(result).to.have.string(expected)
   })
 
-  it('multiple tag', async function () {
+  it('multiple tag', async () => {
     const filename = 'multiple.js'
 
     const [result, expected] = await Promise.all([
@@ -57,7 +57,7 @@ describe('rollup-plugin-riot', function () {
     expect(result).to.have.string(expected)
   })
 
-  it('multiple tag in single file', async function () {
+  it('multiple tag in single file', async () => {
     const filename = 'multiple2.js'
 
     const [result, expected] = await Promise.all([
@@ -67,7 +67,7 @@ describe('rollup-plugin-riot', function () {
     expect(result).to.have.string(expected)
   })
 
-  it('tag with another extension', async function () {
+  it('tag with another extension', async () => {
     const filename = 'another-ext.js'
     const opts = { ext: 'html' }
 
@@ -78,7 +78,7 @@ describe('rollup-plugin-riot', function () {
     expect(result).to.have.string(expected)
   })
 
-  it('compiles with custom parsers', async function () {
+  it('compiles with custom parsers', async () => {
     const filename = 'custom-parsers.js'
     registerPreprocessor('css', 'cssnext', cssnext)
 
@@ -90,7 +90,7 @@ describe('rollup-plugin-riot', function () {
     })
   })
 
-  it('compiles with sourcemaps', async function () {
+  it('compiles with sourcemaps', async () => {
     const filename = 'single.js'
     const opts = { sourcemap: true, globals: { riot: 'riot' } }
 

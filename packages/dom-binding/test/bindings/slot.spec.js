@@ -410,9 +410,7 @@ describe('slot bindings', () => {
         {
           type: bindingTypes.IF,
 
-          evaluate: function (scope) {
-            return scope.isVisible
-          },
+          evaluate: (scope) => scope.isVisible,
 
           redundantAttribute: 'expr2',
           selector: '[expr2]',
@@ -472,9 +470,7 @@ describe('slot bindings', () => {
         {
           type: bindingTypes.IF,
 
-          evaluate: function (scope) {
-            return scope.isVisible
-          },
+          evaluate: (scope) => scope.isVisible,
 
           redundantAttribute: 'expr2',
           selector: '[expr2]',

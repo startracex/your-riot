@@ -81,9 +81,13 @@ export class TemplateChunk<Scope = any, ParentScope = any> {
     parentScope?: ParentScope,
     meta: TemplateChunkMeta = {},
   ): this {
-    if (!el) panic('Please provide DOM node to mount properly your template')
+    if (!el) {
+      panic('Please provide DOM node to mount properly your template')
+    }
 
-    if (this.el) this.unmount(scope)
+    if (this.el) {
+      this.unmount(scope)
+    }
 
     // <template> tags require a bit more work
     // the template fragment might be already created via meta outside of this call
@@ -113,7 +117,9 @@ export class TemplateChunk<Scope = any, ParentScope = any> {
       : null
 
     // inject the DOM into the el only if a fragment is available
-    if (!avoidDOMInjection && cloneNode) injectDOM(el, cloneNode as HTMLElement)
+    if (!avoidDOMInjection && cloneNode) {
+      injectDOM(el, cloneNode as HTMLElement)
+    }
 
     // create the bindings
     this.bindings = this.bindingsData.map((binding) =>
@@ -141,7 +147,7 @@ export class TemplateChunk<Scope = any, ParentScope = any> {
   unmount(
     scope: Scope,
     parentScope?: ParentScope,
-    mustRemoveRoot: boolean = false,
+    mustRemoveRoot = false,
   ): Binding<Scope, ParentScope> {
     const el = this.el
 

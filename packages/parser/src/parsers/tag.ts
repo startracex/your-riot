@@ -4,7 +4,7 @@ import comment from './comment.js'
 import execFromPos from '../utils/exec-from-pos.js'
 import pushTag from '../utils/push-tag.js'
 import pushText from '../utils/push-text.js'
-import { ParserState } from '../types.js'
+import type { ParserState } from '../types.js'
 
 /**
  * Parse the tag following a '<' character, or delegate to other parser

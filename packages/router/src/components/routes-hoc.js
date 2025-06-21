@@ -10,8 +10,9 @@ const INITIAL_ROUTE = 'initialRoute'
 const ON_STARTED_ATTRIBUTE_NAME = 'onStarted'
 
 export const routesHoc = ({ slots, attributes, props }) => {
-  if (routesHoc.wasInitialized)
+  if (routesHoc.wasInitialized) {
     panic('Multiple <router> components are not supported')
+  }
 
   return {
     slot: null,
@@ -43,7 +44,9 @@ export const routesHoc = ({ slots, attributes, props }) => {
       }
     },
     createSlot(context) {
-      if (!slots || !slots.length) return
+      if (!slots || !slots.length) {
+        return
+      }
       const onStartedAttr = getAttribute(
         attributes,
         ON_STARTED_ATTRIBUTE_NAME,

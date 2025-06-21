@@ -29,11 +29,11 @@ export default function (suite, testName, domBindings, rootNode) {
     },
 
     {
-      onStart: function () {
+      onStart: () => {
         document.body.appendChild(rootNode)
         tag.mount(rootNode, { class: 'foo', text: 'Hello' })
       },
-      onComplete: function () {
+      onComplete: () => {
         tag.unmount({}, {}, true)
       },
     },

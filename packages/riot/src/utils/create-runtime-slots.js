@@ -8,7 +8,9 @@ import { generateSlotsFromString } from '@your-riot/compiler/essential'
  * @returns {[]|null} Slots array
  */
 export default function createRuntimeSlots(el) {
-  if (!el.innerHTML.trim()) return null
+  if (!el.innerHTML.trim()) {
+    return null
+  }
   const slotsCode = generateSlotsFromString(el.outerHTML)
 
   // clear the DOM node once read

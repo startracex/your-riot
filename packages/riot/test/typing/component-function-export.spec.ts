@@ -1,5 +1,8 @@
-import { RiotComponentFactoryFunction, RiotComponentWrapper } from '../../riot'
-import { RiotComponent, withTypes } from '../../riot'
+import type {
+  RiotComponentFactoryFunction,
+  RiotComponentWrapper,
+} from '../../riot'
+import { type RiotComponent, withTypes } from '../../riot'
 import ConditionalSlot from './conditional-slot.riot'
 
 export type ConditionalSlotProps = {}
@@ -33,15 +36,13 @@ export default {
       },
     }),
   ),
-  template: function (template, expressionTypes, bindingTypes, getComponent) {
-    return template('<conditional-slot expr1="expr1"></conditional-slot>', [
+  template: (template, expressionTypes, bindingTypes, getComponent) =>
+    template('<conditional-slot expr1="expr1"></conditional-slot>', [
       {
         type: bindingTypes.TAG,
         getComponent: getComponent,
 
-        evaluate: function (_scope) {
-          return 'conditional-slot'
-        },
+        evaluate: (_scope) => 'conditional-slot',
 
         slots: [
           {
@@ -52,9 +53,7 @@ export default {
               {
                 type: bindingTypes.IF,
 
-                evaluate: function (_scope) {
-                  return _scope.state.mustShowSlot
-                },
+                evaluate: (_scope) => _scope.state.mustShowSlot,
 
                 redundantAttribute: 'expr2',
                 selector: '[expr2]',
@@ -70,17 +69,14 @@ export default {
             type: expressionTypes.ATTRIBUTE,
             name: 'is-visible',
 
-            evaluate: function (_scope) {
-              return _scope.state.mustShowSlot
-            },
+            evaluate: (_scope) => _scope.state.mustShowSlot,
           },
         ],
 
         redundantAttribute: 'expr1',
         selector: '[expr1]',
       },
-    ])
-  },
+    ]),
 
   name: 'conditional-slot-parent',
 } as RiotComponentWrapper<ConditionalSlotComponent>

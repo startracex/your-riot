@@ -37,7 +37,9 @@ export function cleanNode(node: Node): void {
  * Clear multiple children in a node.
  */
 export function clearChildren(children: Element[]): void {
-  for (let i = 0; i < children.length; i++) removeChild(children[i])
+  for (let i = 0; i < children.length; i++) {
+    removeChild(children[i])
+  }
 }
 
 /**
@@ -49,16 +51,12 @@ export const removeChild = (node: Element): void => node.remove()
  * Insert before a node.
  */
 export const insertBefore = (newNode: Node, refNode: Node): void => {
-  refNode &&
-    refNode.parentNode &&
-    refNode.parentNode.insertBefore(newNode, refNode)
+  refNode?.parentNode?.insertBefore(newNode, refNode)
 }
 
 /**
  * Replace a node.
  */
 export const replaceChild = (newNode: Node, replaced: Node): void => {
-  replaced &&
-    replaced.parentNode &&
-    replaced.parentNode.replaceChild(newNode, replaced)
+  replaced?.parentNode?.replaceChild(newNode, replaced)
 }

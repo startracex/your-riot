@@ -20,7 +20,9 @@ const getInitialRouteValue = (pathToRegexp, path, options) => {
 
 const clearDOMBetweenNodes = (first, last, includeBoundaries) => {
   const clear = (node) => {
-    if (!node || (node === last && !includeBoundaries)) return
+    if (!node || (node === last && !includeBoundaries)) {
+      return
+    }
     const { nextSibling } = node
     node.remove()
     clear(nextSibling)
@@ -71,11 +73,15 @@ export const routeHoc = ({ slots, attributes }) => {
         placeholders.after,
         placeholders.before.nextSibling,
       )
-      if (state.route) this.mountSlot()
+      if (state.route) {
+        this.mountSlot()
+      }
     },
     update(context) {
       this.context = context
-      if (this.state.route) this.slot.update({}, context)
+      if (this.state.route) {
+        this.slot.update({}, context)
+      }
     },
     mountSlot() {
       const { route } = this.state
@@ -112,7 +118,9 @@ export const routeHoc = ({ slots, attributes }) => {
       const { route } = this.state
       // this component was not mounted or the current path matches
       // we don't need to unmount this component
-      if (!route || match(path, this.state.pathToRegexp)) return
+      if (!route || match(path, this.state.pathToRegexp)) {
+        return
+      }
 
       this.callLifecycleProperty('onBeforeUnmount', route)
       this.slot.unmount({}, this.context, true)
@@ -131,16 +139,21 @@ export const routeHoc = ({ slots, attributes }) => {
         this.callLifecycleProperty('onUpdated', route)
       }
       // this route component was never mounted, so we need to create its DOM
-      else this.mountSlot()
+      else {
+        this.mountSlot()
+      }
 
       // emulate the default browser anchor links behaviour
-      if (route.hash && isValidQuerySelectorString(route.hash))
+      if (route.hash && isValidQuerySelectorString(route.hash)) {
         $(route.hash)?.[0].scrollIntoView()
+      }
     },
     callLifecycleProperty(method, ...params) {
       const attr = getAttribute(attributes, method, this.context)
 
-      if (attr) attr.evaluate(this.context)(...params)
+      if (attr) {
+        attr.evaluate(this.context)(...params)
+      }
     },
   }
 }

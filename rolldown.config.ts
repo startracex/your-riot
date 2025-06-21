@@ -19,11 +19,9 @@ export const inputGlob = (...paths: string[]) => {
 export const packageDependencies = (pkg: any): RegExp[] => {
   return [
     /^node:/,
-    ...['dependencies', 'peerDependencies']
-      .map((key) =>
-        Object.keys(pkg[key] || {}).map((dep) => new RegExp(`^${dep}`)),
-      )
-      .flat(),
+    ...['dependencies', 'peerDependencies'].flatMap((key) =>
+      Object.keys(pkg[key] || {}).map((dep) => new RegExp(`^${dep}`)),
+    ),
   ]
 }
 

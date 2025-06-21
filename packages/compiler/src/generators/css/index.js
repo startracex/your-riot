@@ -73,7 +73,9 @@ const traverse = (ast, fn) => {
 
   children.forEach((child) => {
     // if fn returns false we stop the recursion
-    if (fn(child) !== false) traverse(child, fn)
+    if (fn(child) !== false) {
+      traverse(child, fn)
+    }
   })
 
   return ast

@@ -7,7 +7,7 @@ import panic from '../utils/panic.js'
 import pushTag from '../utils/push-tag.js'
 import pushText from '../utils/push-text.js'
 import { unclosedNamedBlock } from '../messages.js'
-import { ParserState } from '../types.js'
+import type { ParserState } from '../types.js'
 
 /**
  * Parses regular text and script/style blocks ...scryle for short :-)

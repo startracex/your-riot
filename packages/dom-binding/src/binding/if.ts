@@ -1,6 +1,6 @@
 import { insertBefore, removeChild } from '@your-riot/utils/dom'
-import { TemplateChunk } from '../template.js'
-import { AttributeExpressionData } from '../types.js'
+import type { TemplateChunk } from '../template.js'
+import type { AttributeExpressionData } from '../types.js'
 
 /**
  * Binding responsible for the `if` directive
@@ -60,7 +60,9 @@ export class IfBinding<Scope = any, ParentScope = any> {
         this.unmount(scope, parentScope)
         break
       default:
-        if (value) this.template.update(scope, parentScope)
+        if (value) {
+          this.template.update(scope, parentScope)
+        }
     }
 
     this.value = value

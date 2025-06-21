@@ -1,5 +1,5 @@
 import { TEXT } from '../node-types.js'
-import { Expr, ParserState } from '../types.js'
+import type { Expr, ParserState } from '../types.js'
 import flush from './flush-parser-state.js'
 import getChunk from './get-chunk.js'
 
@@ -28,7 +28,7 @@ export default function pushText(
     state.last = q = { type: TEXT, text, start, end }
   }
 
-  if (expressions && expressions.length) {
+  if (expressions?.length) {
     q.expressions = (q.expressions || []).concat(expressions)
   }
 

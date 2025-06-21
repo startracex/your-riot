@@ -9,7 +9,7 @@ import {
 } from '../dist/module/dom.js'
 import { expect } from 'chai'
 
-describe('DOM', function () {
+describe('DOM', () => {
   it('DOMattributesToObject', () => {
     const div = document.createElement('div')
     div.setAttribute('hello-world', 'hello')

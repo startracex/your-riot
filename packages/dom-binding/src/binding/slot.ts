@@ -1,11 +1,13 @@
 import { cleanNode, insertBefore, removeChild } from '@your-riot/utils/dom'
 import { PARENT_KEY_SYMBOL } from '@your-riot/utils/constants'
 import { evaluateAttributeExpressions } from '@your-riot/utils/misc'
-import template, { TemplateChunk } from '../template.js'
-import { AttributeExpressionData } from '../types.js'
+import template, { type TemplateChunk } from '../template.js'
+import type { AttributeExpressionData } from '../types.js'
 
 const extendParentScope = (attributes, scope, parentScope) => {
-  if (!attributes || !attributes.length) return parentScope
+  if (!attributes || !attributes.length) {
+    return parentScope
+  }
 
   const expressions = attributes.map((attr) => ({
     ...attr,
@@ -31,9 +33,11 @@ const getRealParent = (scope, parentScope) =>
  * @returns {undefined} it's a void method ¯\_(ツ)_/¯
  */
 function moveSlotInnerContent(slot) {
-  const child = slot && slot.firstChild
+  const child = slot?.firstChild
 
-  if (!child) return
+  if (!child) {
+    return
+  }
 
   insertBefore(child, slot)
   moveSlotInnerContent(slot)

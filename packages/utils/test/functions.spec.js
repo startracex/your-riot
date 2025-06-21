@@ -5,7 +5,7 @@ import {
 } from '../dist/module/functions.js'
 import { expect } from 'chai'
 
-describe('Functions', function () {
+describe('Functions', () => {
   it('noop', () => {
     expect(() => noop()).to.not.throw
     expect(noop.call({ hello: 'hello' })).to.be.deep.equal({ hello: 'hello' })

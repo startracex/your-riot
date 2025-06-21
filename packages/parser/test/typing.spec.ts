@@ -1,4 +1,8 @@
-import parser, { ParserOutput, ScriptNode, StyleNode } from '../parser'
+import parser, {
+  type ParserOutput,
+  type ScriptNode,
+  type StyleNode,
+} from '../parser'
 import boxJson from './expected/box.json'
 import commentsAndExpessiosJson from './expected/comments-and-expressions.json'
 import es6NestedRegexJson from './expected/es6-nested-regex.json'

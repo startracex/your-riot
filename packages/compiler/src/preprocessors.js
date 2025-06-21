@@ -32,15 +32,23 @@ function preprocessorNameNotFoundError(name) {
  * @returns { Map } - the preprocessors map
  */
 export function register(type, name, preprocessor) {
-  if (!type)
+  if (!type) {
     panic(
       "Please define the type of preprocessor you want to register 'javascript', 'css' or 'template'",
     )
-  if (!name) panic('Please define a name for your preprocessor')
-  if (!preprocessor) panic('Please provide a preprocessor function')
-  if (!preprocessors[type]) preprocessorTypeError(type)
-  if (preprocessors[type].has(name))
+  }
+  if (!name) {
+    panic('Please define a name for your preprocessor')
+  }
+  if (!preprocessor) {
+    panic('Please provide a preprocessor function')
+  }
+  if (!preprocessors[type]) {
+    preprocessorTypeError(type)
+  }
+  if (preprocessors[type].has(name)) {
     panic(`The preprocessor ${name} was already registered before`)
+  }
 
   preprocessors[type].set(name, preprocessor)
 
@@ -54,14 +62,20 @@ export function register(type, name, preprocessor) {
  * @returns { Map } - the preprocessors map
  */
 export function unregister(type, name) {
-  if (!type)
+  if (!type) {
     panic(
       "Please define the type of preprocessor you want to unregister 'javascript', 'css' or 'template'",
     )
-  if (!name)
+  }
+  if (!name) {
     panic('Please define the name of the preprocessor you want to unregister')
-  if (!preprocessors[type]) preprocessorTypeError(type)
-  if (!preprocessors[type].has(name)) preprocessorNameNotFoundError(name)
+  }
+  if (!preprocessors[type]) {
+    preprocessorTypeError(type)
+  }
+  if (!preprocessors[type].has(name)) {
+    preprocessorNameNotFoundError(name)
+  }
 
   preprocessors[type].delete(name)
 
@@ -77,8 +91,12 @@ export function unregister(type, name) {
  * @returns { Output } object containing a sourcemap and a code string
  */
 export function execute(type, name, meta, source) {
-  if (!preprocessors[type]) preprocessorTypeError(type)
-  if (!preprocessors[type].has(name)) preprocessorNameNotFoundError(name)
+  if (!preprocessors[type]) {
+    preprocessorTypeError(type)
+  }
+  if (!preprocessors[type].has(name)) {
+    preprocessorNameNotFoundError(name)
+  }
 
   return transform(preprocessors[type].get(name), meta, source)
 }

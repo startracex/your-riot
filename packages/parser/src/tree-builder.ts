@@ -32,7 +32,7 @@ import {
 import { RAW_TAGS } from './regex.js'
 import { duplicatedNamedTag } from './messages.js'
 import panic from './utils/panic.js'
-import { Attribute, Builder, ParserState, TagNode } from './types.js'
+import type { Attribute, Builder, ParserState, TagNode } from './types.js'
 
 /**
  * Escape the carriage return and the line feed from a string.
@@ -114,7 +114,9 @@ const TREE_BUILDER_STRUCT: Builder = Object.seal({
     last.end = node.end
 
     // update always the root node end position
-    if (store.root.nodes[0]) store.root.nodes[0].end = node.end
+    if (store.root.nodes[0]) {
+      store.root.nodes[0].end = node.end
+    }
 
     if (store.scryle) {
       store.scryle = null

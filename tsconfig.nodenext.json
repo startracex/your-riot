@@ -10,7 +10,6 @@
     "noImplicitThis": true,
     "experimentalDecorators": true,
     "useDefineForClassFields": false,
-    "allowImportingTsExtensions": true,
     "declaration": true,
     "declarationMap": true,
     "isolatedDeclarations": true,

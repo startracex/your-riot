@@ -1,6 +1,6 @@
-import createExpression from '../expression.ts'
-import type { ExpressionData } from '../types.ts'
-import flattenCollectionMethods from '../utils/flatten-collection-methods.ts'
+import createExpression from '../expression.js'
+import type { ExpressionData } from '../types.js'
+import flattenCollectionMethods from '../utils/flatten-collection-methods.js'
 
 export default function create(
   node: HTMLElement,

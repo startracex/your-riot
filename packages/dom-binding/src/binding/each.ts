@@ -1,9 +1,9 @@
 import { insertBefore, removeChild } from '@your-riot/utils/dom'
 import { defineProperty } from '@your-riot/utils/objects'
 import { isTemplate } from '@your-riot/utils/checks'
-import createTemplateMeta from '../utils/create-template-meta.ts'
-import udomdiff from '../utils/udomdiff.ts'
-import { TemplateChunk } from '../template.ts'
+import createTemplateMeta from '../utils/create-template-meta.js'
+import udomdiff from '../utils/udomdiff.js'
+import { TemplateChunk } from '../template.js'
 
 const UNMOUNT_SCOPE: unique symbol = Symbol('unmount')
 

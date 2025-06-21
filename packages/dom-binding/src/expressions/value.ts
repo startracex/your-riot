@@ -1,5 +1,5 @@
-import { Expression } from '../types.ts'
-import normalizeStringValue from '../utils/normalize-string-value.ts'
+import { Expression } from '../types.js'
+import normalizeStringValue from '../utils/normalize-string-value.js'
 
 /**
  * This methods handles the input fields value updates.

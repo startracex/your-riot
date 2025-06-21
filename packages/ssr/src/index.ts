@@ -1,4 +1,4 @@
-import * as dom from './dom.ts'
+import * as dom from './dom.js'
 import {
   __,
   component,

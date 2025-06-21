@@ -1,7 +1,7 @@
 import bindingTypes from '@your-riot/utils/binding-types'
 import expressionTypes from '@your-riot/utils/expression-types'
-import bindings from './binding/index.ts'
-import { Binding, BindingData, Expression } from './types.ts'
+import bindings from './binding/index.js'
+import { Binding, BindingData, Expression } from './types.js'
 
 /**
  * Text expressions in a template tag will get childNodeIndex value normalized

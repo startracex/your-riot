@@ -1,7 +1,7 @@
 import expressionTypes from '@your-riot/utils/expression-types'
-import expressions from './expressions/index.ts'
-import { getTextNode } from './expressions/text.ts'
-import { ExpressionData, Expression as ExpressionType } from './types.ts'
+import expressions from './expressions/index.js'
+import { getTextNode } from './expressions/text.js'
+import { ExpressionData, Expression as ExpressionType } from './types.js'
 
 export const Expression = {
   // Static props

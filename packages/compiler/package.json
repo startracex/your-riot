@@ -30,7 +30,6 @@
     "@your-riot/dom-binding": "workspace:^",
     "acorn": "^8.15.0",
     "pug": "^3.0.3",
-    "rollup": "^4.44.0",
     "sass": "^1.89.2",
     "serve": "^14.2.4",
     "shelljs": "^0.10.0",

@@ -1,11 +1,10 @@
-import * as riot from '../../src/riot+compiler.js'
+import * as riot from '../../src/riot_compiler.js'
 import { GLOBAL_REGISTRY } from '../../src/compiler/global-registry.js'
 import RuntimeSlotComponent from '../components/runtime-slot.riot'
 import RuntimeSlotWithChildrenComponent from '../components/runtime-slot-with-children.riot'
 import TitlePropComponent from '../components/title-prop.riot'
 import { expect } from 'chai'
 import { getBaseUrl } from '../utils.js'
-import { writeFileSync } from 'node:fs'
 
 describe('Riot compiler api', () => {
   it('riot compiler exports properly its public api', () => {
@@ -36,7 +35,6 @@ describe('Riot compiler api', () => {
       `${getBaseUrl()}/test/components/simple.riot`,
     )
 
-    writeFileSync('code', code)
     expect(code).to.match(/scope\.props\.message/)
   })
 

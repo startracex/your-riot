@@ -4,7 +4,7 @@ import sinonChai from 'sinon-chai'
 import { register } from 'node:module'
 import { pathToFileURL } from 'node:url'
 
-register('@riotjs/register', pathToFileURL('./'))
+register('@your-riot/register', pathToFileURL('./'))
 
 use(sinonChai)
 

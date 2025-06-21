@@ -3,9 +3,10 @@ import {
   memoize,
   panic,
 } from '../dist/module/misc.js'
-import { ATTRIBUTE, REF } from '../dist/module/expression-types.js'
+import expressionTypes from '../dist/module/expression-types.js'
 import { expect } from 'chai'
 
+const { ATTRIBUTE, REF } = expressionTypes
 describe('Misc', function () {
   it('panic', () => {
     expect(() => panic('err')).to.throw()

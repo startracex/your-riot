@@ -4,6 +4,7 @@
     "**/*.ts",
     "**/*.js",
     "**/package.json",
+    "biome.json",
     "dprint.json",
     "turbo.json"
   ],

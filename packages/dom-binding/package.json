@@ -10,7 +10,7 @@
     "bench": "node --expose-gc benchmarks/index.js",
     "test": "c8 mocha -r test/index.js test/**/*.spec.js",
     "test-typing": "tsc -p test",
-    "test-debug": "mocha --inspect --inspect-brk -r test/index.js 'test/**/*.spec.js'"
+    "test-debug": "mocha --inspect --inspect-brk -r test/index.js test/**/*.spec.js"
   },
   "dependencies": {
     "@your-riot/utils": "workspace:^"

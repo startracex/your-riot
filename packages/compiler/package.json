@@ -3,14 +3,10 @@
   "version": "0.0.0",
   "description": "Riot compiler",
   "scripts": {
-    "lint": "eslint --ext js src/ test/ build/ && npx prettier --check ./",
     "cov": "c8 report --reporter=lcov",
     "cov-html": "c8 report --reporter=html",
     "build": "rolldown -c rolldown.config.ts",
-    "postest": "npm run cov-html",
     "test-types": "tsc -p test",
-    "test-runtime": "playwright test",
-    "test-commonjs": "c8 mocha test/**/*.spec.cjs",
     "test": "c8 mocha test/**/*.spec.js && npm run test-types",
     "debug": "mocha --inspect --inspect-brk test/**/*.spec.js"
   },

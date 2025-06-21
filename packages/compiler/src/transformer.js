@@ -1,4 +1,4 @@
-import createSourcemap from "./utils/create-sourcemap.js";
+import { SourceMapGenerator } from "source-map";
 
 export const Output = Object.freeze({
   code: "",
@@ -26,7 +26,7 @@ export function createOutput(data, meta) {
   if (!output.map && meta && meta.options && meta.options.file) {
     return {
       ...output,
-      map: createSourcemap({ file: meta.options.file }),
+      map: new SourceMapGenerator({ file: meta.options.file }),
     };
   }
 
